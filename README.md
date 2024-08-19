@@ -297,7 +297,31 @@ curl --request POST --url http://127.0.0.1:6677/user/birthday --header 'Authoriz
 }
 ```
 
-### 3.11 发布文章 ( /article/publish )
+### 3.11 文件上传 ( /file/upload )
+
+- 接口说明
+  - 上传文件的通用接口，比如说上传文章封面，上传用户头像等。
+  - 请求方式：POST
+  - 注意该接口的content-type: multipart/form-data
+
+| 参数名  | 类型     | 是否必填 | 参数说明                          |
+|------|--------|------|-------------------------------|
+| sign | string | 是    | 签名，$attrString为为空，见"验签sign字段" |
+
+- 请求示例
+```text
+curl --request POST --url http://127.0.0.1:6677/file/upload --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIwNzYzNzAwLCJpYXQiOjE3MjA3NjM3MDB9fQ.3o-Rsg_o5n04D6Xajzb0NGUJ2JmrirIFxvf-oCV_iQE' --header 'content-type: multipart/form-data' --form file=~/Downloads/2024-08-13_17-18-57.png --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+```
+- 响应示例
+```json
+{
+  "code": 2000140,
+  "message": "上传文件成功",
+  "result": "http://sghu8zs4b.hb-bkt.clouddn.com/Fo1ljdiV_R1pXxKq9PR9FZy4J0fo"
+}
+```
+
+### 3.12 发布文章 ( /article/publish )
 
 - 接口说明
   - 发布文章。
@@ -324,7 +348,7 @@ curl --request POST --url http://127.0.0.1:6677/article/publish --header 'Author
 }
 ```
 
-### 3.12 获取文章列表 ( /article/list )
+### 3.13 获取文章列表 ( /article/list )
 
 - 接口说明
   - 获取文章列表，默认查询则传递对应参数的零值，默认一次查询50条，也支持分页查询。
@@ -376,7 +400,7 @@ curl --request GET --url 'http://127.0.0.1:6677/article/list?page=3&page_size=2'
 }
 ```
 
-### 3.12 获取单篇文章的详情数据 ( /article/detail )
+### 3.14 获取单篇文章的详情数据 ( /article/detail )
 
 - 接口说明
   - 获取单篇文章的详情数据。
