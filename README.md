@@ -49,7 +49,34 @@ curl --request GET --url 'http://localhost:6677/user/captcha-by-email?email=yswa
 }
 ```
 
-### 3.2 登录注册接口 ( /user/login-register )
+### 3.2 账密登录时验证码 ( /user/captcha )
+
+- 接口说明
+  - 通过账密登录时，获取验证码，验证码由6位数字组成，验证失败或者页面刷新时，会刷新。
+  - 请求方式：GET
+
+| 参数名  | 类型     | 是否必填 | 参数说明                         |
+|------|--------|------|------------------------------|
+| sign | string | 是    | 签名，$attrString为空，见"验签sign字段" |
+
+- 请求示例
+```text
+curl --request GET --url http://localhost:6677/user/captcha?sign=fb469d7ef430b0baf0cab6c436e70375
+```
+- 响应示例
+```json
+{
+  "code": 2000100,
+  "message": "生成验证码成功",
+  "result": {
+    "captchaId": "DKhgbBos0VfeFfrEM1FC",
+    "picPath": "data:image/png;base64,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",
+    "captchaLength": 6
+  }
+}
+```
+
+### 3.3 登录注册接口 ( /user/login-register )
 
 - 接口说明
   - 合并了登录注册的功能，若是未注册用户，那么将直接注册并登录；如果是注册用户，那么验证通过后将登录。
