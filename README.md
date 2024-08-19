@@ -17,15 +17,12 @@ npm run dev
 - 验签sign字段
   - 统一的规则是md5($pin+$attrString)，其中，pin=098f6bcd4621d373cade4e832627b4f6，加号不参与验签，attrString是接口的某些字段值按顺序直接拼接的，由具体的接口指定。
   - 如接口A要参与验签的字段分别是aa,cc,bb,那么sign=md5(098f6bcd4621d373cade4e832627b4f6$aa$cc$bb),若aa=123,cc=456,bb=789,那么经计算sign=04e229d3fddf82f2e6cb6c9e5dac3ab7
-- 接口地址
-  - 域名：wys837.cn 正在icp备案，暂未使用
-  - IP：120.26.203.121
 - Content-Type
   - POST均为x-www-form-urlencoded
   - GET均为none
 - 所有错误码明细见文末
 - 为方便，开发阶段，未开启sign验签，所以请求示例的sign不一定正确，正确的计算方式参考"验签sign字段"。
-- 接口地址，简记为ip:port 为 120.26.203.121:8888
+- 接口地址，wys837.cn 正在icp备案，暂未使用，先使用ip加端口访问，简记为ip:port 为 120.26.203.121:8888
 
 ### 3.1 通过邮箱获取验证码 ( /user/captcha-by-email )
 
