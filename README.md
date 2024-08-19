@@ -13,7 +13,7 @@ npm run dev
 
 - 鉴权
   - 采用Bearer auth认证，在header中添加键值对，键为：Authorization，值的格式格式为Bearer $token,其中token是jwt生成的。
-  - 除接口/user/login-register，/user/captcha-by-email和/user/captcha不需要填写该字段，其余接口都需要。示例值：Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIzODAwOTQwLCJpYXQiOjE3MjM4MDA5NDB9fQ.4wJGLMOp2eVKwOFq1ltyKq-z7zBdHgF2OD45L_N3HT4
+  - 除接口/user/login-register，/user/captcha-by-email和/user/captcha不需要填写该字段，其余接口都需要，不再另外说明。示例值：Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIzODAwOTQwLCJpYXQiOjE3MjM4MDA5NDB9fQ.4wJGLMOp2eVKwOFq1ltyKq-z7zBdHgF2OD45L_N3HT4
 - 验签sign字段
   - 统一的规则是md5($pin+$attrString)，其中，pin=098f6bcd4621d373cade4e832627b4f6，加号不参与验签，attrString是接口的某些字段值按顺序直接拼接的，由具体的接口指定。
   - 如接口A要参与验签的字段分别是aa,cc,bb,那么sign=md5(098f6bcd4621d373cade4e832627b4f6$aa$cc$bb),若aa=123,cc=456,bb=789,那么经计算sign=04e229d3fddf82f2e6cb6c9e5dac3ab7
@@ -126,5 +126,28 @@ curl --request POST --url http://localhost:6677/user/login-register --header 'co
 			"login_time": "2024-08-19T08:47:27Z"
 		}
 	}
+}
+```
+
+### 3.4 检查密码是否为空 ( /user/check-password )
+
+- 接口说明
+  - 检查当前用户是否设置密码，如果未设置密码，则只能通过邮箱登录，无法账密登录。
+  - 请求方式：GET
+
+| 参数名           | 类型     | 是否必填 | 参数说明                                                                |
+|---------------|--------|------|---------------------------------------------------------------------|
+| email         | string | 是    | 邮箱                                                                  |
+| sign          | string | 是    | 签名，$attrString为email、password、identity_code的字段值拼接而成的字符串，见"验签sign字段" |
+
+- 请求示例
+```text
+curl --request GET --url 'http://127.0.0.1:6677/user/check-password?email=yswang837@gmail.com' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDMwMjAwLCJpYXQiOjE3MjQwMzAyMDB9fQ.pmlYFOMilNjoFX9vSc9CRsvaQ_MB30gYTx7aJLi6hkM'
+```
+- 响应示例
+```json
+{
+  "code": 2000020,
+  "message": "empty password, please set it"
 }
 ```
