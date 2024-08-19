@@ -30,10 +30,47 @@ npm run dev
 - 登录注册方式
   - 通过method字段来区分登录注册方式，method为"1"时是免密登录注册(验证码登录注册)，method为"2"时是账密登录注册。不同的method值对应不同的必填字段，详见接口参数表。
 
-| 参数名 | 类型  | 是否必填 | 参数说明 |
-|-----|-----|------|------|
-| 单元格 | 单元格 | 单元格  | 单元格  |
-| 单元格 | 单元格 | 单元格  | 单元格  |
+| 参数名           | 类型     | 是否必填 | 参数说明                                                                |
+|---------------|--------|------|---------------------------------------------------------------------|
+| email         | string | 是    | 邮箱                                                                  |
+| method        | string | 是    | method为"1"时是免密登录注册(验证码登录注册)，method为"2"时是账密登录注册                      |
+| identify_code | string | 否    | 当method为"1"时，该字段必填，为"2"时该字段不用填，该值是邮箱发送的验证码                          |
+| identify_id   | string | 否    | 当method为"2"时，该字段必填，为"1"时该字段不用填，该值是生成的图片验证码                          |
+| password      | string | 否    | 当method为"2"时，该字段必填，为"1"时该字段不用填                                      |
+| caller        | string | 是    | 调用方标识，如test                                                         |
+| sign          | string | 是    | 签名，$attrString为email、password、identity_code的字段值拼接而成的字符串，见"验签sign字段" |
 
 - 请求示例
+```text
+curl --request POST --url http://localhost:6677/user/login-register --header 'content-type: application/x-www-form-urlencoded' --data email=yswang837@gmail.com --data identify_code=667788 --data method=1 --data caller=test --data sign=fb469d7ef430b0baf0cab6c436e70375
+```
 - 响应示例
+```json
+{
+	"code": 2000001,
+	"message": "注册成功",
+	"result": {
+		"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDI4NDQ3LCJpYXQiOjE3MjQwMjg0NDd9fQ.TEZLCHmFjX99FFYuw848kI4X24hmRUObNatTF2wFpS8",
+		"user": {
+			"uid": 10001,
+			"email": "yswang837@gmail.com",
+			"password": "",
+			"phone": "",
+			"nick_name": "yswang837",
+			"role": 1,
+			"grade": 1,
+			"avatar": "https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg",
+			"summary": "",
+			"gender": "保密",
+			"province_city": "",
+			"code_age": 1,
+			"is_certified": 0,
+			"data_integrity": 0,
+			"birthday": "",
+			"create_time": "2024-08-19T08:47:27Z",
+			"update_time": "2024-08-19T08:47:27Z",
+			"login_time": "2024-08-19T08:47:27Z"
+		}
+	}
+}
+```
