@@ -151,3 +151,26 @@ curl --request GET --url 'http://127.0.0.1:6677/user/check-password?email=yswang
   "message": "empty password, please set it"
 }
 ```
+
+### 3.5 退出登录 ( /user/login-out )
+
+- 接口说明
+  - 退出登录，将jwt token加入到jwt黑名单中，禁止该jwt登录。
+  - 请求方式：GET
+
+| 参数名           | 类型     | 是否必填 | 参数说明                                                                |
+|---------------|--------|------|---------------------------------------------------------------------|
+| email         | string | 是    | 邮箱                                                                  |
+| sign          | string | 是    | 签名，$attrString为email、password、identity_code的字段值拼接而成的字符串，见"验签sign字段" |
+
+- 请求示例
+```text
+curl --request GET --url http://127.0.0.1:6677/user/login-out --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIwMDgxMzUzLCJpYXQiOjE3MjAwODEzNTN9fQ.Jw5JWbvl7yS0rX9qZd75xUM6lzjcNVGOjSpOiQX5WhM'
+```
+- 响应示例
+```json
+{
+  "code": 2000061,
+  "message": "jwt作废成功"
+}
+```
