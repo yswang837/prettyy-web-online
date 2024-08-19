@@ -23,10 +23,37 @@ npm run dev
 - Content-Type
   - POST均为x-www-form-urlencoded
   - GET均为none
-### 3.1 登录注册接口 ( /user/login-register )
+- 所有错误码明细见文末
+- 为方便，开发阶段，未开启sign验签，所以请求示例的sign不一定正确，正确的计算方式参考"验签sign字段"。
+
+### 3.1 通过邮箱获取验证码 ( /user/captcha-by-email )
+
+- 接口说明
+  - 通过邮箱获取验证码，验证码由6位数字组成，有效时长为5分钟。
+  - 请求方式：GET
+
+| 参数名   | 类型     | 是否必填 | 参数说明                                         |
+|-------|--------|------|----------------------------------------------|
+| email | string | 是    | 邮箱                                           |
+| sign  | string | 是    | 签名，$attrString为email的字段值拼接而成的字符串，见"验签sign字段" |
+
+- 请求示例
+```text
+curl --request GET --url 'http://localhost:6677/user/captcha-by-email?email=yswang837@gmail.com&sign=fb469d7ef430b0baf0cab6c436e70375'
+```
+- 响应示例
+```json
+{
+  "code": 2000040,
+  "message": "set identify code success"
+}
+```
+
+### 3.2 登录注册接口 ( /user/login-register )
 
 - 接口说明
   - 合并了登录注册的功能，若是未注册用户，那么将直接注册并登录；如果是注册用户，那么验证通过后将登录。
+  - 请求方式：POST
 - 登录注册方式
   - 通过method字段来区分登录注册方式，method为"1"时是免密登录注册(验证码登录注册)，method为"2"时是账密登录注册。不同的method值对应不同的必填字段，详见接口参数表。
 
