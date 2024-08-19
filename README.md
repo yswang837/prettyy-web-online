@@ -142,7 +142,7 @@ curl --request POST --url http://localhost:6677/user/login-register --header 'co
 
 - 请求示例
 ```text
-curl --request GET --url 'http://127.0.0.1:6677/user/check-password?email=yswang837@gmail.com' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDMwMjAwLCJpYXQiOjE3MjQwMzAyMDB9fQ.pmlYFOMilNjoFX9vSc9CRsvaQ_MB30gYTx7aJLi6hkM'
+curl --request GET --url 'http://127.0.0.1:6677/user/check-password?email=yswang837@gmail.com&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDMwMjAwLCJpYXQiOjE3MjQwMzAyMDB9fQ.pmlYFOMilNjoFX9vSc9CRsvaQ_MB30gYTx7aJLi6hkM'
 ```
 - 响应示例
 ```json
@@ -160,12 +160,11 @@ curl --request GET --url 'http://127.0.0.1:6677/user/check-password?email=yswang
 
 | 参数名           | 类型     | 是否必填 | 参数说明                         |
 |---------------|--------|------|------------------------------|
-| email         | string | 是    | 邮箱                           |
 | sign          | string | 是    | 签名，$attrString为空，见"验签sign字段" |
 
 - 请求示例
 ```text
-curl --request GET --url http://127.0.0.1:6677/user/login-out --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIwMDgxMzUzLCJpYXQiOjE3MjAwODEzNTN9fQ.Jw5JWbvl7yS0rX9qZd75xUM6lzjcNVGOjSpOiQX5WhM'
+curl --request GET --url http://127.0.0.1:6677/user/login-out?sign=04e229d3fddf82f2e6cb6c9e5dac3ab7 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIwMDgxMzUzLCJpYXQiOjE3MjAwODEzNTN9fQ.Jw5JWbvl7yS0rX9qZd75xUM6lzjcNVGOjSpOiQX5WhM'
 ```
 - 响应示例
 ```json
@@ -362,7 +361,7 @@ curl --request POST --url http://127.0.0.1:6677/article/publish --header 'Author
 
 - 请求示例
 ```text
-curl --request GET --url 'http://127.0.0.1:6677/article/list?page=3&page_size=2' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request GET --url 'http://127.0.0.1:6677/article/list?page=3&page_size=2&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -413,7 +412,7 @@ curl --request GET --url 'http://127.0.0.1:6677/article/list?page=3&page_size=2'
 
 - 请求示例
 ```text
-curl --request GET --url 'http://127.0.0.1:6677/article/detail?aid=AA46828731192315904' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request GET --url 'http://127.0.0.1:6677/article/detail?aid=AA46828731192315904&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
