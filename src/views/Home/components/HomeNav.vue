@@ -3,6 +3,10 @@
 </script>
 
 <template>
+  <div style="display: flex;justify-content: center">
+    <button style="font-size: 18px"><a href="https://github.com/yswang837/prettyy-web-online" target="_blank">跳转本项目的github地址</a></button>
+  </div>
+  <hr style="margin-bottom: 30px">
   <div class="home-nav">
     <span><a href="#">推荐</a></span>
     <span><a href="#">关注</a></span>
