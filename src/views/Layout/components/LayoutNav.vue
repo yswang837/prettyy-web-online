@@ -28,7 +28,7 @@ const loginOut = () => {
         <li><router-link to="/">社区</router-link></li>
         <li><router-link to="/">才知道</router-link></li>
       </ul>
-      <div class="search-container">
+      <div class="search">
         <el-input class="search-input" placeholder="如何搭建redis的主从同步" type="text"></el-input>
         <el-button class="search-button">站内搜索</el-button>
       </div>
@@ -126,7 +126,7 @@ const loginOut = () => {
 
 .app-topnav-container ul {
   display: flex;
-  align-items: center;
+  line-height: 50px;
 }
 
 .app-topnav-container ul li {
@@ -146,20 +146,20 @@ const loginOut = () => {
 }
 
 .app-topnav-container ul li:hover a {
-  color: #d3ac26;
+  color: #ffa200;
 }
 
 .app-topnav-container ul li a {
   color: white;
 }
 
-.search-container {
+.search {
   display: flex;
-  align-items: center;
+  margin-top: 9px;
 }
 
 .search-input {
-  width: 450px;
+  width: 500px;
   height: 33px;
 }
 
