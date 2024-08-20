@@ -87,7 +87,6 @@ const loginOut = () => {
         </template>
         <template v-else>
           <li>
-            <a href="#">
               <el-popover placement="bottom" title="登录享更多权益：" :width="350" trigger="hover" content="this is content">
                 <template #reference>
                   <el-button @click="toLoginComponent">登录</el-button>
@@ -100,7 +99,6 @@ const loginOut = () => {
                 </ul>
                 <el-button class="btn" type="primary" @click="toLoginComponent">立即登录</el-button>
               </el-popover>
-            </a>
           </li>
           <li><a href="#">帮助中心</a></li>
           <li><a href="#">关于我们</a></li>

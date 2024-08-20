@@ -24,7 +24,7 @@ const activeName = ref('1')
 // 1、表单对象
 const form1 = ref({
   email: 'yswang837@gmail.com',
-  identifyCode1: '667788',
+  identifyCode1: '',
   method: '',
   agree: true
 })
