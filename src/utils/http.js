@@ -3,6 +3,7 @@ import {ElMessage} from "element-plus";
 import {useUserStore} from "@/stores/user.js";
 import router from '@/router/index.js'
 import {useCaptchaStore} from "@/stores/captcha.js";
+import makeSign from "@/utils/makeSign.js";
 
 // 创建axios实例
 const http = axios.create({
@@ -19,12 +20,10 @@ http.interceptors.request.use(config => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
-  // 在请求中，统一带上调用方标识caller=web
+  // 在请求中，统一带上调用方标识caller=web，统一带上验签字段sign
   if (config.method === 'get') {
     config.params = Object.assign({}, config.params, { caller: 'web' })
-  }
-  if (config.method === 'post') {
-    config.data = Object.assign({}, config.data, { caller: 'web' });
+    config.params = Object.assign({}, config.params, {sign: makeSign(config.params)})
   }
   return config
 }, e => Promise.reject(e))
