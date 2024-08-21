@@ -301,7 +301,31 @@ curl --request POST --url http://ip:port/user/birthday --header 'Authorization: 
 }
 ```
 
-### 3.11 文件上传 ( /file/upload )
+### 3.11 更新密码 ( /user/password )
+
+- 接口说明
+  - 更新密码，前后值相同，则无法更新，密码长度为6~20位。
+  - 请求方式：POST
+
+| 参数名      | 类型     | 是否必填 | 参数说明                                                 |
+|----------|--------|------|------------------------------------------------------|
+| email    | string | 是    | 邮箱                                                   |
+| password | string | 是    | 密码，长度6~20位                                           |
+| sign     | string | 是    | 签名，$attrString为email、password字段值拼接而成的字符串，见"验签sign字段" |
+
+- 请求示例
+```text
+curl --request POST --url http://127.0.0.1:6677/user/password --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --data email=yswang837@gmail.com --data password=111111 --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+```
+- 响应示例
+```json
+{
+  "code": 2000300,
+  "message": "update password success"
+}
+```
+
+### 3.12 文件上传 ( /file/upload )
 
 - 接口说明
   - 上传文件的通用接口，比如说上传文章封面，上传用户头像等。
@@ -325,7 +349,7 @@ curl --request POST --url http://ip:port/file/upload --header 'Authorization: Be
 }
 ```
 
-### 3.12 发布文章 ( /article/publish )
+### 3.13 发布文章 ( /article/publish )
 
 - 接口说明
   - 发布文章。
@@ -352,7 +376,7 @@ curl --request POST --url http://ip:port/article/publish --header 'Authorization
 }
 ```
 
-### 3.13 获取文章列表 ( /article/list )
+### 3.14 获取文章列表 ( /article/list )
 
 - 接口说明
   - 获取文章列表，默认查询则传递对应参数的零值，默认一次查询50条，也支持分页查询。
@@ -404,7 +428,7 @@ curl --request GET --url 'http://ip:port/article/list?page=3&page_size=2&sign=04
 }
 ```
 
-### 3.14 获取单篇文章的详情数据 ( /article/detail )
+### 3.15 获取单篇文章的详情数据 ( /article/detail )
 
 - 接口说明
   - 获取单篇文章的详情数据。
