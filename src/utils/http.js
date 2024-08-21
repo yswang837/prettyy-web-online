@@ -19,6 +19,13 @@ http.interceptors.request.use(config => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
+  // 在请求中，统一带上调用方标识caller=web
+  if (config.method === 'get') {
+    config.params = Object.assign({}, config.params, { caller: 'web' })
+  }
+  if (config.method === 'post') {
+    config.data = Object.assign({}, config.data, { caller: 'web' });
+  }
   return config
 }, e => Promise.reject(e))
 

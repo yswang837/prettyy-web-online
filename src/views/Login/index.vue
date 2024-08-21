@@ -23,7 +23,7 @@ const activeName = ref('1')
 // 统一校验 通过表单form实例的方法 validate -> true
 // 1、表单对象
 const form1 = ref({
-  email: 'yswang837@gmail.com',
+  email: '',
   identifyCode1: '',
   method: '',
   agree: true
@@ -101,8 +101,8 @@ const loginOrRegisterByPwd = async (email, password, activeName, identifyId, ide
 // 账密登录表单校验(邮箱，密码和验证码)
 // 1、表单对象
 const form2 = ref({
-  email: 'yswang837@gmail.com',
-  password: '123456',
+  email: '',
+  password: '',
   captcha: '',
   method: '',
   agree: true
