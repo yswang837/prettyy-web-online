@@ -27,7 +27,7 @@ const submit = async () => {
 
 const content = ref("");
 const tiny = reactive({
-apiKey: "qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc",
+apiKey: "znm35mtysrhghs059pa4iacbmxhyrsjoxhybvknrl9offdxp",
 init: {
   setup: (editor) => {
     editor.on('input change',function (){
