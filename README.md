@@ -1,9 +1,9 @@
 # 笔尖
 
 - 项目概览
-  - 本项目提供的所有资源完全免费。前端采用Vue3框架构建的Web应用，本代码库完整包含了前端的全部源代码。
+  - 本项目提供的所有资源完全免费。前端采用Vue3框架构建的Web应用，本代码库全部源代码。
   - 后端接口由Go语言实现，服务托管在阿里云服务器，为各位免费提供稳定的接口服务。
-  - 我们鼓励社区成员Fork本项目并贡献代码。任何优化，无论大小，我们都将予以考虑并合并，让你的简历增色，展示你参与过受欢迎的开源项目。
+  - 我们鼓励社区成员Fork本项目并贡献代码。任何优化，无论大小，我们都将予以考虑并合并，让你的简历增色。
   - 同时，我们也非常期待您为本项目点赞Star，以示支持。
 - 学习交流机会
   - 欢迎加入我们的项目交流群，与志同道合的伙伴一起学习、分享和讨论。现在加入，完全免费。请添加我们的项目管理员微信：wys837。我们会尽快验证并邀请您入群。
@@ -40,14 +40,15 @@ npm run dev
   - 通过邮箱获取验证码，验证码由6位数字组成，有效时长为5分钟。
   - 请求方式：GET
 
-| 参数名   | 类型     | 是否必填 | 参数说明                                         |
-|-------|--------|------|----------------------------------------------|
-| email | string | 是    | 邮箱                                           |
-| sign  | string | 是    | 签名，$attrString为email的字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名    | 类型     | 是否必填 | 参数说明                |
+|--------|--------|------|---------------------|
+| email  | string | 是    | 邮箱                  |
+| caller | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign   | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/user/captcha-by-email?email=yswang837@gmail.com&sign=fb469d7ef430b0baf0cab6c436e70375'
+curl --request GET --url 'http://ip:port/user/captcha-by-email?caller=web&email=yswang837@gmail.com&sign=fb469d7ef430b0baf0cab6c436e70375'
 ```
 - 响应示例
 ```json
@@ -63,13 +64,14 @@ curl --request GET --url 'http://ip:port/user/captcha-by-email?email=yswang837@g
   - 通过账密登录时，获取验证码，验证码由6位数字组成，验证失败或者页面刷新时，会刷新。
   - 请求方式：GET
 
-| 参数名  | 类型     | 是否必填 | 参数说明                         |
-|------|--------|------|------------------------------|
-| sign | string | 是    | 签名，$attrString为空，见"验签sign字段" |
+| 参数名    | 类型     | 是否必填 | 参数说明                |
+|--------|--------|------|---------------------|
+| caller | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign   | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request GET --url http://ip:port/user/captcha?sign=fb469d7ef430b0baf0cab6c436e70375
+curl --request GET --url http://ip:port/user/captcha?caller=web&sign=fb469d7ef430b0baf0cab6c436e70375
 ```
 - 响应示例
 ```json
@@ -92,19 +94,19 @@ curl --request GET --url http://ip:port/user/captcha?sign=fb469d7ef430b0baf0cab6
 - 登录注册方式
   - 通过method字段来区分登录注册方式，method为"1"时是免密登录注册(验证码登录注册)，method为"2"时是账密登录注册。不同的method值对应不同的必填字段，详见接口参数表。
 
-| 参数名           | 类型     | 是否必填 | 参数说明                                                                |
-|---------------|--------|------|---------------------------------------------------------------------|
-| email         | string | 是    | 邮箱                                                                  |
-| method        | string | 是    | method为"1"时是免密登录注册(验证码登录注册)，method为"2"时是账密登录注册                      |
-| identify_code | string | 否    | 当method为"1"时，该字段必填，为"2"时该字段不用填，该值是邮箱发送的验证码                          |
-| identify_id   | string | 否    | 当method为"2"时，该字段必填，为"1"时该字段不用填，该值是生成的图片验证码                          |
-| password      | string | 否    | 当method为"2"时，该字段必填，为"1"时该字段不用填                                      |
-| caller        | string | 是    | 调用方标识，如test                                                         |
-| sign          | string | 是    | 签名，$attrString为email、password、identity_code的字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名           | 类型     | 是否必填 | 参数说明                                           |
+|---------------|--------|------|------------------------------------------------|
+| email         | string | 是    | 邮箱                                             |
+| method        | string | 是    | method为"1"时是免密登录注册(验证码登录注册)，method为"2"时是账密登录注册 |
+| identify_code | string | 否    | 当method为"1"时，该字段必填，为"2"时该字段不用填，该值是邮箱发送的验证码     |
+| identify_id   | string | 否    | 当method为"2"时，该字段必填，为"1"时该字段不用填，该值是生成的图片验证码     |
+| password      | string | 否    | 当method为"2"时，该字段必填，为"1"时该字段不用填                 |
+| caller        | string | 是    | 调用方标识，请传递固定字符串`web`                            |
+| sign          | string | 是    | 签名，见"验签sign字段"                                 |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/login-register --header 'content-type: application/x-www-form-urlencoded' --data email=yswang837@gmail.com --data identify_code=667788 --data method=1 --data caller=test --data sign=fb469d7ef430b0baf0cab6c436e70375
+curl --request POST --url http://ip:port/user/login-register --header 'content-type: application/x-www-form-urlencoded' --data caller=web --data email=yswang837@gmail.com --data identify_code=667788 --data method=1 --data caller=test --data sign=fb469d7ef430b0baf0cab6c436e70375
 ```
 - 响应示例
 ```json
@@ -143,14 +145,15 @@ curl --request POST --url http://ip:port/user/login-register --header 'content-t
   - 检查当前用户是否设置密码，如果未设置密码，则只能通过邮箱登录，无法账密登录，在免密登录后，才能设置密码，之后才能账号密码登录。
   - 请求方式：GET
 
-| 参数名   | 类型     | 是否必填 | 参数说明                                        |
-|-------|--------|------|---------------------------------------------|
-| email | string | 是    | 邮箱                                          |
-| sign  | string | 是    | 签名，$attrString为email字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名    | 类型     | 是否必填 | 参数说明                |
+|--------|--------|------|---------------------|
+| email  | string | 是    | 邮箱                  |
+| caller | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign   | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/user/check-password?email=yswang837@gmail.com&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDMwMjAwLCJpYXQiOjE3MjQwMzAyMDB9fQ.pmlYFOMilNjoFX9vSc9CRsvaQ_MB30gYTx7aJLi6hkM'
+curl --request GET --url 'http://ip:port/user/check-password?caller=web&email=yswang837@gmail.com&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDMwMjAwLCJpYXQiOjE3MjQwMzAyMDB9fQ.pmlYFOMilNjoFX9vSc9CRsvaQ_MB30gYTx7aJLi6hkM'
 ```
 - 响应示例
 ```json
@@ -166,13 +169,14 @@ curl --request GET --url 'http://ip:port/user/check-password?email=yswang837@gma
   - 退出登录，将jwt token加入到jwt黑名单中，禁止该jwt登录。
   - 请求方式：GET
 
-| 参数名           | 类型     | 是否必填 | 参数说明                         |
-|---------------|--------|------|------------------------------|
-| sign          | string | 是    | 签名，$attrString为空，见"验签sign字段" |
+| 参数名    | 类型     | 是否必填 | 参数说明                |
+|--------|--------|------|---------------------|
+| caller | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign   | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request GET --url http://ip:port/user/login-out?sign=04e229d3fddf82f2e6cb6c9e5dac3ab7 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIwMDgxMzUzLCJpYXQiOjE3MjAwODEzNTN9fQ.Jw5JWbvl7yS0rX9qZd75xUM6lzjcNVGOjSpOiQX5WhM'
+curl --request GET --url http://ip:port/user/login-out?caller=web&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIwMDgxMzUzLCJpYXQiOjE3MjAwODEzNTN9fQ.Jw5JWbvl7yS0rX9qZd75xUM6lzjcNVGOjSpOiQX5WhM'
 ```
 - 响应示例
 ```json
@@ -188,15 +192,16 @@ curl --request GET --url http://ip:port/user/login-out?sign=04e229d3fddf82f2e6cb
   - 更新用户昵称，若昵称未改变，则更新失败。
   - 请求方式：POST
 
-| 参数名       | 类型     | 是否必填 | 参数说明                                                  |
-|-----------|--------|------|-------------------------------------------------------|
-| email     | string | 是    | 邮箱                                                    |
-| nick_name | string | 是    | 用户昵称                                                  |
-| sign      | string | 是    | 签名，$attrString为email、nick_name字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名       | 类型     | 是否必填 | 参数说明                |
+|-----------|--------|------|---------------------|
+| email     | string | 是    | 邮箱                  |
+| nick_name | string | 是    | 用户昵称                |
+| caller    | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign      | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/nick-name --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data nick_name=小钻风  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/nick-name --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data caller=web --data email=yswang837@gmail.com --data nick_name=小钻风  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -212,15 +217,16 @@ curl --request POST --url http://ip:port/user/nick-name --header 'Authorization:
   - 更新用户性别，用户性别只能更新一次，若当前是保密，则只能更新成男或者女，若当前已经是男或者女了，那将不能被更新。
   - 请求方式：POST
 
-| 参数名    | 类型     | 是否必填 | 参数说明                                               |
-|--------|--------|------|----------------------------------------------------|
-| email  | string | 是    | 邮箱                                                 |
-| gender | string | 是    | 男，女，保密                                             |
-| sign   | string | 是    | 签名，$attrString为email、gender字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名    | 类型     | 是否必填 | 参数说明                |
+|--------|--------|------|---------------------|
+| email  | string | 是    | 邮箱                  |
+| gender | string | 是    | 男，女，保密              |
+| caller | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign   | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/gender  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com  --data 'gender=男' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/gender  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data caller=web --data 'gender=男' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -236,15 +242,16 @@ curl --request POST --url http://ip:port/user/gender  --header 'Authorization: B
   - 更新用户的个人简介，前后值相同，则无法更新。
   - 请求方式：POST
 
-| 参数名     | 类型     | 是否必填 | 参数说明                                                |
-|---------|--------|------|-----------------------------------------------------|
-| email   | string | 是    | 邮箱                                                  |
-| summary | string | 是    | 个人简介                                                |
-| sign    | string | 是    | 签名，$attrString为email、summary字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名     | 类型     | 是否必填 | 参数说明                |
+|---------|--------|------|---------------------|
+| email   | string | 是    | 邮箱                  |
+| summary | string | 是    | 个人简介                |
+| caller  | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign    | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/summary --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data 'summary=好记性不如烂笔头' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/summary --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data caller=web --data 'summary=好记性不如烂笔头' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -260,16 +267,17 @@ curl --request POST --url http://ip:port/user/summary --header 'Authorization: B
   - 更新户籍省市，前后值相同，则无法更新。
   - 请求方式：POST
 
-| 参数名      | 类型     | 是否必填 | 参数说明                                                      |
-|----------|--------|------|-----------------------------------------------------------|
-| email    | string | 是    | 邮箱                                                        |
-| province | string | 是    | 省                                                         |
-| city     | string | 是    | 市                                                         |
-| sign     | string | 是    | 签名，$attrString为email、province、city字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名      | 类型     | 是否必填 | 参数说明                |
+|----------|--------|------|---------------------|
+| email    | string | 是    | 邮箱                  |
+| province | string | 是    | 省                   |
+| city     | string | 是    | 市                   |
+| caller   | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign     | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/province-city --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data 'province=贵州' --data 'city=遵义' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/province-city --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data caller=web --data 'province=贵州' --data 'city=遵义' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -285,15 +293,16 @@ curl --request POST --url http://ip:port/user/province-city --header 'Authorizat
   - 更新生日，前后值相同，则无法更新。
   - 请求方式：POST
 
-| 参数名      | 类型     | 是否必填 | 参数说明                                                 |
-|----------|--------|------|------------------------------------------------------|
-| email    | string | 是    | 邮箱                                                   |
-| birthday | string | 是    | 生日，格式YYYY-MM-DD                                      |
-| sign     | string | 是    | 签名，$attrString为email、birthday字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名      | 类型     | 是否必填 | 参数说明                |
+|----------|--------|------|---------------------|
+| email    | string | 是    | 邮箱                  |
+| birthday | string | 是    | 生日，格式YYYY-MM-DD     |
+| caller   | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign     | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/birthday --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data birthday=2023-12-11 --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/birthday --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data caller=web --data birthday=2023-12-11 --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -309,15 +318,16 @@ curl --request POST --url http://ip:port/user/birthday --header 'Authorization: 
   - 更新密码，前后值相同，则无法更新，密码长度为6~20位。
   - 请求方式：POST
 
-| 参数名      | 类型     | 是否必填 | 参数说明                                                 |
-|----------|--------|------|------------------------------------------------------|
-| email    | string | 是    | 邮箱                                                   |
-| password | string | 是    | 密码，长度6~20位                                           |
-| sign     | string | 是    | 签名，$attrString为email、password字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名      | 类型     | 是否必填 | 参数说明                                                |
+|----------|--------|------|-----------------------------------------------------|
+| email    | string | 是    | 邮箱                                                  |
+| password | string | 是    | 密码，长度6~20位                                          |
+| caller   | string | 是    | 调用方标识，请传递固定字符串`web`                                          |
+| sign     | string | 是    | 签名，见"验签sign字段" |
 
 - 请求示例
 ```text
-curl --request POST --url http://127.0.0.1:6677/user/password --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --data email=yswang837@gmail.com --data password=111111 --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://127.0.0.1:6677/user/password --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --data email=yswang837@gmail.com --data password=111111 --data caller=web --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
