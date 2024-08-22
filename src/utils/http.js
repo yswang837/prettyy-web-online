@@ -7,8 +7,8 @@ import makeSign from "@/utils/makeSign.js";
 
 // 创建axios实例
 const http = axios.create({
-  // baseURL: 'http://120.26.203.121:8888',
-  baseURL: 'http://127.0.0.1:6677',
+  baseURL: 'http://120.26.203.121:8888',
+  // baseURL: 'http://127.0.0.1:6677',
   timeout: 2000
 })
 
