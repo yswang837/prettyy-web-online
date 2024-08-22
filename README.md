@@ -344,13 +344,15 @@ curl --request POST --url http://127.0.0.1:6677/user/password --header 'Authoriz
   - 请求方式：POST
   - 注意该接口的content-type: multipart/form-data
 
-| 参数名  | 类型     | 是否必填 | 参数说明                          |
-|------|--------|------|-------------------------------|
-| sign | string | 是    | 签名，$attrString为为空，见"验签sign字段" |
+| 参数名    | 类型     | 是否必填 | 参数说明                |
+|--------|--------|------|---------------------|
+| file   | file   | 是    | 不参与验签               |
+| caller | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign   | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/file/upload --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIwNzYzNzAwLCJpYXQiOjE3MjA3NjM3MDB9fQ.3o-Rsg_o5n04D6Xajzb0NGUJ2JmrirIFxvf-oCV_iQE' --header 'content-type: multipart/form-data' --form file=~/Downloads/2024-08-13_17-18-57.png --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/file/upload --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIwNzYzNzAwLCJpYXQiOjE3MjA3NjM3MDB9fQ.3o-Rsg_o5n04D6Xajzb0NGUJ2JmrirIFxvf-oCV_iQE' --header 'content-type: multipart/form-data' --form file=~/Downloads/2024-08-13_17-18-57.png --data caller=web --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -367,18 +369,19 @@ curl --request POST --url http://ip:port/file/upload --header 'Authorization: Be
   - 发布文章。
   - 请求方式：POST
 
-| 参数名       | 类型     | 是否必填 | 参数说明                                                     |
-|-----------|--------|------|----------------------------------------------------------|
-| title     | string | 是    | 文章标题                                                     |
-| content   | string | 是    | 文章内容                                                     |
-| cover_img | string | 是    | 文章封面url                                                  |
-| summary   | string | 是    | 文章摘要                                                     |
-| uid       | int    | 是    | 用户ID                                                     |
-| sign      | string | 是    | 签名，$attrString为title、summary、uid的字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名       | 类型     | 是否必填 | 参数说明                |
+|-----------|--------|------|---------------------|
+| title     | string | 是    | 文章标题                |
+| content   | string | 是    | 文章内容，不参与验签          |
+| cover_img | string | 是    | 文章封面url             |
+| summary   | string | 是    | 文章摘要                |
+| uid       | int    | 是    | 用户ID                |
+| caller    | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign      | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/article/publish --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMTgwMTM5LCJpYXQiOjE3MjExODAxMzl9fQ.UXcN0t5kxzq9aBgMOU9jQ5P5LtaFZg_lFeyShuZPmsc' --header 'content-type: application/x-www-form-urlencoded' --data 'title=如何搭建redis主从同步集群' --data 'content=Redis 主从复制集群是一种高可用性架构，它允许多个Redis实例（节点）之间进行数据复制。在这种架构中，一个Redis节点被指定为主节点（master），其他节点作为从节点（slaves）。' --data uid=10001 --data cover_img=https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg --data 'summary=Redis 主从复制集群是一种高可用性架构，它允许多个Redis实例（节点）之间进行数据复制。' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/article/publish --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMTgwMTM5LCJpYXQiOjE3MjExODAxMzl9fQ.UXcN0t5kxzq9aBgMOU9jQ5P5LtaFZg_lFeyShuZPmsc' --header 'content-type: application/x-www-form-urlencoded' --data 'title=如何搭建redis主从同步集群' --data 'caller=web' --data 'content=Redis 主从复制集群是一种高可用性架构，它允许多个Redis实例（节点）之间进行数据复制。在这种架构中，一个Redis节点被指定为主节点（master），其他节点作为从节点（slaves）。' --data uid=10001 --data cover_img=https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg --data 'summary=Redis 主从复制集群是一种高可用性架构，它允许多个Redis实例（节点）之间进行数据复制。' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -398,11 +401,12 @@ curl --request POST --url http://ip:port/article/publish --header 'Authorization
 |-----------|--------|------|-------------------------------------------------------|
 | page      | int    | 是    | 第几页                                                   |
 | page_size | int    | 否    | 每页多少条                                                 |
+| caller    | string | 是    | 调用方标识，请传递固定字符串`web`                                   |
 | sign      | string | 是    | 签名，$attrString为page、page_size的字段值拼接而成的字符串，见"验签sign字段" |
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/article/list?page=3&page_size=2&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request GET --url 'http://ip:port/article/list?page=3&page_size=2&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg' --data 'caller=web' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
@@ -446,14 +450,15 @@ curl --request GET --url 'http://ip:port/article/list?page=3&page_size=2&sign=04
   - 获取单篇文章的详情数据。
   - 请求方式：GET
 
-| 参数名  | 类型     | 是否必填 | 参数说明                                       |
-|------|--------|------|--------------------------------------------|
-| aid  | string | 是    | 文章的唯一ID                                    |
-| sign | string | 是    | 签名，$attrString为aid的字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名    | 类型     | 是否必填 | 参数说明                                       |
+|--------|--------|------|--------------------------------------------|
+| aid    | string | 是    | 文章的唯一ID                                    |
+| caller | string | 是    | 调用方标识，请传递固定字符串`web`                        |
+| sign   | string | 是    | 签名，$attrString为aid的字段值拼接而成的字符串，见"验签sign字段" |
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg' --data 'caller=web'  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
