@@ -26,7 +26,7 @@ const form1 = ref({
   email: '',
   identifyCode1: '',
   method: '',
-  agree: true
+  agree: false
 })
 // 2、规则对象
 const rules1 = {
@@ -105,7 +105,7 @@ const form2 = ref({
   password: '',
   captcha: '',
   method: '',
-  agree: true
+  agree: false
 })
 // 2、规则对象
 const rules2 = {
@@ -215,9 +215,9 @@ const handleClick = (tab) => {
             <el-input v-model="form2.password" type="password" show-password placeholder="请输入密码" clearable/>
           </el-form-item>
           <el-form-item prop="captcha" label="验证码">
-            <el-input v-model="form2.captcha" placeholder="请输入验证码" clearable>
+            <el-input class="captcha-input" v-model="form2.captcha" placeholder="请输入验证码" clearable>
               <template v-slot:append>
-                <img @click="captchaStore.getIdentityCode" :src="captchaStore.captchaInfo.picPath" style="height: 40px; width: 100px; cursor: pointer;" alt>
+                  <img class="captcha-img" @click="captchaStore.getIdentityCode" :src="captchaStore.captchaInfo.picPath" alt>
               </template>
             </el-input>
           </el-form-item>
@@ -242,6 +242,16 @@ const handleClick = (tab) => {
 .service-policy:hover {
   text-decoration: underline;
 }
+.captcha-img {
+  height: 40px;
+  width: 100px;
+  cursor: pointer;
+}
+
+.captcha-input :deep(.el-input-group__append) {
+  padding: 0;
+}
+
 .login-btn, .login2-btn {
   width: 100%;
 }
