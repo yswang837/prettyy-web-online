@@ -154,6 +154,10 @@ const countDown2 = useCountDown()
 // 通过邮箱获取验证码
 const { formatTime, start } = countDown(300)
 const getIdentityCodeByEmail = async (email)=>{
+  if (email === "") {
+    ElMessage({type: 'warning', message: '请输入邮箱'})
+    return
+  }
   await getIdentityCodeByEmailAPI(email)
   ElMessage({type: 'success', message: '验证码已发送，请查看邮箱'})
   start()
@@ -193,13 +197,12 @@ const handleClick = (tab) => {
                     </template>
                 </el-input>
               </el-form-item>
-              <small>未注册邮箱验证通过后将自动注册并登录</small>
+              <span class="explain">未注册邮箱验证通过后将自动注册并登录</span>
               <el-form-item prop="agree" label-width="22px">
-                <el-checkbox  size="large" v-model="form1.agree">
-                  同意<a href="#">《隐私保护协议》</a> 和<a href="#">《服务条款》</a>
-                </el-checkbox>
+                <el-checkbox  size="large" v-model="form1.agree">同意</el-checkbox>
+                <a href="#" target="_blank" class="service-policy">《隐私保护协议》</a>和<a href="#" target="_blank" class="service-policy">《服务条款》</a>
               </el-form-item>
-              <el-button class="login" type="primary" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录/注册</el-button>
+              <el-button class="login-btn" type="primary" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录/注册</el-button>
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="账密登录" name="2">
@@ -218,13 +221,12 @@ const handleClick = (tab) => {
               </template>
             </el-input>
           </el-form-item>
-          <small>未注册邮箱验证通过后将自动注册并登录</small>
+          <div class="explain">未注册邮箱验证通过后将自动注册并登录</div>
           <el-form-item prop="agree" label-width="22px">
-            <el-checkbox v-model="form2.agree" size="large">
-              同意<a href="#">《隐私保护协议》</a> 和<a href="#">《服务条款》</a>
-            </el-checkbox>
+            <el-checkbox v-model="form2.agree" size="large">同意</el-checkbox>
+            <a href="#" target="_blank" class="service-policy">《隐私保护协议》</a>和<a href="#" target="_blank" class="service-policy">《服务条款》</a>
           </el-form-item>
-          <el-button class="login2" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
+          <el-button class="login2-btn" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
                      type="primary">登录/注册</el-button>
         </el-form>
       </el-tab-pane>
@@ -233,7 +235,15 @@ const handleClick = (tab) => {
 </template>
 
 <style scoped>
-.login, .login2 {
+.explain {
+  font-size: 12px;
+  margin-left: 20px;
+}
+.service-policy:hover {
+  text-decoration: underline;
+}
+.login-btn, .login2-btn {
   width: 100%;
 }
+
 </style>

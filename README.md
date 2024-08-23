@@ -318,12 +318,12 @@ curl --request POST --url http://ip:port/user/birthday --header 'Authorization: 
   - 更新密码，前后值相同，则无法更新，密码长度为6~20位。
   - 请求方式：POST
 
-| 参数名      | 类型     | 是否必填 | 参数说明                                                |
-|----------|--------|------|-----------------------------------------------------|
-| email    | string | 是    | 邮箱                                                  |
-| password | string | 是    | 密码，长度6~20位                                          |
-| caller   | string | 是    | 调用方标识，请传递固定字符串`web`                                          |
-| sign     | string | 是    | 签名，见"验签sign字段" |
+| 参数名      | 类型     | 是否必填 | 参数说明                |
+|----------|--------|------|---------------------|
+| email    | string | 是    | 邮箱                  |
+| password | string | 是    | 密码，长度6~20位          |
+| caller   | string | 是    | 调用方标识，请传递固定字符串`web` |
+| sign     | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
