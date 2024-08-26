@@ -494,7 +494,7 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
 | sign    | string              |
 | 2000100 | 生成验证码成功             |
 | 2000120 | 添加文章成功              |
-| sign    | string              |
+| 2000140    | 上传文件成功              |
 | 2000160 | 获取文章详情成功            |
 | 2000180 | 获取文章列表成功            |
 | sign    | string              |
@@ -521,8 +521,8 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
 | 4000100 | 生成验证码失败             |
 | 4000120 | 参数错误                |
 | 4000121 | 添加文章失败              |
-| sign    | string              |
-| sign    | string              |
+| 4000140    | 参数错误              |
+| 4000141    | 上传文件错误              |
 | sign    | string              |
 | sign    | string              |
 | 4000160 | 参数错误                |
