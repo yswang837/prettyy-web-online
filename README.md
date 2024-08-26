@@ -482,3 +482,42 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
 ```
 
 ## 4.错误码汇总
+
+| 错误码     | 错误码说明  |
+|---------|--------|
+| 2000001 | 注册成功   | 
+| 2000002 | 验证码登录成功 | 
+| 2000003 | 账密登录成功 |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| 4000001    | 参数绑定错误 |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
+| sign    | string |
