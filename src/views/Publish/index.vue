@@ -69,26 +69,8 @@ init: {
 }
 })
 
-// const uploadSubmit = async (options) => {
-//   // console.log('上传文件',options['file'])
-//   const formData = new FormData();
-//   formData.append('file', options['file'])
-//   // console.log('formData', formData.get('file'))
-//   const res = await UploadFileAPI(formData.get('file'))
-//   console.log('七牛',res.result)
-//   form.value.cover_img = res.result
-//   console.log('form.value.cover_img', form.value.cover_img)
-// }
-
 const uploadRef = ref()
 const files = ref([])
-// const handleChange = (uploadFile, uploadFiles) => {
-//   console.log('handleChange', uploadFile, uploadFiles)
-// }
-// const remove = () => {
-//   files.value.splice(0, 1)
-//   form.value.cover_img = ''
-// }
 
 </script>
 
@@ -110,19 +92,6 @@ const files = ref([])
           </div>
         </template>
       </UploadImg>
-<!--      <el-upload ref="uploadRef" :list-type="'picture'" :on-change="handleChange"-->
-<!--                 v-model:file-list="files" :http-request="uploadSubmit" :show-file-list="false">-->
-<!--        <template #trigger>-->
-<!--          <div class="preview-container1" v-if="!form.cover_img">-->
-<!--            <i class="iconfont icon-tianjia" style="cursor: pointer"></i>-->
-<!--            <div>添加文章封面</div>-->
-<!--          </div>-->
-<!--        </template>-->
-<!--        <div class="preview-container2" v-if="form.cover_img">-->
-<!--            <el-image v-for="(file, index) of files" :key="index" class="cover-img" :src="file.url" fit="cover"></el-image>-->
-<!--            <i  class="iconfont icon-shanchuguanbicha del-img" @click="remove" style="cursor: pointer"></i>-->
-<!--        </div>-->
-<!--      </el-upload>-->
     </el-form-item>
     <el-form-item label="文章摘要">
       <textarea v-model="form.summary"></textarea>

@@ -17,9 +17,6 @@ const props = defineProps({
 let myCoverImg = ref(props.coverImg)
 const myFiles = ref(props.files)
 const uploadRef = ref()
-const handleChange = (uploadFile, uploadFiles) => {
-  console.log('handleChange', uploadFile, uploadFiles)
-}
 
 const uploadSubmit = async (options) => {
   // console.log('上传文件',options['file'])
@@ -30,7 +27,7 @@ const uploadSubmit = async (options) => {
   // console.log('res...', res)
   // console.log('七牛',res.result)
   myCoverImg.value = res.result
-  console.log('form.value.cover_img', props.coverImg)
+  console.log('form.value.cover_img', myCoverImg)
 }
 const remove = () => {
   myFiles.value.splice(0, 1)
@@ -39,8 +36,7 @@ const remove = () => {
 </script>
 
 <template>
-  <el-upload ref="uploadRef" v-model:file-list="myFiles" :http-request="uploadSubmit" :list-type="'picture'"
-             :on-change="handleChange" :show-file-list="false">
+  <el-upload ref="uploadRef" v-model:file-list="myFiles" :http-request="uploadSubmit" :list-type="'picture'" :show-file-list="false">
     <slot name="trigger" :myCoverImg="myCoverImg"></slot>
     <div class="preview-container2" v-if="myCoverImg">
       <el-image v-for="(file, index) of myFiles" :key="index" class="cover-img" :src="file.url" fit="cover"></el-image>
