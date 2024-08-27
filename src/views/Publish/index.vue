@@ -27,7 +27,6 @@ const submit = async () => {
 
 const content = ref("");
 const tiny = reactive({
-apiKey: "znm35mtysrhghs059pa4iacbmxhyrsjoxhybvknrl9offdxp",
 init: {
   setup: (editor) => {
     editor.on('input change',function (){
@@ -100,7 +99,7 @@ const files = ref([])
       <el-input v-model="form.title"></el-input>
     </el-form-item>
     <el-form-item label="文章内容">
-      <Editor v-model="content" :api-key="tiny.apiKey" :init="tiny.init"/>
+      <Editor v-model="content" api-key="znm35mtysrhghs059pa4iacbmxhyrsjoxhybvknrl9offdxp" :init="tiny.init"/>
     </el-form-item>
     <el-form-item class="shangchaun" label="上传封面">
       <UploadImg :showDelete="true" :coverImg="form.cover_img" :files="files">
