@@ -97,6 +97,10 @@ const handleChangeCity = (selected) => {
   selectedValue.value = [codeToText[selected[0]], codeToText[selected[1]]]
 }
 const bdCityCommit = async (selectValue) => {
+  if (selectValue.length === 0 || selectValue[0] === '' || selectValue[0] === null) {
+    ElMessage({type:'warning', message:'户籍省市不能为空'})
+    return
+  }
   if (selectValue[0] + ' / ' + selectValue[1] === userStore.userInfo.user.province_city) {
     ElMessage({type:'warning', message:'户籍省市未改变'})
     return
@@ -137,6 +141,13 @@ const bdBirthdayCommit = async (dateValue) => {
 const bdBirthdayCancel = () => {
   showDatePicker.value = false
 }
+
+// 设置用户收货地址相关
+// let showAddressDetail = ref(false)
+// let showDialog = ref(false)
+// const showAddressDialog = () => {
+//   showDialog.value = true
+// }
 
 // 设置教育信息
 let showSchoolEdit = ref(false)
@@ -263,6 +274,29 @@ const schoolCancel = () => {
         <!--  收货地址项  -->
         <div class="part6">
           <div class="bd-user-addr">收货地址</div>
+<!--          <div v-if="!showAddressDetail">{{userStore.userInfo.user.address ? userStore.userInfo.user.address : "未填写"}}-->
+<!--            <i class="iconfont icon-bianji1" @click="showAddressDialog"></i>-->
+<!--          </div>-->
+<!--          <div v-else>地址详情</div>-->
+<!--          <el-dialog v-model="showDialog" width="35%" center :show-close="false">-->
+<!--            <h4 class="address-title">新增收货地址</h4>-->
+<!--            <el-form label-width="auto">-->
+<!--              <el-form-item label="收&nbsp;件&nbsp;人">-->
+<!--                <el-input  />-->
+<!--              </el-form-item>-->
+<!--              <el-form-item label="手机号码">-->
+<!--                <el-input  />-->
+<!--              </el-form-item>-->
+<!--              <el-form-item label="选择区域">-->
+<!--                <el-cascader style="width: 392px" v-model="selectedProvinceAndCityValue" :options="option" @change="handleChangeCity" placeholder="请选择"></el-cascader>-->
+<!--              </el-form-item>-->
+<!--              <el-form-item label="详细地址">-->
+<!--                <el-input type="textarea" />-->
+<!--              </el-form-item>-->
+<!--            </el-form>-->
+<!--            <el-button class="btn-conform"  type="primary" @click="bdCityCommit(selectedValue)">确认</el-button>-->
+<!--            <el-button class="btn-cancel" @click="bdCityCancel">取消</el-button>-->
+<!--          </el-dialog>-->
         </div>
         <!--  出生日期项  -->
         <div class="part7">
@@ -515,6 +549,7 @@ const schoolCancel = () => {
 .part3:hover .icon-bianji1,
 .part4:hover .icon-bianji1,
 .part5:hover .icon-bianji1,
+.part6:hover .icon-bianji1,
 .part7:hover .icon-bianji1,
 .school-content:hover .icon-bianji1{
   color: deepskyblue;
@@ -531,6 +566,11 @@ const schoolCancel = () => {
 .textarea-container {
   display: flex;
   align-items: center;
+}
+
+.address-title {
+  text-align: center;
+  margin-bottom: 15px;
 }
 // 以上是 information-overview 样式
 
