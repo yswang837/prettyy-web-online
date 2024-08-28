@@ -4,9 +4,6 @@ import { ref } from 'vue'
 
 
 const props = defineProps({
-  coverImg: {
-    type:String
-  },
   files: {
     type:Array[String]
   },
@@ -15,8 +12,7 @@ const props = defineProps({
   }
 })
 let myCoverImg = ref(props.coverImg)
-const myFiles = ref(props.files)
-const uploadRef = ref()
+let myFiles = ref(props.files)
 
 const uploadSubmit = async (options) => {
   // console.log('上传文件',options['file'])
@@ -29,38 +25,15 @@ const uploadSubmit = async (options) => {
   myCoverImg.value = res.result
   console.log('form.value.cover_img', myCoverImg)
 }
-const remove = () => {
-  myFiles.value.splice(0, 1)
-  myCoverImg.value = ''
-}
+
 </script>
 
 <template>
-  <el-upload ref="uploadRef" v-model:file-list="myFiles" :http-request="uploadSubmit" :list-type="'picture'" :show-file-list="false">
+  <el-upload v-model:file-list="myFiles" :http-request="uploadSubmit" :list-type="'picture'" :show-file-list="false">
     <slot name="trigger" :myCoverImg="myCoverImg"></slot>
-    <div class="preview-container2" v-if="myCoverImg">
-      <el-image v-for="(file, index) of myFiles" :key="index" class="cover-img" :src="file.url" fit="cover"></el-image>
-      <i v-if="props.showDelete" class="iconfont icon-shanchuguanbicha del-img" @click="remove" style="cursor: pointer"></i>
-    </div>
   </el-upload>
 </template>
 
 <style scoped lang="scss">
-.preview-container2 {
-  height: 120px;
-  width: 200px;
-  background-color: #eaeaea;
-  margin-top: -30px;
-}
-.cover-img {
-  height: 120px;
-  width: 200px;
-  position: absolute;
-}
 
-.del-img {
-  position: relative;
-  top: -7px;
-  left: 183px;
-}
 </style>

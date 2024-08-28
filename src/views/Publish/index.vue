@@ -14,12 +14,11 @@ const userStore = useUserStore()
 const form = ref({
   title: '',
   content: '',
-  cover_img: '',
+  cover_img: '123123',
   summary: ''
 })
 
 const submit = async () => {
-  uploadRef.value.submit()
   await publishArticleAPI(form.value.title,form.value.content, userStore.userInfo.user.uid, form.value.cover_img,form.value.summary)
   ElMessage({type:'success', message: '文章添加成功'})
   await router.push('/')
@@ -69,7 +68,6 @@ init: {
 }
 })
 
-const uploadRef = ref()
 const files = ref([])
 
 </script>
@@ -84,11 +82,14 @@ const files = ref([])
       <Editor v-model="content" api-key="znm35mtysrhghs059pa4iacbmxhyrsjoxhybvknrl9offdxp" :init="tiny.init"/>
     </el-form-item>
     <el-form-item class="shangchaun" label="上传封面">
-      <UploadImg :showDelete="true" :coverImg="form.cover_img" :files="files">
+      <UploadImg :showDelete="true" :files="files">
         <template v-slot:trigger="slotProps">
-          <div class="preview-container1" v-if="!slotProps.myCoverImg">
+          <div class="preview-container" v-if="!slotProps.myCoverImg">
             <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
             <div>添加文章封面</div>
+          </div>
+          <div class="preview-container" v-else>
+            <el-image :src="form.cover_img=slotProps.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
           </div>
         </template>
       </UploadImg>
@@ -110,7 +111,7 @@ const files = ref([])
   margin-left: 40px;
   font-size: 17px;
 }
-.preview-container1 {
+.preview-container {
   height: 120px;
   width: 200px;
   background-color: #eaeaea;
@@ -119,23 +120,9 @@ const files = ref([])
   justify-content: center;
   align-items: center;
 }
-
-.preview-container2 {
-  height: 120px;
-  width: 200px;
-  background-color: #eaeaea;
-  margin-top: -30px;
-}
-
 .cover-img {
   height: 120px;
   width: 200px;
   position: absolute;
-}
-
-.del-img {
-  position: relative;
-  top: -7px;
-  left: 183px;
 }
 </style>
