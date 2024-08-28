@@ -39,7 +39,7 @@ http.interceptors.request.use(config => {
 // axios响应式拦截器
 http.interceptors.response.use(res => res.data, e => {
   // 统一错误提示
-  ElMessage({type: 'warning', message: e.response?.data.message})
+  ElMessage({type: 'warning', message: e.response.data.message})
   const userStore = useUserStore()
   // 401token失效处理
   if (e.response.status === 401){
