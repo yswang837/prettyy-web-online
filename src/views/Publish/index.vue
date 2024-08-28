@@ -72,44 +72,71 @@ const files = ref([])
 </script>
 
 <template>
-  <div class="publish-article"><a href="/">&lt; 发布文章</a></div>
-  <el-form :model="form">
-    <el-form-item label="文章标题">
-      <el-input v-model="form.title"></el-input>
-    </el-form-item>
-    <el-form-item label="文章内容">
-      <Editor v-model="content" api-key="znm35mtysrhghs059pa4iacbmxhyrsjoxhybvknrl9offdxp" :init="tiny.init"/>
-    </el-form-item>
-    <el-form-item class="shangchaun" label="上传封面">
-      <UploadImg :showDelete="true" :files="files">
-        <template v-slot:trigger="slotProps">
-          <div class="preview-container" v-if="!slotProps.myCoverImg">
-            <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
-            <div>添加文章封面</div>
-          </div>
-          <div class="preview-container" v-else>
-            <el-image :src="form.cover_img=slotProps.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
-          </div>
-        </template>
-      </UploadImg>
-    </el-form-item>
-    <el-form-item label="文章摘要">
-      <textarea v-model="form.summary"></textarea>
-    </el-form-item>
-    <el-form-item>
-      <el-button @click="submit" class="publish-btn">立即发布</el-button>
-    </el-form-item>
-  </el-form>
+  <div class="publish-article-title"><a href="/">&lt; 发布文章</a></div>
+  <div class="publish-article-container container">
+    <div class="left">
+      目录
+      <br>
+      <br>
+      <br>
+      为文内增加标题，这里将生成目录
+    </div>
+    <div class="right">
+      <el-form :model="form">
+        <el-form-item label="文章标题">
+          <el-input v-model="form.title"></el-input>
+        </el-form-item>
+        <el-form-item label="文章内容">
+          <Editor v-model="content" api-key="znm35mtysrhghs059pa4iacbmxhyrsjoxhybvknrl9offdxp" :init="tiny.init"/>
+        </el-form-item>
+        <el-form-item class="shangchaun" label="上传封面">
+          <UploadImg :showDelete="true" :files="files">
+            <template v-slot:trigger="slotProps">
+              <div class="preview-container" v-if="!slotProps.myCoverImg">
+                <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
+                <div>添加文章封面</div>
+              </div>
+              <div class="preview-container" v-else>
+                <el-image :src="form.cover_img=slotProps?.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
+              </div>
+            </template>
+          </UploadImg>
+        </el-form-item>
+        <el-form-item label="文章摘要">
+          <textarea v-model="form.summary"></textarea>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="submit" class="publish-btn">立即发布</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+
 </template>
 
 <style lang="scss" scoped>
-.publish-article {
+.publish-article-title {
   width: 100%;
   height: 50px;
+  background-color: #ededed;
   line-height: 50px;
   margin-left: 40px;
   font-size: 17px;
 }
+.publish-article-container {
+  display: flex;
+}
+.publish-article-container .left {
+  flex: 1;
+  margin: 50px;
+  background-color: #cccccc;
+}
+.publish-article-container .right {
+  flex: 4;
+  margin: 50px;
+  background-color: #f4f4f4;
+}
+
 .preview-container {
   height: 120px;
   width: 200px;
