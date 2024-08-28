@@ -49,7 +49,7 @@ init: {
       ' code codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount' +
       ' autosave autoresize accordion',//插件配置，因为一些功能需要插件
   toolbar: ['fullscreen undo redo restoredraft insertdatetime cut copy paste pastetext fontfamily fontsize forecolor backcolor bold italic underline strikethrough link anchor  table image alignleft aligncenter alignright alignjustify outdent indent styleselect formatselect fontselect fontsizeselect bullist numlist indent2em lineheight formatpainter axupimgs h1 h2 h3 h4 h5 h6',
-    'blockquote subscript superscript removeformat media charmap emoticons hr pagebreak insertdatetime print preview code searchreplace',
+    'blockquote subscript superscript removeformat media charmap emoticons hr pagebreak insertdatetime print preview code codesample searchreplace',
   ],
   // images_upload_url: '/apib/api-upload/uploadimg',  //后端处理程序的url，建议直接自定义上传函数image_upload_handler，这个就可以不用了
   // images_upload_base_path: '/demo',  //相对基本路径--关于图片上传建议查看--http://tinymce.ax-z.cn/general/upload-images.php
