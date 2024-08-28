@@ -1,10 +1,9 @@
-<script setup name="Editor">
+<script setup>
 import { reactive, ref } from 'vue'
 import {useRouter} from "vue-router";
 import {ElMessage} from "element-plus";
 import Editor from "@tinymce/tinymce-vue";
 import {publishArticleAPI} from "@/apis/article.js";
-// import {UploadFileAPI} from "@/apis/upload.js";
 import { useUserStore } from "@/stores/user.js";
 import UploadImg from '@/components/UploadImg/index.vue'
 
@@ -14,7 +13,7 @@ const userStore = useUserStore()
 const form = ref({
   title: '',
   content: '',
-  cover_img: '123123',
+  cover_img: '',
   summary: ''
 })
 
