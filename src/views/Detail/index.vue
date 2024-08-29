@@ -39,6 +39,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
+@import "src/styles/tinymce-custom-editor.css";
 .article-detail-container {
   display: flex;
   margin-top: 10px;
@@ -64,7 +65,7 @@ onMounted(() => {
   background-color: #fcfcfc;
 }
 .article-content-title {
-  font-size: 22px;
+  font-size: 27px;
   margin: 15px;
 }
 

@@ -1,0 +1,119 @@
+h1 {
+    color: black;
+    font-size: 26px;
+    margin:20px 0;
+}
+.article-detail :deep(h1) {
+    color: black;
+    font-size: 26px;
+    margin:20px 0;
+}
+
+h2 {
+    color: #0b0b0b;
+    font-size: 25px;
+    margin:18px 5px;
+}
+.article-detail :deep(h2) {
+    color: #0b0b0b;
+    font-size: 25px;
+    margin:18px 5px;
+}
+
+h3 {
+    color: #0d0d0d;
+    font-size: 24px;
+    margin:16px 10px;
+}
+.article-detail :deep(h3) {
+    color: #0d0d0d;
+    font-size: 24px;
+    margin:16px 10px;
+}
+
+h4 {
+    color: #0f0f0f;
+    font-size: 23px;
+    margin:14px 15px;
+}
+.article-detail :deep(h4) {
+    color: #0f0f0f;
+    font-size: 23px;
+    margin:14px 15px;
+}
+
+h5 {
+    color: #0f0f0f;
+    font-size: 22px;
+    margin:12px 20px;
+}
+.article-detail :deep(h5) {
+    color: #0f0f0f;
+    font-size: 22px;
+    margin:12px 20px;
+}
+h6 {
+    color: #1f1f1f;
+    font-size: 21px;
+    margin:10px 25px;
+}
+.article-detail :deep(h6) {
+    color: #1f1f1f;
+    font-size: 21px;
+    margin:10px 25px;
+}
+
+p {
+    line-height: 1.5;
+    text-indent: 2em;
+    font-size: 17px;
+}
+.article-detail :deep(p) {
+    line-height: 1.5;
+    text-indent: 2em;
+    font-size: 17px;
+}
+a {
+    color: #065de1;
+    text-decoration: underline;
+}
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.article-detail :deep(a) {
+    color: #065de1;
+    text-decoration: underline;
+}
+.article-detail :deep(a:hover) {
+    text-decoration: none;
+    cursor: pointer;
+}
+ul {
+    padding-left: 2em;
+    font-weight: bold;
+    list-style-type: disc;
+    margin: 15px 0;
+    font-size: 21px;
+}
+ol {
+    padding-left: 2em;
+    font-weight: bold;
+    list-style-type: decimal;
+    margin: 15px 0;
+    font-size: 21px;
+}
+.article-detail :deep(ul) {
+    padding-left: 2em;
+    font-weight: bold;
+    list-style-type: disc;
+    margin: 15px 0;
+    font-size: 21px;
+}
+.article-detail :deep(ol) {
+    padding-left: 2em;
+    font-weight: bold;
+    list-style-type: decimal;
+    margin: 15px 0;
+    font-size: 21px;
+}

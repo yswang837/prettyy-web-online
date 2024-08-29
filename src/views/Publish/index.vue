@@ -35,6 +35,7 @@ init: {
   placeholder: "尽情创作吧~", //textarea中的提示信息
   min_width: 320,
   min_height: 220,
+  content_css: "src/styles/tinymce-custom-editor.css",
   height: 500, //注：引入autoresize插件时，此属性失效
   resize: "both", //编辑器宽高是否可变，false-否,true-高可变，'both'-宽高均可，注意引号
   branding: false, //tiny技术支持信息是否显示
