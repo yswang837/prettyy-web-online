@@ -82,7 +82,7 @@ const loginOut = () => {
           <li><a href="#">会员中心</a></li>
           <li><a href="#">消息</a></li>
           <li><a href="#">历史</a></li>
-          <li><a href="#">创作中心</a></li>
+          <li><router-link to="/creation-center">创作中心</router-link></li>
           <li> <router-link to="/publish-article">发布</router-link> </li>
         </template>
         <template v-else>
