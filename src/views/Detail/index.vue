@@ -27,8 +27,10 @@ onMounted(() => {
         </div>
       </div>
       <div class="article-content">
-        {{articleDetail?.title}}
-        <div v-html="articleDetail?.content"></div>
+        <div class="article-content-title">
+          {{articleDetail?.title}}
+        </div>
+        <div class="article-detail" v-html="articleDetail?.content"></div>
       </div>
       <div class="article-right">
         right
@@ -59,7 +61,11 @@ onMounted(() => {
 .article-content {
   flex: 3;
   margin: 0 10px;
-  background-color: #9d9b9b;
+  background-color: #fcfcfc;
+}
+.article-content-title {
+  font-size: 22px;
+  margin: 15px;
 }
 
 </style>
