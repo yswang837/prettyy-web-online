@@ -2,15 +2,15 @@
 import {getArticleDetailAPI} from "@/apis/article.js";
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
-import {useUserStore} from "@/stores/user.js";
+// import {useUserStore} from "@/stores/user.js";
 
-const userStore = useUserStore()
+// const userStore = useUserStore()
 const route = useRoute()
 const articleDetail = ref(null)
 const getArticleDetail = async () => {
-  console.log(route.params.aid)
+  // console.log(route.params.aid)
   const res = await getArticleDetailAPI(route.params.aid)
-  console.log('article....res',res)
+  // console.log('article....res',res)
   articleDetail.value = res.result
   // console.log(articleDetail.value.title)
 }
@@ -24,7 +24,8 @@ onMounted(() => {
     <div class="container article-detail-container">
       <div class="article-left">
         <div class="base-info">
-          <el-image class="avatar" :src="userStore.userInfo.user.avatar"></el-image>
+          <!--     文章属于谁，获取谁的头像，而不是登录者的头像     -->
+<!--          <el-image class="avatar" :src="userStore.userInfo.user.avatar"></el-image>-->
         </div>
       </div>
       <div class="article-content">
