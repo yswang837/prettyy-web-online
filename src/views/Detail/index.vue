@@ -8,8 +8,9 @@ const userStore = useUserStore()
 const route = useRoute()
 const articleDetail = ref(null)
 const getArticleDetail = async () => {
+  console.log(route.params.aid)
   const res = await getArticleDetailAPI(route.params.aid)
-  // console.log(res)
+  console.log('article....res',res)
   articleDetail.value = res.result
   // console.log(articleDetail.value.title)
 }
