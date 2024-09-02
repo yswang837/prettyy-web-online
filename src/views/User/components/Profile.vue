@@ -22,7 +22,7 @@ const bdUserNameCommit = async (nickName) => {
     return
   }
   // console.log(userStore.userInfo.user.email, nickName)
-  await updateNickNameAPI(userStore.userInfo.user.email, nickName)
+  await updateNickNameAPI(userStore.userInfo.user.uid, nickName)
   ElMessage({type:'success', message:'更新成功'})
   userStore.setNickName(nickName)
   showUserNameInput.value = false
@@ -51,7 +51,7 @@ const changeGender = () => {
 }
 const bdSexCommit = async (gender) => {
   // console.log('gender....',gender)
-  await updateGenderAPI(userStore.userInfo.user.email, gender)
+  await updateGenderAPI(userStore.userInfo.user.uid, gender)
   ElMessage({type:'success', message:'更新成功'})
   userStore.setGender(gender)
   showRadio.value = false
@@ -72,7 +72,7 @@ const bdSummaryCommit = async (summary) => {
     return
   }
   // console.log('summary....',summary)
-  await updateSummaryAPI(userStore.userInfo.user.email, summary)
+  await updateSummaryAPI(userStore.userInfo.user.uid, summary)
   ElMessage({type:'success', message:'更新成功'})
   userStore.setSummary(summary)
   showTextArea.value = false
@@ -106,7 +106,7 @@ const bdCityCommit = async (selectValue) => {
     return
   }
   // console.log('selectValue....',selectValue[0], selectValue[1])
-  await updateProvinceCityAPI(userStore.userInfo.user.email, selectValue[0], selectValue[1])
+  await updateProvinceCityAPI(userStore.userInfo.user.uid, selectValue[0], selectValue[1])
   ElMessage({type:'success', message:'更新成功'})
   userStore.setProvinceCity(selectValue[0] + ' / ' + selectValue[1])
   showCityOption.value = false
@@ -133,7 +133,7 @@ const bdBirthdayCommit = async (dateValue) => {
     return
   }
   // console.log('date value', dateValue)
-  await updateBirthdayAPI(userStore.userInfo.user.email, dayStr)
+  await updateBirthdayAPI(userStore.userInfo.user.uid, dayStr)
   ElMessage({type:'success', message:'更新成功'})
   userStore.setBirthday(dayStr)
   showDatePicker.value = false

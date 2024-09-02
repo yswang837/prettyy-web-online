@@ -11,47 +11,47 @@ export const checkPasswordAPI = (email) => {
 }
 
 // 更新用户昵称
-export const updateNickNameAPI = (email, nick_name) => {
+export const updateNickNameAPI = (uid, nick_name) => {
     return httpInstance({
         url:'/user/nick-name',
         method: 'POST',
-        data: { email, nick_name }
+        data: { uid, nick_name }
     })
 }
 
 // 更新用户性别
-export const updateGenderAPI = (email, gender) => {
+export const updateGenderAPI = (uid, gender) => {
     return httpInstance({
         url:'/user/gender',
         method: 'POST',
-        data: { email, gender }
+        data: { uid, gender }
     })
 }
 
 // 更新用户户籍省市
-export const updateProvinceCityAPI = (email, province, city) => {
+export const updateProvinceCityAPI = (uid, province, city) => {
     return httpInstance({
         url:'/user/province-city',
         method: 'POST',
-        data: { email, province, city }
+        data: { uid, province, city }
     })
 }
 
 // 更新用户生日
-export const updateBirthdayAPI = (email, birthday) => {
+export const updateBirthdayAPI = (uid, birthday) => {
     return httpInstance({
         url:'/user/birthday',
         method: 'POST',
-        data: { email, birthday }
+        data: { uid, birthday }
     })
 }
 
 // 更新用户个人简介
-export const updateSummaryAPI = (email, summary) => {
+export const updateSummaryAPI = (uid, summary) => {
     return httpInstance({
         url:'/user/summary',
         method: 'POST',
-        data: { email, summary }
+        data: { uid, summary }
     })
 }
 
