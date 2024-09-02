@@ -1,7 +1,19 @@
 <script setup>
 import {ref} from 'vue'
 import Default from "@/views/Creation/components/Default.vue";
-import ContenManage from "@/views/Creation/components/ContenManage.vue";
+import ContentManage from "@/views/Creation/components/ContentManage.vue";
+import CommentManage from "@/views/Creation/components/CommentManage.vue";
+import ColumnManage from "@/views/Creation/components/ColumnManage.vue";
+import WorkData from "@/views/Creation/components/WorkData.vue";
+import IncomeData from "@/views/Creation/components/IncomeData.vue";
+import FansData from "@/views/Creation/components/FansData.vue";
+import WeekendSummary from "@/views/Creation/components/WeekendSummary.vue";
+import ActivityList from "@/views/Creation/components/ActivityList.vue";
+import ContributeManage from "@/views/Creation/components/ContributeManage.vue";
+import GradeEquity from "@/views/Creation/components/GradeEquity.vue";
+import FlowManage from "@/views/Creation/components/FlowManage.vue";
+import BlogReward from "@/views/Creation/components/BlogReward.vue";
+import ResourceRealization from "@/views/Creation/components/ResourceRealization.vue";
 
 let activeIndex = ref('1')
 const handleSelect = (key) => {
@@ -55,7 +67,19 @@ const handleSelect = (key) => {
     </div>
     <div class="right-content">
       <Default v-if="activeIndex==='1'"/>
-      <ContenManage v-if="activeIndex==='2-1'"/>
+      <ContentManage v-if="activeIndex==='2-1'"/>
+      <CommentManage v-if="activeIndex==='2-2'"/>
+      <ColumnManage v-if="activeIndex==='2-3'"/>
+      <WorkData v-if="activeIndex==='3-1'"/>
+      <IncomeData v-if="activeIndex==='3-2'"/>
+      <FansData v-if="activeIndex==='3-3'"/>
+      <WeekendSummary v-if="activeIndex==='3-4'"/>
+      <ActivityList v-if="activeIndex==='4-1'"/>
+      <ContributeManage v-if="activeIndex==='4-2'"/>
+      <GradeEquity v-if="activeIndex==='4-3'"/>
+      <FlowManage v-if="activeIndex==='4-4'"/>
+      <BlogReward v-if="activeIndex==='4-5'"/>
+      <ResourceRealization v-if="activeIndex==='4-6'"/>
     </div>
   </div>
 </template>
