@@ -1,5 +1,5 @@
 <script setup>
-import {ref} from 'vue'
+import {ref, onMounted} from 'vue'
 import Default from "@/views/Creation/components/Default.vue";
 import ContentManage from "@/views/Creation/components/ContentManage.vue";
 import CommentManage from "@/views/Creation/components/CommentManage.vue";
@@ -14,12 +14,23 @@ import GradeEquity from "@/views/Creation/components/GradeEquity.vue";
 import FlowManage from "@/views/Creation/components/FlowManage.vue";
 import BlogReward from "@/views/Creation/components/BlogReward.vue";
 import ResourceRealization from "@/views/Creation/components/ResourceRealization.vue";
+import {useRoute} from "vue-router";
+
+const route = useRoute()
 
 let activeIndex = ref('1')
 const handleSelect = (key) => {
   // console.log('select',key)
   activeIndex.value = key
 }
+
+onMounted(() => {
+  // console.log('aaa',route.params.index)
+  if (route.params.index !== '') {
+    activeIndex.value = route.params.index
+  }
+})
+
 
 </script>
 

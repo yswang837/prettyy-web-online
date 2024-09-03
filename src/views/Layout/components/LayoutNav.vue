@@ -67,7 +67,7 @@ const loginOut = () => {
                 <hr>
                 <ul class="func-list">
                   <li><router-link :to="{path: `user-center`}"><i class="iconfont icon-geren"></i>个人中心</router-link></li>
-                  <li><router-link to="/"><i class="iconfont icon-wodewengao"></i>内容管理</router-link></li>
+                  <li><router-link :to="{path: `creation-center/2-1`}"><i class="iconfont icon-wodewengao"></i>内容管理</router-link></li>
                   <li><router-link to="/"><i class="iconfont icon-xiaoyuanzhaopin"></i>我的学习</router-link></li>
                   <li><router-link to="/"><i class="iconfont icon-dingdan"></i>我的订单</router-link></li>
                   <li><router-link to="/"><i class="iconfont icon-licai"></i>我的钱包</router-link></li>

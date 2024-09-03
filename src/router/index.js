@@ -37,11 +37,12 @@ const router = createRouter({
           ]
         },
         {
-          path: 'creation-center',
+          path: 'creation-center/:index?',
           children: [
             {
               path: '',
-              component: Creation
+              component: Creation,
+              props: true
             },
           ]
         },
