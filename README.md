@@ -400,13 +400,14 @@ curl --request POST --url http://ip:port/article/publish --header 'Authorization
 | 参数名       | 类型     | 是否必填 | 参数说明                                                  |
 |-----------|--------|------|-------------------------------------------------------|
 | page      | int    | 是    | 第几页                                                   |
+| uid       | int    | 否    | 如果uid不为空，则返回当前用户的文章列表，否则返回所有文章列表                      |
 | page_size | int    | 否    | 每页多少条                                                 |
 | caller    | string | 是    | 调用方标识，请传递固定字符串`web`                                   |
 | sign      | string | 是    | 签名，$attrString为page、page_size的字段值拼接而成的字符串，见"验签sign字段" |
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/article/list?page=3&page_size=2&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg' --data 'caller=web' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request GET --url 'http://ip:port/article/list?uid=10001&page=3&page_size=2&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg' --data 'caller=web' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json

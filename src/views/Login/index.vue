@@ -183,7 +183,7 @@ const handleClick = (tab) => {
 
 <template>
   <el-dialog v-model="showLoginDialog" width="35%" center :show-close="false">
-    <el-tabs v-model="activeName" class="demo-tabs" :stretch="true" @tab-click="handleClick">
+    <el-tabs v-model="activeName" :stretch="true" @tab-click="handleClick">
       <el-tab-pane label="免密登录" name="1">
         <el-form @keyup.enter="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)"
                  ref="formRef1" :model="form1" :rules="rules1" label-width="70px" size="large" status-icon>
