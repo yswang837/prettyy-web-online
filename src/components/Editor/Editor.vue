@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%; overflow: hidden">
+  <div style="height: 100%; width: 100%; overflow: hidden">
     <editor
         v-model="myValue"
         :init="init"
@@ -72,14 +72,14 @@ const props = defineProps({
   plugins: {
     type: [String, Array],
     default:
-        "importcss autoresize searchreplace autolink directionality code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking anchor insertdatetime advlist lists wordcount charmap quickbars emoticons accordion",
+        "preview media pagebreak autosave fimportcss autoresize searchreplace autolink directionality code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking anchor insertdatetime advlist lists wordcount charmap quickbars emoticons accordion",
   },
   knwlgId: {
     type: String,
   },
   toolbar: {
     type: [String, Array, Boolean],
-    default: "undo redo | accordion accordionremove | blocks fontfamily fontsize| bold italic underline strikethrough ltr rtl  | align numlist bullist | link image | table | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | anchor codesample",
+    default: "fullscreen undo redo fontfamily fontsize h1 h2 h3 h4 h5 h6 alignleft aligncenter alignright alignjustify outdent indent styleselect formatselect fontselect fontsizeselect bullist numlist indent2em lineheight  restoredraft insertdatetime accordion ltr rtl  cut copy paste pastetext  forecolor backcolor bold italic underline strikethrough link anchor  table image formatpainter axupimgs blockquote subscript superscript removeformat media charmap emoticons hr pagebreak insertdatetime print preview fullpage code codesample searchreplace",
   },
   readonly: {
     type: Boolean,
@@ -109,11 +109,12 @@ const init = reactive({
   statusbar: true,  //最下方的元素路径和字数统计那一栏是否显示
   // toolbar_sticky: true,
   // toolbar_sticky_offset: 100,
-  menubar: "edit view insert format tools table",
+  menubar: false,
   paste_data_images: true, //允许粘贴图像
   image_dimensions: false, //去除宽高属性
   plugins: props.plugins, //这里的数据是在props里面就定义好了的
   toolbar: props.toolbar, //这里的数据是在props里面就定义好了的
+  license_key: 'gpl', // 同意开源许可条款
   // 取消图片资源路径转换
   convert_urls: false,
   // table边框位0是否展示网格线
@@ -255,5 +256,12 @@ defineExpose({
   .tox-statusbar {
     display: none;
   }
+}
+:deep(.tox-toolbar) {
+  position: fixed;
+  top: 100px; /* 根据需要调整 */
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 </style>
