@@ -1,11 +1,6 @@
 <template>
-  <div style="height: 100%; width: 100%; overflow: hidden">
-    <editor
-        v-model="myValue"
-        :init="init"
-        :enabled="enabled"
-        :id="tinymceId"
-    ></editor>
+  <div class="test111kfjsldf">
+    <editor v-model="myValue" :init="init" :enabled="enabled" :id="tinymceId"></editor>
   </div>
 </template>
 
@@ -79,7 +74,7 @@ const props = defineProps({
   },
   toolbar: {
     type: [String, Array, Boolean],
-    default: "fullscreen undo redo fontfamily fontsize h1 h2 h3 h4 h5 h6 alignleft aligncenter alignright alignjustify outdent indent styleselect formatselect fontselect fontsizeselect bullist numlist indent2em lineheight  restoredraft insertdatetime accordion ltr rtl  cut copy paste pastetext  forecolor backcolor bold italic underline strikethrough link anchor  table image formatpainter axupimgs blockquote subscript superscript removeformat media charmap emoticons hr pagebreak insertdatetime print preview fullpage code codesample searchreplace",
+    default: "fullscreen undo redo fontfamily fontsize h1 h2 h3 h4 h5 h6 alignleft aligncenter alignright alignjustify outdent indent styleselect formatselect fontselect fontsizeselect bullist numlist indent2em lineheight  restoredraft insertdatetime accordion ltr rtl  cut copy paste pastetext  forecolor backcolor bold italic underline strikethrough link anchor  table image formatpainter axupimgs blockquote subscript superscript removeformat media charmap emoticons hr pagebreak print preview fullpage code codesample searchreplace",
   },
   readonly: {
     type: Boolean,
@@ -105,12 +100,13 @@ const init = reactive({
   editable_root: props.editable_root,
   height: 600,
   branding: false, // 是否禁用“Powered by TinyMCE”
-  promotion: false, //去掉 upgrade
+  promotion: false, //是否显示 upgrade
   statusbar: true,  //最下方的元素路径和字数统计那一栏是否显示
   // toolbar_sticky: true,
   // toolbar_sticky_offset: 100,
   menubar: false,
   paste_data_images: true, //允许粘贴图像
+  placeholder: "尽情创作吧~",
   image_dimensions: false, //去除宽高属性
   plugins: props.plugins, //这里的数据是在props里面就定义好了的
   toolbar: props.toolbar, //这里的数据是在props里面就定义好了的
@@ -123,7 +119,7 @@ const init = reactive({
   link_default_target: "_blank",
   link_context_toolbar: true,
   // 默认快捷菜单
-  // quickbars_insert_toolbar: "image codesample table",
+  quickbars_insert_toolbar: "none",
   // 选中图片的快捷提示
   quickbars_image_toolbar: "alignleft aligncenter alignright | rotateleft rotateright | imageoptions",
   editimage_toolbar: "rotateleft rotateright | flipv fliph | editimage imageoptions",
@@ -134,13 +130,14 @@ const init = reactive({
   image_caption: true,
   editimage_cors_hosts: ["picsum.photos"],
   noneditable_class: "mceNonEditable",
-  toolbar_mode: "wrap", // 工具栏模式 floating / sliding / scrolling / wrap
+  toolbar_mode: "warp", // 工具栏模式 floating / sliding / scrolling / wrap
   // 默认样式
   content_style:
       "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }p {margin:3px; line-height:24px;}",
   image_advtab: true,
   importcss_append: true,
   paste_webkit_styles: "all",
+  toolbar_drawer:false,
   paste_merge_formats: true,
   nonbreaking_force_tab: false,
   paste_auto_cleanup_on_paste: false,
@@ -252,16 +249,36 @@ defineExpose({
 :deep(.tox-tinymce) {
   border: 1px solid #dcdfe6;
   border-radius: 4px;
-
   .tox-statusbar {
     display: none;
   }
 }
 :deep(.tox-toolbar) {
   position: fixed;
-  top: 100px; /* 根据需要调整 */
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  top: 50px; /* 根据需要调整 */
+  left: 290px;
+  z-index: 9999;
+  width: 1088px;
+  border: 1px solid #545453;
+  border-top: none;
+}
+:deep(.tox-tinymce) {
+  border: none;
+}
+.test111kfjsldf {
+  border: none; /* 移除边框 */
+  background: transparent; /* 透明背景 */
+  padding: 0 4px; /* 轻微的内边距，模仿 span 的默认样式 */
+  margin: 0; /* 无外边距 */
+  outline: none; /* 移除聚焦时的轮廓 */
+  box-shadow: none; /* 无阴影 */
+  font-family: Arial, sans-serif; /* 设置字体 */
+  font-size: 22px; /* 设置字号 */
+  line-height: 1.5; /* 设置行高 */
+  white-space: nowrap; /* 文本不换行 */
+  border-bottom: 1px solid #43341b;
+  cursor: text; /* 显示文本光标 */
+  min-width: 100px; /* 设置最小宽度，防止输入框过窄 */
+  width: 100%;
 }
 </style>

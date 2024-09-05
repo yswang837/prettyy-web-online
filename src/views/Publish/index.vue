@@ -82,13 +82,17 @@ const files = ref([])
       <br>
       <br>
       为文内增加标题，这里将生成目录
+      <br>
+      <br>
+      <br>
+      程序员小哥正在加班开发中
     </div>
     <div class="right">
       <el-form :model="form">
-        <el-form-item label="文章标题">
-          <el-input v-model="form.title"></el-input>
+        <el-form-item>
+          <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）" />
         </el-form-item>
-        <el-form-item label="文章内容">
+        <el-form-item>
 <!--          <Editor v-model="content" api-key="znm35mtysrhghs059pa4iacbmxhyrsjoxhybvknrl9offdxp" :init="tiny.init"/>-->
           <TEditor v-model="form.content" />
         </el-form-item>
@@ -121,24 +125,47 @@ const files = ref([])
 .publish-article-title {
   width: 100%;
   height: 50px;
-  background-color: #ededed;
+  background-color: #ffffff;
   line-height: 50px;
-  margin-left: 40px;
+  margin-left: 90px;
+  margin-top: 15px;
   font-size: 17px;
 }
 .publish-article-container {
   display: flex;
+  margin-top: 50px;
 }
 .publish-article-container .left {
   flex: 1;
-  margin: 50px;
-  background-color: #cccccc;
+  margin-left: 50px;
+  margin-right: 20px;
+  background-color: #f8f8f8;
 }
 .publish-article-container .right {
-  flex: 4;
-  margin: 50px;
-  background-color: #f4f4f4;
+  flex: 5;
+  margin-left: 50px;
+  margin-right: 350px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+
 }
+
+.article-title {
+  border: none; /* 移除边框 */
+  background: transparent; /* 透明背景 */
+  padding: 15px;
+  outline: none; /* 移除聚焦时的轮廓 */
+  box-shadow: none; /* 无阴影 */
+  font-family: Arial, sans-serif; /* 设置字体 */
+  font-size: 22px; /* 设置字号 */
+  line-height: 1.5; /* 设置行高 */
+  white-space: nowrap; /* 文本不换行 */
+  border-bottom: 1px solid #43341b;
+  cursor: text; /* 显示文本光标 */
+  min-width: 100px; /* 设置最小宽度，防止输入框过窄 */
+  width: 100%;
+}
+
 
 .preview-container {
   height: 120px;
