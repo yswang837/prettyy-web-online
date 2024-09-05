@@ -37,8 +37,7 @@ onMounted(() => {
 <template>
   <div class="create-center-container container">
     <div class="left-menu">
-
-      <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" :default-active="activeIndex" text-color="#fff" @select="handleSelect">
+      <el-menu active-text-color="#ffd04b" background-color="#f1f0f0" class="el-menu-vertical-demo" :default-active="activeIndex" text-color="#000" @select="handleSelect">
         <el-menu-item index="1">
           <i class="iconfont icon-home"></i>
           <span>首页</span>
@@ -102,12 +101,11 @@ onMounted(() => {
 .left-menu {
   flex: 1;
   margin-left: 150px;
-  background-color: #d3d3d3;
 }
 .right-content {
   flex: 5;
   margin-right: 150px;
-  background-color: #9d9b9b;
+  background-color: #f6f6f6;
 }
 .iconfont {
   margin-left: 20px;

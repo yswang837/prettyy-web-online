@@ -7,10 +7,13 @@ import BottomLine from "@/views/Home/components/BottomLine.vue";
 import HomeNav from "@/views/Home/components/HomeNav.vue";
 import {getArticleListAPI} from "@/apis/article.js";
 import {ref, onMounted} from "vue";
+import {useUserStore} from "@/stores/user.js";
+
+const userStore = useUserStore()
 
 const articleList = ref([])
 const getArticleList = async (page, page_size) => {
-  const res = await getArticleListAPI(page, page_size)
+  const res = await getArticleListAPI(userStore.userInfo.user.uid,page, page_size)
   articleList.value = res.result
 }
 
@@ -76,7 +79,7 @@ let disabled = ref(false)
 const load = async () => {
   // console.log('准备加载更多数据..')
   page.value++
-  const res = await getArticleListAPI(page.value, pageSize)
+  const res = await getArticleListAPI(userStore.userInfo.user.uid,page.value, pageSize)
   articleList.value=[...articleList.value,...res.result]
   // 加载完毕，停止监听
   if (res.result.length !== pageSize) {

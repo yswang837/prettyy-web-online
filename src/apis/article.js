@@ -8,10 +8,11 @@ export const publishArticleAPI = (title, content, uid, cover_img, summary) => {
     })
 }
 
-export const getArticleListAPI = (page, page_size) => {
+export const getArticleListAPI = (uid, page, page_size) => {
     return httpInstance({
         url:'/article/list',
         params: {
+            uid,
             page,
             page_size
         }
