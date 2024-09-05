@@ -115,11 +115,15 @@ const loginOut = () => {
 .app-topnav {
   background: #43342b;
   height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 }
 
 .app-topnav-container {
   display: flex;
   justify-content: space-between;
+
 }
 
 .app-topnav-container ul {
