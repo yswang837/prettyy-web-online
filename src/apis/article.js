@@ -8,6 +8,14 @@ export const publishArticleAPI = (title, content, uid, cover_img, summary) => {
     })
 }
 
+export const delArticleAPI = (aid, uid) => {
+    return httpInstance({
+        url:'/article/del',
+        method: 'POST',
+        data: { aid, uid }
+    })
+}
+
 export const getArticleListAPI = (uid, page, page_size) => {
     return httpInstance({
         url:'/article/list',

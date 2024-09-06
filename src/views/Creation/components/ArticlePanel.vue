@@ -1,4 +1,10 @@
 <script setup>
+import {useUserStore} from "@/stores/user.js";
+import {delArticleAPI} from "@/apis/article.js";
+import {ElMessage} from "element-plus";
+
+const userStore = useUserStore()
+
 defineProps({
   title: {
     type:String
@@ -16,6 +22,12 @@ defineProps({
     type:Boolean
   },
 })
+
+const toDelete = async (aid, uid) => {
+  console.log('click del')
+  await delArticleAPI(aid, uid)
+  ElMessage({type:"success", message:"删除成功"})
+}
 </script>
 
 
@@ -35,8 +47,8 @@ defineProps({
           <span><a href="#"><i class="iconfont icon-shoucang1"></i>22</a></span>
         </div>
         <div class="panel-data-detail-part2">
-          <router-link v-if="isShowEdit" to=""><i class="iconfont icon-bianji2">编辑</i></router-link>
-          <router-link v-if="isShowDelete" to=""><i class="iconfont icon-shanchu">删除</i></router-link>
+          <i v-if="isShowEdit"   class="iconfont icon-bianji2">编辑</i>
+          <i v-if="isShowDelete" @click="toDelete(aid, userStore.userInfo.user.uid)" class="iconfont icon-shanchu">删除</i>
         </div>
       </div>
     </div>
