@@ -117,7 +117,7 @@ const loginOut = () => {
   height: 50px;
   position: sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .app-topnav-container {

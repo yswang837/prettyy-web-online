@@ -22,11 +22,11 @@ defineProps({
     type:Boolean
   },
 })
-
 const toDelete = async (aid, uid) => {
   console.log('click del')
   await delArticleAPI(aid, uid)
   ElMessage({type:"success", message:"删除成功"})
+  window.location.reload()
 }
 </script>
 
