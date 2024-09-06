@@ -8,7 +8,13 @@ defineProps({
   },
   aid: {
     type:String
-  }
+  },
+  isShowEdit: {
+    type:Boolean
+  },
+  isShowDelete: {
+    type:Boolean
+  },
 })
 </script>
 
@@ -23,9 +29,15 @@ defineProps({
         <div class="title">{{ title }}</div>
       </router-link>
       <div class="panel-data-detail">
-        <span><a href="#"><i class="iconfont icon-dianzan"></i>482</a></span>
-        <span><a href="#"><i class="iconfont icon-pinglun"></i>7</a></span>
-        <span><a href="#"><i class="iconfont icon-shoucang1"></i>22</a></span>
+        <div class="panel-data-detail-part1">
+          <span><a href="#"><i class="iconfont icon-dianzan"></i>482</a></span>
+          <span><a href="#"><i class="iconfont icon-pinglun"></i>7</a></span>
+          <span><a href="#"><i class="iconfont icon-shoucang1"></i>22</a></span>
+        </div>
+        <div class="panel-data-detail-part2">
+          <router-link v-if="isShowEdit" to=""><i class="iconfont icon-bianji2">编辑</i></router-link>
+          <router-link v-if="isShowDelete" to=""><i class="iconfont icon-shanchu">删除</i></router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -76,12 +88,7 @@ defineProps({
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.panel-data-detail span {
-  margin: 0 12px;
+.panel-data-detail {
+  display: flex;
 }
-.panel-data-detail span i {
-  margin-right: 5px;
-}
-
 </style>

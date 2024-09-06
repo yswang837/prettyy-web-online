@@ -9,7 +9,7 @@ const articleList = ref([])
 const getArticleList = async (uid, page, page_size) => {
   const res = await getArticleListAPI(uid, page, page_size)
   articleList.value = res.result
-  console.log(articleList.value)
+  // console.log(articleList.value)
 }
 const handleClick = (tab) => {
   // console.log(tab)
@@ -24,7 +24,7 @@ onMounted(() => {getArticleList(userStore.userInfo.user.uid, 1,10)})
 <div>
   <el-tabs v-model="activeName" :stretch="true" @tab-click="handleClick">
     <el-tab-pane label="文章" name="tab1">
-      <ArticlePanel v-for="item in articleList" :key="item.aid" :title="item.title" :cover-img="item.cover_img"/>
+      <ArticlePanel v-for="item in articleList" :key="item.aid" :aid="item.aid" :title="item.title" :cover-img="item.cover_img" :is-show-edit="true" :is-show-delete="true"/>
     </el-tab-pane>
     <el-tab-pane label="下载" name="tab2">下载</el-tab-pane>
     <el-tab-pane label="问答" name="tab3">问答</el-tab-pane>
