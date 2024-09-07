@@ -8,9 +8,9 @@
         <a href="https://github.com/yswang837/prettyy-web-online" target="_blank">github</a>
       </div>
       <el-input v-model="keyword" placeholder="如何搭建redis的主从同步" :suffix-icon="Search" />
+      <el-button @click="publish" v-if="userStore.userInfo.token" type="primary" class="ml-12">发布</el-button>
       <el-button v-if="!userStore.userInfo.token" @click="goLogin" type="primary" class="ml-12">登录</el-button>
       <div v-else class="ml-12">
-        <el-button @click="publish" type="primary" class="ml-12">发布</el-button>
         <el-popover placement="bottom" width="60" trigger="click">
           <template #reference>
             <el-avatar style="display: block;" shape="circle" :size="40"
@@ -95,6 +95,10 @@ const logout = () => {
 .nav {
   width: 100%;
   height: 56px;
+  position: fixed;
+  top: 0;
+  z-index: 99999;
+  background: #fff;
   border-bottom: 1px solid #d6d9dc;
   border-top: 3px solid $--theme-primary;
 

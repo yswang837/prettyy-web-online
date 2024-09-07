@@ -1,163 +1,116 @@
-<script setup>
-import ArticlePanel from "@/views/Home/components/ArticlePanel.vue";
-import RightCard from '@/views/Home/components/RightCard.vue'
-import FeedBack from "@/views/Home/components/FeedBack.vue";
-import AboutUs from "@/views/Home/components/AboutUs.vue";
-import BottomLine from "@/views/Home/components/BottomLine.vue";
-import HomeNav from "@/views/Home/components/HomeNav.vue";
-import {getArticleListAPI} from "@/apis/article.js";
-import {ref, onMounted} from "vue";
-
-const articleList = ref([])
-const getArticleList = async (page, page_size) => {
-  const res = await getArticleListAPI(page, page_size)
-  articleList.value = res.result
-}
-
-onMounted(() => getArticleList(page.value, pageSize))
-
-const authDataList = ref([
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-  {
-    avatar: 'https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg',
-    nickName: '博文视点',
-    desc: 'IT出版旗舰品牌，有电子工业出版社主导，成立时间为1999年8月17日，发布了书万本销量过亿的图书'
-  },
-
-])
-
-let page = ref(1)
-const pageSize = 10
-let disabled = ref(false)
-const load = async () => {
-  // console.log('准备加载更多数据..')
-  page.value++
-  const res = await getArticleListAPI(page.value, pageSize)
-  articleList.value=[...articleList.value,...res.result]
-  // 加载完毕，停止监听
-  if (res.result.length !== pageSize) {
-    disabled.value = true
-  }
-}
-
-</script>
-
 <template>
   <div class="container">
-    <div class="main-content">
-      <div class="home-nav">
-        <HomeNav />
-      </div>
-      <div class="home-content">
-        <div class="article-section" v-infinite-scroll="load" :infinite-scroll-disabled="disabled">
-          <ArticlePanel v-for="article in articleList" :key="article.aid"
-                        :title="article.title" :summary="article.summary"
-                        :cover-img="article.cover_img" :aid="article.aid"/>
-          <BottomLine :disabled="disabled"/>
-        </div>
-        <div class="right-side">
-          <div class="auth">
-            <RightCard title="优秀作者" :auth-data-list="authDataList"/>
+    <div id="main-bar">
+      <el-tabs v-model="articleMode" class="demo-tabs">
+        <el-tab-pane label="推荐" name="suggest"></el-tab-pane>
+        <el-tab-pane label="最新" name="new"></el-tab-pane>
+      </el-tabs>
+      <ul class="article">
+        <li v-for="article in articleList" :key="article.id">
+          <div class="text">
+            <h3 class="text-title">{{ article.title }}</h3>
+            <span v-html="article.summary"></span>
           </div>
-          <div class="official-blog">
-            <RightCard title="官方博客" :auth-data-list="authDataList" sub-title="官方账号入住"/>
-          </div>
-          <div class="feedback">
-            <FeedBack />
-          </div>
-          <div class="aboutus">
-            <AboutUs />
-          </div>
-        </div>
+          <img :src="article.cover_img" />
+        </li>
+      </ul>
+    </div>
+    <div id="side-bar">
+      <div class="authors">
+        <h3>优秀作者</h3>
+        <el-divider />
+        <ul>
+          <li>
+            曹雪芹
+          </li>
+          <li>
+            施耐庵
+          </li>
+          <li>
+            吴承恩
+          </li>
+          <li>
+            唐家三少
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-.main-content {
+<script setup>
+import { ref } from 'vue';
+import { getArticleListAPI } from "@/apis/article.js";
+const articleMode = ref('suggest')
+const articleList = ref([])
+const pageParam = ref({
+  page: 1,
+  pageSize: 10
+})
+
+const getArticleList = async () => {
+  const { result } = await getArticleListAPI(pageParam.value.page, pageParam.value.pageSize)
+  articleList.value = [...articleList.value, ...result]
+}
+
+getArticleList()
+
+
+</script>
+
+<style lang="scss" scoped>
+.container {
+  width: 1200px;
+  padding: 12px;
+  margin: 56px auto;
   display: flex;
-  flex-direction: column;
-}
-.home-content {
-  display: flex;
-}
-.home-nav {
-  flex: 4;
-  margin: 20px 55px;
-}
-.article-section {
-  flex: 3;
-  margin-left: 110px;
-}
-.right-side {
-  flex: 1;
-  margin-right: 110px;
-  margin-left: 20px;
-}
-.right-side .official-blog {
-  position: sticky;
-  top: -200px;
+
+  #main-bar {
+    flex: 1;
+
+    .article {
+      li {
+        border-bottom: 1px solid #e5e6eb;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .text {
+          span {
+            color: #8f8f8f;
+          }
+
+          &-title {
+            margin-bottom: 8px;
+          }
+        }
+
+        img {
+          width: 180px;
+          height: 100px;
+        }
+      }
+    }
+  }
+
+  #side-bar {
+    margin-left: 12px;
+
+    .authors {
+      padding: 12px;
+      width: 320px;
+      height: 500px;
+      border: 1px solid #e2e2e2;
+      border-radius: 5px;
+    }
+  }
 }
 
-.right-side .feedback {
-  position: sticky;
-  top: 380px;
+::v-deep .el-divider--horizontal {
+  display: block;
+  height: 1px;
+  width: 100%;
+  margin: 12px 0;
 }
-
-.right-side .aboutus {
-  position: sticky;
-  top: 519px;
-}
-
 </style>
-
-
-
-
-
-
