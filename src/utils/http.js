@@ -9,7 +9,7 @@ import makeSign from "@/utils/makeSign.js";
 const http = axios.create({
   baseURL: 'http://120.26.203.121:8888',
   // baseURL: 'http://127.0.0.1:6677',
-  timeout: 2000
+  timeout: 5000
 })
 
 // axios请求拦截器
