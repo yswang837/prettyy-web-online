@@ -47,7 +47,7 @@ const getArticleList = async () => {
     pageParam.value.page,
     pageParam.value.pageSize
   );
-  articleList.value = [...articleList.value, ...result];
+  articleList.value = [...articleList.value, ...result.article_list];
 };
 
 getArticleList();
@@ -82,8 +82,8 @@ getArticleList();
         }
 
         img {
-          width: 180px;
           height: 100px;
+          overflow: hidden;
         }
       }
     }

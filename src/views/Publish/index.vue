@@ -5,7 +5,12 @@
       placeholder="请输入文章标题..."
       size="large"
     ></el-input>
-    <el-button @click="submit" type="primary" class="ml-12">提交</el-button>
+    <el-button @click="() => router.go(-1)" class="ml-12" style="height: 40px"
+      >返回</el-button
+    >
+    <el-button @click="submit" type="primary" style="height: 40px" class="ml-12"
+      >提交</el-button
+    >
   </div>
   <div class="container">
     <div id="vditor"></div>
@@ -24,6 +29,11 @@
 import Vditor from "vditor";
 import { onMounted, ref } from "vue";
 import { publishArticleAPI } from "@/apis/article.js";
+import { useUserStore } from "@/stores/user.js";
+import { useRouter } from "vue-router";
+import { ElMessage } from "element-plus";
+const userStore = useUserStore();
+const router = useRouter();
 
 const VDITOR = ref(null);
 
@@ -31,14 +41,19 @@ const formData = ref({
   title: "",
   summary: "",
   content: "",
-  cover_img: "",
+  cover_img:
+    "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a02a4aadb33d429999e0cbf706ddf9b0~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1080&h=568&s=106478&e=webp&b=1a2437",
+  tags: "tag",
 });
 
-const submit = () => {
-  console.log("--->", VDITOR.value.getValue());
+const submit = async () => {
   formData.value.content = VDITOR.value.getValue();
-  formData.value.cover_img = "aaa";
-  publishArticleAPI(formData.value);
+  await publishArticleAPI({
+    ...formData.value,
+    uid: userStore.userInfo.user.uid,
+  });
+  ElMessage({ type: "success", message: "提交成功" });
+  router.go(-1);
 };
 
 onMounted(() => {
@@ -47,6 +62,9 @@ onMounted(() => {
     mode: "sv",
     // 其他配置...
   });
+  setTimeout(() => {
+    VDITOR.value.setValue("");
+  }, 200);
 });
 </script>
 
@@ -57,7 +75,6 @@ onMounted(() => {
 }
 .container {
   width: 100%;
-  border: 1px solid red;
   padding: 12px;
   margin: 0 auto;
 }
