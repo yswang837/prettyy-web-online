@@ -1,6 +1,6 @@
 import httpInstance from '@/utils/http'
 // 发布文章
-export const publishArticleAPI = (title, content, uid, cover_img, summary) => {
+export const publishArticleAPI = ({title, content, uid, cover_img, summary}) => {
     return httpInstance({
         url:'/article/publish',
         method: 'POST',

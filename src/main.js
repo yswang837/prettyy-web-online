@@ -2,6 +2,7 @@ import '@/styles/common.scss'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import ElementPlus from "element-plus";
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import "vditor/src/assets/less/index.less"
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'

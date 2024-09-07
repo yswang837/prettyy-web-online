@@ -82,6 +82,9 @@ const loginOrRegisterByCode = async () => {
   loginDialogShow.value = false
   router.push({ path: '/' })
 }
+const publish = () =>{
+  router.push({ path: '/publish-article' })
+}
 
 const logout = () => {
   userStore.LoginOut()

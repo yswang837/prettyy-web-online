@@ -1,4 +1,5 @@
 <template>
+  <LayoutNav />
   <div class="container">
     <div id="main-bar">
       <el-tabs v-model="articleMode" class="demo-tabs">
@@ -20,18 +21,10 @@
         <h3>优秀作者</h3>
         <el-divider />
         <ul>
-          <li>
-            曹雪芹
-          </li>
-          <li>
-            施耐庵
-          </li>
-          <li>
-            吴承恩
-          </li>
-          <li>
-            唐家三少
-          </li>
+          <li>曹雪芹</li>
+          <li>施耐庵</li>
+          <li>吴承恩</li>
+          <li>唐家三少</li>
         </ul>
       </div>
     </div>
@@ -39,23 +32,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
+import LayoutNav from "../Layout/components/LayoutNav.vue";
 import { getArticleListAPI } from "@/apis/article.js";
-const articleMode = ref('suggest')
-const articleList = ref([])
+const articleMode = ref("suggest");
+const articleList = ref([]);
 const pageParam = ref({
   page: 1,
-  pageSize: 10
-})
+  pageSize: 10,
+});
 
 const getArticleList = async () => {
-  const { result } = await getArticleListAPI(pageParam.value.page, pageParam.value.pageSize)
-  articleList.value = [...articleList.value, ...result]
-}
+  const { result } = await getArticleListAPI(
+    pageParam.value.page,
+    pageParam.value.pageSize
+  );
+  articleList.value = [...articleList.value, ...result];
+};
 
-getArticleList()
-
-
+getArticleList();
 </script>
 
 <style lang="scss" scoped>
