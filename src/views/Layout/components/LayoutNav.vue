@@ -2,7 +2,7 @@
   <div class="nav">
     <div class="nav--container">
       <div class="nav--container--links">
-        <a>笔尖</a>
+        <a @click="router.push('/')">笔尖</a>
         <a>资源</a>
         <a>学习</a>
         <a

@@ -7,7 +7,11 @@
         <el-tab-pane label="最新" name="new"></el-tab-pane>
       </el-tabs>
       <ul class="article">
-        <li v-for="article in articleList" :key="article.id">
+        <li
+          v-for="article in articleList"
+          :key="article.id"
+          @click="goPreview(article)"
+        >
           <div class="text">
             <h3 class="text-title">{{ article.title }}</h3>
             <span v-html="article.summary"></span>
@@ -35,6 +39,7 @@
 import { ref } from "vue";
 import LayoutNav from "../Layout/components/LayoutNav.vue";
 import { getArticleListAPI } from "@/apis/article.js";
+import router from "@/router";
 const articleMode = ref("suggest");
 const articleList = ref([]);
 const pageParam = ref({
@@ -49,7 +54,14 @@ const getArticleList = async () => {
   );
   articleList.value = [...articleList.value, ...result.article_list];
 };
-
+const goPreview = (article) => {
+  router.push({
+    path: "preview",
+    query: {
+      aid: article.aid,
+    },
+  });
+};
 getArticleList();
 </script>
 
