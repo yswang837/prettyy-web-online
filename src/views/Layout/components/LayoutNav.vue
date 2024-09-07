@@ -5,26 +5,62 @@
         <a>笔尖</a>
         <a>资源</a>
         <a>学习</a>
-        <a href="https://github.com/yswang837/prettyy-web-online" target="_blank">github</a>
+        <a
+          href="https://github.com/yswang837/prettyy-web-online"
+          target="_blank"
+          >github</a
+        >
       </div>
-      <el-input v-model="keyword" placeholder="如何搭建redis的主从同步" :suffix-icon="Search" />
-      <el-button @click="publish" v-if="userStore.userInfo.token" type="primary" class="ml-12">发布</el-button>
-      <el-button v-if="!userStore.userInfo.token" @click="goLogin" type="primary" class="ml-12">登录</el-button>
+      <el-input
+        v-model="keyword"
+        placeholder="如何搭建redis的主从同步"
+        :suffix-icon="Search"
+      />
+      <el-button
+        @click="publish"
+        v-if="userStore.userInfo.token"
+        type="primary"
+        class="ml-12"
+        >发布</el-button
+      >
+      <el-button
+        v-if="!userStore.userInfo.token"
+        @click="goLogin"
+        type="primary"
+        class="ml-12"
+        >登录</el-button
+      >
       <div v-else class="ml-12">
         <el-popover placement="bottom" width="60" trigger="click">
           <template #reference>
-            <el-avatar style="display: block;" shape="circle" :size="40"
-              src="https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg" />
+            <el-avatar
+              style="display: block"
+              shape="circle"
+              :size="40"
+              src="https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg"
+            />
           </template>
-          <el-button @click="logout" type="text" style="margin: 0 auto;display: block;">退出</el-button>
+          <el-button
+            @click="logout"
+            type="text"
+            style="margin: 0 auto; display: block"
+            >退出</el-button
+          >
         </el-popover>
-
       </div>
     </div>
   </div>
-  <el-dialog v-model="loginDialogShow" title="登录笔尖平台" width="360" :before-close="handleClose">
-    <el-form ref="form" style="max-width: 330px" :model="loginData" :rules="rules" label-width="auto"
-      class="demo-ruleForm" :size="formSize" status-icon>
+  <el-dialog v-model="loginDialogShow" title="登录笔尖平台" width="360">
+    <el-form
+      ref="form"
+      style="max-width: 330px"
+      :model="loginData"
+      :rules="rules"
+      label-width="auto"
+      class="demo-ruleForm"
+      :size="formSize"
+      status-icon
+    >
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="loginData.email" />
       </el-form-item>
@@ -48,59 +84,62 @@
 </template>
 
 <script setup>
-import { Search } from '@element-plus/icons-vue'
-import { getIdentityCodeByEmailAPI } from '@/apis/base.js';
-import { ref } from 'vue';
+import { Search } from "@element-plus/icons-vue";
+import { getIdentityCodeByEmailAPI } from "@/apis/base.js";
+import { ref } from "vue";
 import { useUserStore } from "@/stores/user.js";
 import { useRouter } from "vue-router";
 import { ElMessage } from "element-plus";
 
-const userStore = useUserStore()
-const router = useRouter()
+const userStore = useUserStore();
+const router = useRouter();
 
-const keyword = ref('')
+const keyword = ref("");
 
-const loginDialogShow = ref(false)
+const loginDialogShow = ref(false);
 
 const loginData = ref({
-  email: '',
-  identify_code: ''
-})
+  email: "",
+  identify_code: "",
+});
 
 const goLogin = () => {
-  loginDialogShow.value = true
-}
+  loginDialogShow.value = true;
+};
 const getIdentityCode = () => {
-  getIdentityCodeByEmailAPI(loginData.value.email)
-}
+  getIdentityCodeByEmailAPI(loginData.value.email);
+};
 
 // 通过邮箱和验证码登录
 const loginOrRegisterByCode = async () => {
-  await userStore.loginByCodeAndSetUserInfo(loginData.value.email, loginData.value.identify_code, 1)
-  ElMessage({ type: 'success', message: '登录成功' })
+  await userStore.loginByCodeAndSetUserInfo(
+    loginData.value.email,
+    loginData.value.identify_code,
+    1
+  );
+  ElMessage({ type: "success", message: "登录成功" });
   // 跳转到首页
-  loginDialogShow.value = false
-  router.push({ path: '/' })
-}
-const publish = () =>{
-  router.push({ path: '/publish-article' })
-}
+  loginDialogShow.value = false;
+  router.push({ path: "/" });
+};
+const publish = () => {
+  router.push({ path: "/publish-article" });
+};
 
 const logout = () => {
-  userStore.LoginOut()
-}
-
+  userStore.LoginOut();
+};
 </script>
 
-<style scoped lang='scss'>
-@import '../../../styles/var';
+<style scoped lang="scss">
+@import "../../../styles/var";
 
 .nav {
   width: 100%;
   height: 56px;
   position: fixed;
+  z-index: 100;
   top: 0;
-  z-index: 99999;
   background: #fff;
   border-bottom: 1px solid #d6d9dc;
   border-top: 3px solid $--theme-primary;
