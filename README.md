@@ -369,19 +369,22 @@ curl --request POST --url http://ip:port/file/upload --header 'Authorization: Be
   - 发布文章。
   - 请求方式：POST
 
-| 参数名       | 类型     | 是否必填 | 参数说明                |
-|-----------|--------|------|---------------------|
-| title     | string | 是    | 文章标题                |
-| content   | string | 是    | 文章内容，不参与验签          |
-| cover_img | string | 是    | 文章封面url             |
-| summary   | string | 是    | 文章摘要                |
-| uid       | int    | 是    | 用户ID                |
-| caller    | string | 是    | 调用方标识，请传递固定字符串`web` |
-| sign      | string | 是    | 签名，见"验签sign字段"      |
+| 参数名         | 类型     | 是否必填 | 参数说明                                               |
+|-------------|--------|------|----------------------------------------------------|
+| title       | string | 是    | 文章标题                                               |
+| content     | string | 是    | 文章内容，不参与验签                                         |
+| cover_img   | string | 是    | 文章封面url                                            |
+| summary     | string | 是    | 文章摘要                                               |
+| visibility  | string | 否    | 文章的可见性，默认全部可见 "1"-全部可见 "2"-VIP可见 "3"-粉丝可见 "4"-仅我可见 |
+| tags        | string | 是    | 文章标签，以英文逗号分隔，最多10个标签，由用户发文的时候打标签                   |
+| typ         | string | 否    | 文章类型，默认原创，"1"-原创 "2"-转载 "3"-翻译 "4"-其他              |
+| uid         | int    | 是    | 用户ID                                               |
+| caller      | string | 是    | 调用方标识，请传递固定字符串`web`                                |
+| sign        | string | 是    | 签名，见"验签sign字段"                                     |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/article/publish --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMTgwMTM5LCJpYXQiOjE3MjExODAxMzl9fQ.UXcN0t5kxzq9aBgMOU9jQ5P5LtaFZg_lFeyShuZPmsc' --header 'content-type: application/x-www-form-urlencoded' --data 'title=如何搭建redis主从同步集群' --data 'caller=web' --data 'content=Redis 主从复制集群是一种高可用性架构，它允许多个Redis实例（节点）之间进行数据复制。在这种架构中，一个Redis节点被指定为主节点（master），其他节点作为从节点（slaves）。' --data uid=10001 --data cover_img=https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg --data 'summary=Redis 主从复制集群是一种高可用性架构，它允许多个Redis实例（节点）之间进行数据复制。' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/article/publish --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMTgwMTM5LCJpYXQiOjE3MjExODAxMzl9fQ.UXcN0t5kxzq9aBgMOU9jQ5P5LtaFZg_lFeyShuZPmsc' --header 'content-type: application/x-www-form-urlencoded' --data 'title=如何搭建redis主从同步集群' --data 'visibility=1' --data 'tags=数据结构,leetcode,golang解法' --data 'typ=1' --data 'caller=web' --data 'content=Redis 主从复制集群是一种高可用性架构，它允许多个Redis实例（节点）之间进行数据复制。在这种架构中，一个Redis节点被指定为主节点（master），其他节点作为从节点（slaves）。' --data uid=10001 --data cover_img=https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg --data 'summary=Redis 主从复制集群是一种高可用性架构，它允许多个Redis实例（节点）之间进行数据复制。' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
