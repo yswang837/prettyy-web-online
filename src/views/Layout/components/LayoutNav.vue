@@ -197,85 +197,58 @@ const loginOut = () => {
   margin-right: 45px;
   width: 40px;
   height: 40px;
-
+  position: relative;
+  transition: all .3s;
+}
+.top-right-items .avatar:hover {
+  top: 2px;
 }
 .top-right-items li {
+  margin-top: 3px;
   padding: 0 10px;
 }
 .publish-btn {
   background-color: $bjColor;
   color: white;
   border-radius: 20px;
-  margin-top: 2px;
   margin-left: 13px;
 }
 .icon-tianjia1 {
   padding: 0 5px;
 }
 
-//.app-topnav-container ul li:first-child {
-//  padding-left: 0;
-//}
-//
-//.app-topnav-container ul li:hover a {
-//  color: #ffa200;
-//}
-//
-//.app-topnav-container ul li a {
-//  color: white;
-//}
-//
+.person-data {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.nick-name {
+  font-size: 16px;
+  text-align: center;
+  color: #43341b;
+}
+.func-list li {
+  padding: 5px;
+}
+.func-list li:hover {
+  background-color: #f0f0f5;
+}
+.func-list li i {
+  padding-right: 12px;
+}
+.main-func-list {
+  display: flex;
+  flex-wrap: wrap;
+}
 
-//
-//.search-input {
-//  width: 500px;
-//  height: 33px;
-//}
-//
-//.search-button {
-//  height: 33px;
-//  font-size: 14px;
-//  width: 66px;
-//}
-//
-//.nick-name {
-//  font-size: 16px;
-//  text-align: center;
-//  color: #43341b;
-//}
-//
-//.person-data {
-//  display: flex;
-//  justify-content: space-between;
-//  text-align: center;
-//}
-//
-//.func-list li {
-//  padding: 5px;
-//}
-//
-//.func-list li:hover {
-//  background-color: #cecece;
-//}
-//
-//
-//.func-list li i {
-//  padding-right: 12px;
-//}
-//
-//.main-func-list {
-//  display: flex;
-//  flex-wrap: wrap;
-//}
-//
-//.main-func-list li {
-//  padding: 8px 12px;
-//}
-//
-//.main-func-list i {
-//  margin-right: 3px;
-//}
-//
+.main-func-list li {
+  padding: 8px 12px;
+}
+
+.main-func-list i {
+  margin-right: 3px;
+}
+
 //.btn {
 //  margin-top: 10px;
 //  margin-left: 12px;
