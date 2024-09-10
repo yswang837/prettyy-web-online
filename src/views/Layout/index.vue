@@ -5,7 +5,7 @@ import LayoutFooter from './components/LayoutFooter.vue'
 
 <template>
   <LayoutNav />
-    <!-- 二级路由出口，也就是Home 和 Category组件 -->
+    <!-- 二级路由出口 -->
     <Router-View />
   <LayoutFooter />
 </template>
