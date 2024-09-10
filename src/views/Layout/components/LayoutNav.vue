@@ -1,20 +1,20 @@
 <script setup>
-// import {useUserStore} from "@/stores/user.js";
-// import {ElMessage} from "element-plus";
-// import {ref} from "vue";
-// import Login from "@/views/Login/index.vue";
-//
-// const userStore = useUserStore()
-//
-// let c1 = ref()
-// const toLoginComponent = ()=>{
-//   c1.value.showLoginDialog = true
-// }
-//
-// const loginOut = () => {
-//   userStore.LoginOut()
-//   ElMessage({type:'success', message:'退出登录成功'})
-// }
+import {useUserStore} from "@/stores/user.js";
+import {ElMessage} from "element-plus";
+import {ref} from "vue";
+import Login from "@/views/Login/index.vue";
+
+const userStore = useUserStore()
+
+let c1 = ref()
+const toLoginComponent = ()=>{
+  c1.value.showLoginDialog = true
+}
+
+const loginOut = () => {
+  userStore.LoginOut()
+  ElMessage({type:'success', message:'退出登录成功'})
+}
 
 </script>
 
@@ -32,7 +32,7 @@
       <li><router-link to="/">学习</router-link></li>
       <li><router-link to="/">社区</router-link></li>
       <li><router-link to="/">知道</router-link></li>
-      <li><router-link to="/">Github地址</router-link></li>
+      <li><a href="https://github.com/yswang837/prettyy-web-online" target="_blank">笔尖Github地址</a></li>
       <li><router-link to="/">InsCode</router-link></li>
       <li><router-link to="/">会议</router-link></li>
     </ul>
@@ -42,80 +42,86 @@
         <el-button class="search-button"><i class="iconfont icon-sousuo"></i>搜索</el-button>
       </div>
     </div>
+    <div class="top-right">
+      <ul class="top-right-items">
+        <!--    多模板渲染，区分登录状态和非登录状态    -->
+        <!--    适配思路，登录后显示第一块，非登录显示第二块，用是否有token来判断是否登录    -->
+        <template v-if="userStore.userInfo.token">
+          <li class="avatar">
+            <a href="#">
+              <el-popover placement="bottom" :width="100" trigger="hover">
+                <template #reference>
+                  <el-avatar shape="circle" :size="40" :src="userStore.userInfo.user.avatar"/>
+                </template>
+                <div class="nick-name">{{userStore.userInfo.user.nick_name}}</div>
+                <hr>
+                <div class="person-data">
+                  <div>
+                    <router-link to="/">
+                      <div>301</div>
+                      <div>粉丝</div>
+                    </router-link>
+                  </div>
+                  <div>
+                    <router-link to="/">
+                      <div>29</div>
+                      <div>关注</div>
+                    </router-link>
+                  </div>
+                  <div>
+                    <router-link to="/">
+                      <div>155</div>
+                      <div>获赞</div>
+                    </router-link>
+                  </div>
+                </div>
+                <hr>
+                <ul class="func-list">
+                  <li><router-link :to="{path: `user-center`}"><i class="iconfont icon-geren"></i>个人中心</router-link></li>
+                  <li><router-link :to="{path: `creation-center/2-1`}"><i class="iconfont icon-wodewengao"></i>内容管理</router-link></li>
+                  <li><router-link to="/"><i class="iconfont icon-xiaoyuanzhaopin"></i>我的学习</router-link></li>
+                  <li><router-link to="/"><i class="iconfont icon-dingdan"></i>我的订单</router-link></li>
+                  <li><router-link to="/"><i class="iconfont icon-licai"></i>我的钱包</router-link></li>
+                  <li><router-link to="/"><i class="iconfont icon-yunzhineng"></i>我的云服务</router-link></li>
+                  <li><router-link to="/"><i class="iconfont icon-dengji"></i>我的等级</router-link></li>
+                  <li><router-link to="/"><i class="iconfont icon-liwu"></i>签到抽奖</router-link></li>
+                  <li><router-link to="/" @click="loginOut"><i class="iconfont icon-tuichu"></i>退出登录</router-link></li>
+                </ul>
+              </el-popover>
+            </a>
+          </li>
+          <li><a href="#">会员中心</a></li>
+          <li><a href="#">消息</a></li>
+          <li><a href="#">历史</a></li>
+          <li><router-link to="/creation-center">创作中心</router-link></li>
+          <li>
+            <router-link to="/publish-article">
+              <el-button class="publish-btn"><i class="iconfont icon-tianjia1"></i>发布</el-button>
+            </router-link>
+          </li>
+        </template>
+        <template v-else>
+          <li>
+            <el-popover placement="bottom" title="登录享更多权益：" :width="350" trigger="hover" content="this is content">
+              <template #reference>
+                <el-button @click="toLoginComponent">登录</el-button>
+              </template>
+              <ul class="main-func-list">
+                <li><i class="iconfont icon-daimashili"></i>免费复制全文</li>
+                <li><i class="iconfont icon-shoucang"></i>关注/点赞/评论/收藏</li>
+                <li><i class="iconfont icon-xiazai"></i>下载海量资源</li>
+                <li><i class="iconfont icon-bianji"></i>写文章/发动态/加入社区</li>
+              </ul>
+              <el-button class="btn" type="primary" @click="toLoginComponent">立即登录</el-button>
+            </el-popover>
+          </li>
+          <li><a href="#">帮助中心</a></li>
+          <li><a href="#">关于我们</a></li>
+        </template>
+      </ul>
+      <Login ref="c1" />
+    </div>
 
-<!--      <ul>-->
-<!--        &lt;!&ndash;    多模板渲染，区分登录状态和非登录状态    &ndash;&gt;-->
-<!--        &lt;!&ndash;    适配思路，登录后显示第一块，非登录显示第二块，用是否有token来判断是否登录    &ndash;&gt;-->
-<!--        <template v-if="userStore.userInfo.token">-->
-<!--          <li class="avatar">-->
-<!--            <a href="#">-->
-<!--              <el-popover placement="bottom" :width="100" trigger="hover">-->
-<!--                <template #reference>-->
-<!--                  <el-avatar shape="circle" :size="40" :src="userStore.userInfo.user.avatar"/>-->
-<!--                </template>-->
-<!--                <div class="nick-name">{{userStore.userInfo.user.nick_name}}</div>-->
-<!--                <hr>-->
-<!--                <div class="person-data">-->
-<!--                  <div>-->
-<!--                    <router-link to="/">-->
-<!--                      <div>301</div>-->
-<!--                      <div>粉丝</div>-->
-<!--                    </router-link>-->
-<!--                  </div>-->
-<!--                  <div>-->
-<!--                    <router-link to="/">-->
-<!--                      <div>29</div>-->
-<!--                      <div>关注</div>-->
-<!--                    </router-link>-->
-<!--                  </div>-->
-<!--                  <div>-->
-<!--                    <router-link to="/">-->
-<!--                      <div>155</div>-->
-<!--                      <div>获赞</div>-->
-<!--                    </router-link>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <hr>-->
-<!--                <ul class="func-list">-->
-<!--                  <li><router-link :to="{path: `user-center`}"><i class="iconfont icon-geren"></i>个人中心</router-link></li>-->
-<!--                  <li><router-link :to="{path: `creation-center/2-1`}"><i class="iconfont icon-wodewengao"></i>内容管理</router-link></li>-->
-<!--                  <li><router-link to="/"><i class="iconfont icon-xiaoyuanzhaopin"></i>我的学习</router-link></li>-->
-<!--                  <li><router-link to="/"><i class="iconfont icon-dingdan"></i>我的订单</router-link></li>-->
-<!--                  <li><router-link to="/"><i class="iconfont icon-licai"></i>我的钱包</router-link></li>-->
-<!--                  <li><router-link to="/"><i class="iconfont icon-yunzhineng"></i>我的云服务</router-link></li>-->
-<!--                  <li><router-link to="/"><i class="iconfont icon-dengji"></i>我的等级</router-link></li>-->
-<!--                  <li><router-link to="/"><i class="iconfont icon-liwu"></i>签到抽奖</router-link></li>-->
-<!--                  <li><router-link to="/" @click="loginOut"><i class="iconfont icon-tuichu"></i>退出登录</router-link></li>-->
-<!--                </ul>-->
-<!--              </el-popover>-->
-<!--            </a>-->
-<!--          </li>-->
-<!--          <li><a href="#">会员中心</a></li>-->
-<!--          <li><a href="#">消息</a></li>-->
-<!--          <li><a href="#">历史</a></li>-->
-<!--          <li><router-link to="/creation-center">创作中心</router-link></li>-->
-<!--          <li> <router-link to="/publish-article">发布</router-link> </li>-->
-<!--        </template>-->
-<!--        <template v-else>-->
-<!--          <li>-->
-<!--              <el-popover placement="bottom" title="登录享更多权益：" :width="350" trigger="hover" content="this is content">-->
-<!--                <template #reference>-->
-<!--                  <el-button @click="toLoginComponent">登录</el-button>-->
-<!--                </template>-->
-<!--                <ul class="main-func-list">-->
-<!--                  <li><i class="iconfont icon-daimashili"></i>免费复制全文</li>-->
-<!--                  <li><i class="iconfont icon-shoucang"></i>关注/点赞/评论/收藏</li>-->
-<!--                  <li><i class="iconfont icon-xiazai"></i>下载海量资源</li>-->
-<!--                  <li><i class="iconfont icon-bianji"></i>写文章/发动态/加入社区</li>-->
-<!--                </ul>-->
-<!--                <el-button class="btn" type="primary" @click="toLoginComponent">立即登录</el-button>-->
-<!--              </el-popover>-->
-<!--          </li>-->
-<!--          <li><a href="#">帮助中心</a></li>-->
-<!--          <li><a href="#">关于我们</a></li>-->
-<!--        </template>-->
-<!--      </ul>-->
-<!--      <Login ref="c1" />-->
   </nav>
 </template>
 
@@ -161,6 +167,7 @@
 .search-button, .search-input:deep(.el-input__wrapper) {
   border-radius: 0;
 }
+// todo 搜索框选中的时候，边框颜色显示为$bjColor
 .search-input:deep(.el-input__wrapper) {
   border-top-left-radius: 20px; /* 右上角圆角 */
   border-bottom-left-radius: 20px; /* 右下角圆角 */
@@ -180,13 +187,32 @@
 .icon-sousuo {
   margin-right: 5px;
 }
-//
-//.app-topnav-container ul .avatar {
-//  margin-top: 5px;
-//}
-//
+.top-right-items {
+  display: flex;
+  align-items: center;
+}
+.top-right-items .avatar {
+  margin-top: 4px;
+  margin-left: 15px;
+  margin-right: 45px;
+  width: 40px;
+  height: 40px;
 
-//
+}
+.top-right-items li {
+  padding: 0 10px;
+}
+.publish-btn {
+  background-color: $bjColor;
+  color: white;
+  border-radius: 20px;
+  margin-top: 2px;
+  margin-left: 13px;
+}
+.icon-tianjia1 {
+  padding: 0 5px;
+}
+
 //.app-topnav-container ul li:first-child {
 //  padding-left: 0;
 //}
