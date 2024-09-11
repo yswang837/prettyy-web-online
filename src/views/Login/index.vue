@@ -182,7 +182,11 @@ const handleClick = (tab) => {
 </script>
 
 <template>
-  <el-dialog v-model="showLoginDialog" width="35%" center :show-close="false">
+  <el-dialog class="my-dialog" v-model="showLoginDialog" width="35%" center :show-close="false">
+    <div class="welcome-msg">
+      <span class="welcome-words">终于等到你~</span>
+      <el-image class="welcome-img" src="http://sihrw5mu0.sabkt.gdipper.com/wel_tips.5624828-removebg-preview.png" alt=""></el-image>
+    </div>
     <el-tabs v-model="activeName" :stretch="true" @tab-click="handleClick">
       <el-tab-pane label="免密登录" name="1">
         <el-form @keyup.enter="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)"
@@ -235,6 +239,22 @@ const handleClick = (tab) => {
 </template>
 
 <style scoped>
+
+.my-dialog :deep(.el-dialog__body) {
+  padding: 0 !important;
+}
+.welcome-msg {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  background-color: #f7f7fc;
+}
+.welcome-words {
+
+}
+.welcome-img {
+  width: 56px;
+}
 .explain {
   font-size: 12px;
   margin-left: 20px;

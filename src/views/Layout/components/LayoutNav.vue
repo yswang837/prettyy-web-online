@@ -58,19 +58,19 @@ const loginOut = () => {
                 <div class="person-data">
                   <div>
                     <router-link to="/">
-                      <div>301</div>
+                      <div class="person-data-number">301</div>
                       <div>粉丝</div>
                     </router-link>
                   </div>
                   <div>
                     <router-link to="/">
-                      <div>29</div>
+                      <div class="person-data-number">29</div>
                       <div>关注</div>
                     </router-link>
                   </div>
                   <div>
                     <router-link to="/">
-                      <div>155</div>
+                      <div class="person-data-number">155</div>
                       <div>获赞</div>
                     </router-link>
                   </div>
@@ -102,9 +102,9 @@ const loginOut = () => {
         </template>
         <template v-else>
           <li>
-            <el-popover placement="bottom" title="登录享更多权益：" :width="350" trigger="hover" content="this is content">
+            <el-popover placement="bottom" title="登录享更多权益：" :width="350" trigger="hover">
               <template #reference>
-                <el-button @click="toLoginComponent">登录</el-button>
+                <el-avatar class="to-login-avatar" @click="toLoginComponent">登录</el-avatar>
               </template>
               <ul class="main-func-list">
                 <li><i class="iconfont icon-daimashili"></i>免费复制全文</li>
@@ -115,8 +115,15 @@ const loginOut = () => {
               <el-button class="btn" type="primary" @click="toLoginComponent">立即登录</el-button>
             </el-popover>
           </li>
-          <li><a href="#">帮助中心</a></li>
-          <li><a href="#">关于我们</a></li>
+          <li><a href="#">会员中心</a></li>
+          <li><a href="#">消息</a></li>
+          <li><a href="#">历史</a></li>
+          <li><a href="#">创作中心</a></li>
+          <li>
+            <router-link to="/publish-article">
+              <el-button class="publish-btn"><i class="iconfont icon-tianjia1"></i>发布</el-button>
+            </router-link>
+          </li>
         </template>
       </ul>
       <Login ref="c1" />
@@ -154,7 +161,9 @@ const loginOut = () => {
 }
 .top-left li:hover {
   background-color: #f0f0f5;
-  padding: 0 10px;
+}
+.top-left li:first-child:hover {
+  background-color: white;
 }
 .top-middle {
   padding: 0 32px;
@@ -222,6 +231,10 @@ const loginOut = () => {
   justify-content: space-between;
   text-align: center;
 }
+.person-data-number {
+  font-weight: bold;
+  font-size: 16px;
+}
 .nick-name {
   font-size: 16px;
   text-align: center;
@@ -240,15 +253,20 @@ const loginOut = () => {
   display: flex;
   flex-wrap: wrap;
 }
-
 .main-func-list li {
   padding: 8px 12px;
 }
-
 .main-func-list i {
   margin-right: 3px;
 }
-
+.to-login-avatar {
+  cursor: pointer;
+  color: #222226;
+  background-color: #e8e8ed;
+  margin-top: 2px;
+  margin-left: 10px;
+  margin-right: 30px;
+}
 //.btn {
 //  margin-top: 10px;
 //  margin-left: 12px;
