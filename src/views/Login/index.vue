@@ -11,7 +11,7 @@ const userStore = useUserStore()
 const captchaStore = useCaptchaStore()
 
 // 控制登录的弹窗是否显示
-const showLoginDialog = ref(true)
+const showLoginDialog = ref(false)
 defineExpose({showLoginDialog})
 
 // 默认显示免密登录的tab
@@ -265,6 +265,7 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
 }
 .welcome-img {
   width: 56px;
+  top: 4px;
   margin-right: 35px;
 }
 .login-slogan1 {
