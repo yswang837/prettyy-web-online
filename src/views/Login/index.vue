@@ -11,7 +11,7 @@ const userStore = useUserStore()
 const captchaStore = useCaptchaStore()
 
 // 控制登录的弹窗是否显示
-const showLoginDialog = ref(false)
+const showLoginDialog = ref(true)
 defineExpose({showLoginDialog})
 
 // 默认显示免密登录的tab
@@ -182,11 +182,16 @@ const handleClick = (tab) => {
 </script>
 
 <template>
-  <el-dialog class="my-dialog" v-model="showLoginDialog" width="35%" center :show-close="false">
-    <div class="welcome-msg">
-      <span class="welcome-words">终于等到你~</span>
-      <el-image class="welcome-img" src="http://sihrw5mu0.sabkt.gdipper.com/wel_tips.5624828-removebg-preview.png" alt=""></el-image>
-    </div>
+  <el-dialog v-model="showLoginDialog" width="410px" style="padding: 0" center :show-close="false">
+    <template #header="{}">
+      <div class="welcome-msg">
+        <span class="welcome-words">终于等到你~</span>
+        <el-image class="welcome-img" src="http://sihrw5mu0.sabkt.gdipper.com/wel_tips.5624828-removebg-preview.png" alt=""></el-image>
+      </div>
+      <div>登录可享更多权益</div>
+    </template>
+    <div v-if="activeName==='1'">与专业的创作者进行 深度的互动交流</div>
+    <div v-if="activeName==='2'">提高技能水平 海量资源免费使用</div>
     <el-tabs v-model="activeName" :stretch="true" @tab-click="handleClick">
       <el-tab-pane label="免密登录" name="1">
         <el-form @keyup.enter="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)"
@@ -239,10 +244,6 @@ const handleClick = (tab) => {
 </template>
 
 <style scoped>
-
-.my-dialog :deep(.el-dialog__body) {
-  padding: 0 !important;
-}
 .welcome-msg {
   display: flex;
   justify-content: end;
