@@ -204,7 +204,7 @@ const handleClick = (tab) => {
               <span class="explain">未注册邮箱验证通过后将自动注册并登录</span>
               <el-form-item prop="agree" label-width="22px">
                 <el-checkbox  size="large" v-model="form1.agree">同意</el-checkbox>
-                <a href="#" target="_blank" class="service-policy">《隐私保护协议》</a>和<a href="#" target="_blank" class="service-policy">《服务条款》</a>
+                <router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link>
               </el-form-item>
               <el-button class="login-btn" type="primary" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录/注册</el-button>
         </el-form>
@@ -228,7 +228,7 @@ const handleClick = (tab) => {
           <div class="explain">未注册邮箱验证通过后将自动注册并登录</div>
           <el-form-item prop="agree" label-width="22px">
             <el-checkbox v-model="form2.agree" size="large">同意</el-checkbox>
-            <a href="#" target="_blank" class="service-policy">《隐私保护协议》</a>和<a href="#" target="_blank" class="service-policy">《服务条款》</a>
+            <router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link>
           </el-form-item>
           <el-button class="login2-btn" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
                      type="primary">登录/注册</el-button>
