@@ -164,8 +164,6 @@ const getIdentityCodeByEmail = async (email)=>{
   countDown2.startCountDown(60)
 }
 
-
-
 // 获取验证码按钮
 const disabled = computed(() => countDown2.timeLeft.value > 0)
 
@@ -176,8 +174,11 @@ const handleClick = (tab) => {
   if (tab.props.name === '2') {
     captchaStore.getIdentityCode()
   }
-
 }
+
+// 美化登录按钮，所有字段都填了才显示正常颜色，否则显示淡一点的颜色
+const isFilledAll1 = computed(()=>form1.value.email && form1.value.identifyCode1 && form1.value.agree)
+const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && form2.value.captcha && form2.value.agree)
 
 </script>
 
@@ -200,13 +201,13 @@ const handleClick = (tab) => {
                 <el-input v-model="form1.email" placeholder="请输入邮箱" clearable/>
               </el-form-item>
               <el-form-item prop="identifyCode1">
-                <el-input v-model="form1.identifyCode1" placeholder="请输入验证码" clearable>
+                <el-input v-model="form1.identifyCode1" placeholder="6位数字验证码" clearable>
                     <template v-slot:append>
                         <el-button :disabled="disabled" @click="getIdentityCodeByEmail(form1.email)">{{buttonText}}</el-button>
                     </template>
                 </el-input>
               </el-form-item>
-              <el-button class="login-btn" type="primary" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录</el-button>
+              <el-button :class="[isFilledAll1?'filled-all':'not-filled-all','login-btn']" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录</el-button>
           <el-form-item prop="agree">
             <el-checkbox  size="small" v-model="form1.agree"></el-checkbox>
             <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
@@ -224,13 +225,13 @@ const handleClick = (tab) => {
             <el-input v-model="form2.password" type="password" show-password placeholder="请输入密码" clearable/>
           </el-form-item>
           <el-form-item prop="captcha">
-            <el-input class="captcha-input" v-model="form2.captcha" placeholder="请输入验证码" clearable>
+            <el-input class="captcha-input" v-model="form2.captcha" placeholder="6位数字验证码" clearable>
               <template v-slot:append>
                   <img class="captcha-img" @click="captchaStore.getIdentityCode" :src="captchaStore.captchaInfo.picPath" alt>
               </template>
             </el-input>
           </el-form-item>
-          <el-button class="login2-btn" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
+          <el-button :class="[isFilledAll2?'filled-all':'not-filled-all','login2-btn']" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
                      type="primary">登录</el-button>
           <el-form-item prop="agree" class="agree-box">
             <el-checkbox v-model="form2.agree" size="small"></el-checkbox>
@@ -241,9 +242,10 @@ const handleClick = (tab) => {
     </el-tabs>
     <template #footer="{}">
       <span class="other-words">其他登录方式</span>
-      <div >
+      <div>
         <img class="other-login-img" src="@/assets/images/social-weibo.svg" alt="">
         <img class="other-login-img" src="@/assets/images/GitHub.svg" alt="">
+        <img class="other-login-img" src="@/assets/images/weixin.svg" alt="">
         <img class="other-login-img" src="@/assets/images/QQ.svg" alt="">
         <img class="other-login-img" src="@/assets/images/baidu.svg" alt="">
       </div>
@@ -295,19 +297,25 @@ const handleClick = (tab) => {
   width: 80px;
   cursor: pointer;
 }
-
 .captcha-input {
   height: 30px;
 }
-
 .captcha-input :deep(.el-input-group__append) {
   padding: 0;
 }
-
 .login-btn, .login2-btn {
   width: 100%;
   margin-top: 12px;
   border-radius: 20px;
+  color: white;
+}
+.filled-all {
+  background-color: #e96140; /* todo 不知道为什么这里不能用$bjColor */
+  border: 1px solid #e96140; /* todo 不知道为什么这里不能用$bjColor */
+}
+.not-filled-all {
+  background-color: #e29f8a;
+  border: 1px solid #e29f8a;
 }
 .other-words {
   color: #999aa9;
