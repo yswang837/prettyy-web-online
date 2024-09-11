@@ -4,7 +4,7 @@
 
 <template>
   <div class="home-nav">
-    <span><a href="#">推荐</a></span>
+    <span><a href="#" style="color: #e96140">推荐</a></span>
     <span><a href="#">关注</a></span>
     <span><a href="#">后端</a></span>
     <span><a href="#">前端</a></span>
@@ -30,7 +30,6 @@
     <span><a href="#">数学</a></span>
     <span><a href="#">3C硬件</a></span>
     <span><a href="#">咨讯</a></span>
-    <span><a href="#">七龙珠</a></span>
   </div>
 </template>
 

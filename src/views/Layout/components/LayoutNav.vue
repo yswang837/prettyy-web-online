@@ -32,7 +32,7 @@ const loginOut = () => {
       <li><router-link to="/">学习</router-link></li>
       <li><router-link to="/">社区</router-link></li>
       <li><router-link to="/">知道</router-link></li>
-      <li><a href="https://github.com/yswang837/prettyy-web-online" target="_blank">笔尖Github地址</a></li>
+      <li><a href="https://github.com/yswang837/prettyy-web-online" target="_blank">项目Github地址</a></li>
       <li><router-link to="/">InsCode</router-link></li>
       <li><router-link to="/">会议</router-link></li>
     </ul>
@@ -112,7 +112,7 @@ const loginOut = () => {
                 <li><i class="iconfont icon-xiazai"></i>下载海量资源</li>
                 <li><i class="iconfont icon-bianji"></i>写文章/发动态/加入社区</li>
               </ul>
-              <el-button class="btn" type="primary" @click="toLoginComponent">立即登录</el-button>
+              <el-button class="to-login-btn" type="primary" @click="toLoginComponent">立即登录</el-button>
             </el-popover>
           </li>
           <li><a href="#">会员中心</a></li>
@@ -267,8 +267,7 @@ const loginOut = () => {
   margin-left: 10px;
   margin-right: 30px;
 }
-//.btn {
-//  margin-top: 10px;
-//  margin-left: 12px;
-//}
+.to-login-btn {
+  margin-top: 10px;
+}
 </style>
