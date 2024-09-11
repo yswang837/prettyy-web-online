@@ -188,11 +188,11 @@ const handleClick = (tab) => {
         <span class="welcome-words">终于等到你~</span>
         <el-image class="welcome-img" src="http://sihrw5mu0.sabkt.gdipper.com/wel_tips.5624828-removebg-preview.png" alt=""></el-image>
       </div>
-      <div>登录可享更多权益</div>
+      <div class="login-slogan1">登录可享更多权益</div>
     </template>
-    <div v-if="activeName==='1'">与专业的创作者进行 深度的互动交流</div>
-    <div v-if="activeName==='2'">提高技能水平 海量资源免费使用</div>
-    <el-tabs v-model="activeName" :stretch="true" @tab-click="handleClick">
+    <div class="login-slogan2" v-if="activeName==='1'">与专业的创作者进行<span class="login-slogan3">深度的互动交流</span></div>
+    <div class="login-slogan2" v-if="activeName==='2'">提高技能水平<span class="login-slogan3">海量资源免费使用</span></div>
+    <el-tabs class="my-el-tabs" v-model="activeName" :stretch="true" @tab-click="handleClick">
       <el-tab-pane label="免密登录" name="1">
         <el-form @keyup.enter="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)"
                  ref="formRef1" :model="form1" :rules="rules1" label-width="70px" size="large" status-icon>
@@ -251,10 +251,30 @@ const handleClick = (tab) => {
   background-color: #f7f7fc;
 }
 .welcome-words {
-
+  color: #999aa9;
 }
 .welcome-img {
   width: 56px;
+  margin-right: 35px;
+}
+.login-slogan1 {
+  margin-top: 25px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.login-slogan2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: -14px;
+  margin-bottom: 15px;
+}
+.login-slogan3 {
+  color: #e96140; /* todo 不知道为什么这里不能用$bjColor */
+}
+.my-el-tabs {
+  width: 80%;
+  margin: 0 auto;
 }
 .explain {
   font-size: 12px;
