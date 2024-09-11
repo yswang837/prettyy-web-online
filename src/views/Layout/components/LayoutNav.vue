@@ -116,7 +116,8 @@ const loginOut = () => {
             </el-popover>
           </li>
           <li><a href="#">会员中心</a></li>
-          <li><a href="#">消息</a></li>
+
+          <li><a href="#"><el-badge is-dot :offset="[5, 2]">消息</el-badge></a></li>
           <li><a href="#">历史</a></li>
           <li><a href="#">创作中心</a></li>
           <li>
