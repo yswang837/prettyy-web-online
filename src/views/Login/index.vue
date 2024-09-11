@@ -195,7 +195,7 @@ const handleClick = (tab) => {
     <el-tabs class="my-el-tabs" v-model="activeName" :stretch="true" @tab-click="handleClick">
       <el-tab-pane label="免密登录" name="1">
         <el-form @keyup.enter="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)"
-                 ref="formRef1" :model="form1" :rules="rules1" size="large" status-icon>
+                 ref="formRef1" :model="form1" :rules="rules1" size="default" status-icon>
               <el-form-item prop="email">
                 <el-input v-model="form1.email" placeholder="请输入邮箱" clearable/>
               </el-form-item>
@@ -206,17 +206,17 @@ const handleClick = (tab) => {
                     </template>
                 </el-input>
               </el-form-item>
-              <span class="explain">未注册邮箱验证通过后将自动注册并登录</span>
-              <el-form-item prop="agree" label-width="22px">
-                <el-checkbox  size="large" v-model="form1.agree">同意</el-checkbox>
-                <router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link>
-              </el-form-item>
               <el-button class="login-btn" type="primary" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录/注册</el-button>
+          <el-form-item prop="agree">
+            <el-checkbox  size="small" v-model="form1.agree"></el-checkbox>
+            <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
+
+          </el-form-item>
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="账密登录" name="2">
         <el-form @keyup.enter="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
-                 ref="formRef2" :model="form2" :rules="rules2" size="large" status-icon>
+                 ref="formRef2" :model="form2" :rules="rules2" size="default" status-icon>
           <el-form-item prop="email">
             <el-input v-model="form2.email" placeholder="请输入邮箱" clearable />
           </el-form-item>
@@ -230,13 +230,12 @@ const handleClick = (tab) => {
               </template>
             </el-input>
           </el-form-item>
-          <div class="explain">未注册邮箱验证通过后将自动注册并登录</div>
-          <el-form-item prop="agree" label-width="22px">
-            <el-checkbox v-model="form2.agree" size="large">同意</el-checkbox>
-            <router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link>
-          </el-form-item>
           <el-button class="login2-btn" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
                      type="primary">登录/注册</el-button>
+          <el-form-item prop="agree" class="agree-box">
+            <el-checkbox v-model="form2.agree" size="small"></el-checkbox>
+            <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
+          </el-form-item>
         </el-form>
       </el-tab-pane>
     </el-tabs>
@@ -276,17 +275,20 @@ const handleClick = (tab) => {
   width: 80%;
   margin: 0 auto;
 }
-.explain {
+.agree-box {
   font-size: 12px;
-  margin-left: 20px;
 }
 .service-policy:hover {
   text-decoration: underline;
 }
 .captcha-img {
-  height: 40px;
-  width: 100px;
+  height: 30px;
+  width: 80px;
   cursor: pointer;
+}
+
+.captcha-input {
+  height: 30px;
 }
 
 .captcha-input :deep(.el-input-group__append) {
