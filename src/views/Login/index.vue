@@ -206,7 +206,7 @@ const handleClick = (tab) => {
                     </template>
                 </el-input>
               </el-form-item>
-              <el-button class="login-btn" type="primary" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录/注册</el-button>
+              <el-button class="login-btn" type="primary" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录</el-button>
           <el-form-item prop="agree">
             <el-checkbox  size="small" v-model="form1.agree"></el-checkbox>
             <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
@@ -231,7 +231,7 @@ const handleClick = (tab) => {
             </el-input>
           </el-form-item>
           <el-button class="login2-btn" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
-                     type="primary">登录/注册</el-button>
+                     type="primary">登录</el-button>
           <el-form-item prop="agree" class="agree-box">
             <el-checkbox v-model="form2.agree" size="small"></el-checkbox>
             <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
@@ -239,6 +239,15 @@ const handleClick = (tab) => {
         </el-form>
       </el-tab-pane>
     </el-tabs>
+    <template #footer="{}">
+      <span class="other-words">其他登录方式</span>
+      <div >
+        <img class="other-login-img" src="@/assets/images/social-weibo.svg" alt="">
+        <img class="other-login-img" src="@/assets/images/GitHub.svg" alt="">
+        <img class="other-login-img" src="@/assets/images/QQ.svg" alt="">
+        <img class="other-login-img" src="@/assets/images/baidu.svg" alt="">
+      </div>
+    </template>
   </el-dialog>
 </template>
 
@@ -297,6 +306,21 @@ const handleClick = (tab) => {
 
 .login-btn, .login2-btn {
   width: 100%;
+  margin-top: 12px;
+  border-radius: 20px;
 }
+.other-words {
+  color: #999aa9;
+  font-size: 13px;
+}
+.other-login-img {
+  width: 35px;
+  padding: 10px 5px;
+  cursor: pointer;
+}
+
+
+
+
 
 </style>
