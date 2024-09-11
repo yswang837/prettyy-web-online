@@ -195,11 +195,11 @@ const handleClick = (tab) => {
     <el-tabs class="my-el-tabs" v-model="activeName" :stretch="true" @tab-click="handleClick">
       <el-tab-pane label="免密登录" name="1">
         <el-form @keyup.enter="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)"
-                 ref="formRef1" :model="form1" :rules="rules1" label-width="70px" size="large" status-icon>
-              <el-form-item prop="email" label="邮&nbsp;&nbsp;&nbsp;箱">
+                 ref="formRef1" :model="form1" :rules="rules1" size="large" status-icon>
+              <el-form-item prop="email">
                 <el-input v-model="form1.email" placeholder="请输入邮箱" clearable/>
               </el-form-item>
-              <el-form-item prop="identifyCode1" label="验证码">
+              <el-form-item prop="identifyCode1">
                 <el-input v-model="form1.identifyCode1" placeholder="请输入验证码" clearable>
                     <template v-slot:append>
                         <el-button :disabled="disabled" @click="getIdentityCodeByEmail(form1.email)">{{buttonText}}</el-button>
@@ -216,14 +216,14 @@ const handleClick = (tab) => {
       </el-tab-pane>
       <el-tab-pane label="账密登录" name="2">
         <el-form @keyup.enter="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
-                 ref="formRef2" :model="form2" :rules="rules2" label-width="70px" size="large" status-icon>
-          <el-form-item prop="email" label="邮&nbsp;&nbsp;&nbsp;箱">
+                 ref="formRef2" :model="form2" :rules="rules2" size="large" status-icon>
+          <el-form-item prop="email">
             <el-input v-model="form2.email" placeholder="请输入邮箱" clearable />
           </el-form-item>
-          <el-form-item prop="password" label="密&nbsp;&nbsp;&nbsp;码">
+          <el-form-item prop="password">
             <el-input v-model="form2.password" type="password" show-password placeholder="请输入密码" clearable/>
           </el-form-item>
-          <el-form-item prop="captcha" label="验证码">
+          <el-form-item prop="captcha">
             <el-input class="captcha-input" v-model="form2.captcha" placeholder="请输入验证码" clearable>
               <template v-slot:append>
                   <img class="captcha-img" @click="captchaStore.getIdentityCode" :src="captchaStore.captchaInfo.picPath" alt>
