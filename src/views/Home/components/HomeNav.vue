@@ -4,6 +4,8 @@
 
 <template>
   <div class="home-nav">
+    <!--  todo 默认显示一行，当鼠标移入到该div中时，像csdn的这个页面(https://blog.csdn.net/?spm=1031.2273.3001.4477)一样，悬浮展示剩下的分类  -->
+    <!--  todo 哪个按钮被激活了，那么该按钮显示颜色为：$bjColor  -->
     <span><a href="#" style="color: #e96140">推荐</a></span>
     <span><a href="#">关注</a></span>
     <span><a href="#">后端</a></span>
