@@ -10,7 +10,7 @@ const userStore = useUserStore()
 const captchaStore = useCaptchaStore()
 
 // todo 登录组件
-// todo 1、在点击圆形的文字登录avatar的时候，出现的是登录弹窗，
+// 1、在点击圆形的文字登录avatar的时候，出现的是登录弹窗，
 // todo 2、在点击别的需要登录态（这里需要在router那边设置路由导航守卫，验证拿到的token是否合法，合法这正常跳转到相应的功能，比如说发布文章等，不合法则跳转到登录页/login）的按钮或者链接的时候，
 // todo   如果跳转到登录页面/login，此时把dialog的蒙层等去掉，加上背景图片assets/login-background.jpg，常显示登录弹窗，让其看起来像个普通的form，并调整该'form'到合适的位置
 
@@ -229,6 +229,7 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
             </el-form-item>
             <el-form-item prop="password">
               <el-input v-model="form2.password" type="password" show-password placeholder="请输入密码" clearable/>
+              <a href="#" class="forget-password">忘记密码</a>
             </el-form-item>
             <el-form-item prop="captcha">
               <el-input class="captcha-input" v-model="form2.captcha" placeholder="6位数字验证码" clearable>
@@ -316,6 +317,18 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
   margin-top: 12px;
   border-radius: 20px;
   color: white;
+}
+.forget-password {
+  font-size: 11px;
+  margin-top: 6px;
+  margin-bottom: -8px;
+  color: #2e2e2e;
+  margin-left: 283px;
+  height: 10px;
+  line-height: 10px
+}
+.forget-password:hover {
+  color: #e96140; /* todo 不知道为什么这里不能用$bjColor */
 }
 .filled-all {
   background-color: #e96140; /* todo 不知道为什么这里不能用$bjColor */
