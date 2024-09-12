@@ -193,20 +193,20 @@ curl --request GET --url http://ip:port/user/login-out?caller=web&sign=04e229d3f
 
 | 参数名       | 类型     | 是否必填 | 参数说明                |
 |-----------|--------|------|---------------------|
-| email     | string | 是    | 邮箱                  |
+| uid       | string | 是    | 用户id                |
 | nick_name | string | 是    | 用户昵称                |
 | caller    | string | 是    | 调用方标识，请传递固定字符串`web` |
 | sign      | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/nick-name --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data caller=web --data email=yswang837@gmail.com --data nick_name=小钻风  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/nick-name --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --data caller=web --data uid=10001 --data nick_name=小钻风  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
 {
   "code": 2000200,
-  "message": "update nick name succ"
+  "message": "更新昵称成功"
 }
 ```
 
@@ -218,45 +218,45 @@ curl --request POST --url http://ip:port/user/nick-name --header 'Authorization:
 
 | 参数名    | 类型     | 是否必填 | 参数说明                |
 |--------|--------|------|---------------------|
-| email  | string | 是    | 邮箱                  |
+| uid    | string | 是    | 用户id                |
 | gender | string | 是    | 男，女，保密              |
 | caller | string | 是    | 调用方标识，请传递固定字符串`web` |
 | sign   | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/gender  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data caller=web --data 'gender=男' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/gender  --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --data uid=10001 --data caller=web --data 'gender=男' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
 {
   "code": 2000220,
-  "message": "update gender succ"
+  "message": "更新性别成功"
 }
 ```
 
 ### 3.8 更新个人简介 ( /user/summary )
 
 - 接口说明
-  - 更新用户的个人简介，前后值相同，则无法更新。
+  - 更新用户的个人简介，若前后值相同，则无法更新。
   - 请求方式：POST
 
 | 参数名     | 类型     | 是否必填 | 参数说明                |
 |---------|--------|------|---------------------|
-| email   | string | 是    | 邮箱                  |
+| uid     | string | 是    | 用户id                |
 | summary | string | 是    | 个人简介                |
 | caller  | string | 是    | 调用方标识，请传递固定字符串`web` |
 | sign    | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/summary --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data caller=web --data 'summary=好记性不如烂笔头' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/summary --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded'  --data uid=10001 --data caller=web --data 'summary=好记性不如烂笔头' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
 {
   "code": 2000240,
-  "message": "update summary succ"
+  "message": "个人简介更新成功"
 }
 ```
 
@@ -268,7 +268,7 @@ curl --request POST --url http://ip:port/user/summary --header 'Authorization: B
 
 | 参数名      | 类型     | 是否必填 | 参数说明                |
 |----------|--------|------|---------------------|
-| email    | string | 是    | 邮箱                  |
+| uid      | string | 是    | 用户id                |
 | province | string | 是    | 省                   |
 | city     | string | 是    | 市                   |
 | caller   | string | 是    | 调用方标识，请传递固定字符串`web` |
@@ -276,13 +276,13 @@ curl --request POST --url http://ip:port/user/summary --header 'Authorization: B
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/province-city --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data caller=web --data 'province=贵州' --data 'city=遵义' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/province-city --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded'  --data uid=10001 --data caller=web --data 'province=贵州' --data 'city=遵义' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
 {
   "code": 2000260,
-  "message": "update province city succ"
+  "message": "更新省市成功"
 }
 ```
 
@@ -294,20 +294,20 @@ curl --request POST --url http://ip:port/user/province-city --header 'Authorizat
 
 | 参数名      | 类型     | 是否必填 | 参数说明                |
 |----------|--------|------|---------------------|
-| email    | string | 是    | 邮箱                  |
+| uid      | string | 是    | 用户id                |
 | birthday | string | 是    | 生日，格式YYYY-MM-DD     |
 | caller   | string | 是    | 调用方标识，请传递固定字符串`web` |
 | sign     | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/birthday --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --header 'token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzE5ODEwMDUwLCJpYXQiOjE3MTk4MTAwNTB9fQ.Ugo95yKM7V3qc4YALIniVy3jiCMXrrZgVNwn9hutvCg' --data email=yswang837@gmail.com --data caller=web --data birthday=2023-12-11 --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/birthday --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded'  --data uid=10001 --data caller=web --data birthday=2023-12-11 --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
 {
   "code": 2000280,
-  "message": "update birthday succ"
+  "message": "更新生日成功"
 }
 ```
 
@@ -319,20 +319,20 @@ curl --request POST --url http://ip:port/user/birthday --header 'Authorization: 
 
 | 参数名      | 类型     | 是否必填 | 参数说明                |
 |----------|--------|------|---------------------|
-| email    | string | 是    | 邮箱                  |
+| uid      | string | 是    | 用户id                |
 | password | string | 是    | 密码，长度6~20位          |
 | caller   | string | 是    | 调用方标识，请传递固定字符串`web` |
 | sign     | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request POST --url http://127.0.0.1:6677/user/password --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --data email=yswang837@gmail.com --data password=111111 --data caller=web --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request POST --url http://ip:port/user/password --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDQzMjQ1LCJpYXQiOjE3MjQwNDMyNDV9fQ.7I095qkv51gOaLTJr3aOZb4O6NVFHskRwmR8BEwNy9A' --header 'content-type: application/x-www-form-urlencoded' --data uid=10001 --data password=111111 --data caller=web --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
 ```
 - 响应示例
 ```json
 {
   "code": 2000300,
-  "message": "update password success"
+  "message": "密码更新成功"
 }
 ```
 
@@ -371,13 +371,13 @@ curl --request POST --url http://ip:port/file/upload --header 'Authorization: Be
 | 参数名         | 类型     | 是否必填 | 参数说明                                               |
 |-------------|--------|------|----------------------------------------------------|
 | title       | string | 是    | 文章标题                                               |
-| content     | string | 是    | 文章内容，不参与验签                                         |
+| content     | string | 是    | 文章内容，该字段不参与验签                                      |
 | cover_img   | string | 是    | 文章封面url                                            |
 | summary     | string | 是    | 文章摘要                                               |
 | visibility  | string | 否    | 文章的可见性，默认全部可见 "1"-全部可见 "2"-VIP可见 "3"-粉丝可见 "4"-仅我可见 |
 | tags        | string | 是    | 文章标签，以英文逗号分隔，最多10个标签，由用户发文的时候打标签                   |
 | typ         | string | 否    | 文章类型，默认原创，"1"-原创 "2"-转载 "3"-翻译 "4"-其他              |
-| uid         | int    | 是    | 用户ID                                               |
+| uid         | int    | 是    | 用户id                                               |
 | caller      | string | 是    | 调用方标识，请传递固定字符串`web`                                |
 | sign        | string | 是    | 签名，见"验签sign字段"                                     |
 
@@ -396,54 +396,90 @@ curl --request POST --url http://ip:port/article/publish --header 'Authorization
 ### 3.14 获取文章列表 ( /article/list )
 
 - 接口说明
-  - 获取文章列表，默认查询则传递对应参数的零值，默认一次查询50条，也支持分页查询。
+  - 获取文章列表，默认查询则传递必填参数的零值即可，默认一次查询20条，也支持分页查询，也支持查询某个用户的文章列表，也支持文章的可见性列表查询，也支持文章类型的列表查询。
   - 请求方式：GET
 
-| 参数名       | 类型     | 是否必填 | 参数说明                                                  |
-|-----------|--------|------|-------------------------------------------------------|
-| page      | int    | 是    | 第几页                                                   |
-| uid       | int    | 否    | 如果uid不为空，则返回当前用户的文章列表，否则返回所有文章列表                      |
-| page_size | int    | 否    | 每页多少条                                                 |
-| caller    | string | 是    | 调用方标识，请传递固定字符串`web`                                   |
-| sign      | string | 是    | 签名，$attrString为page、page_size的字段值拼接而成的字符串，见"验签sign字段" |
+| 参数名        | 类型     | 是否必填 | 参数说明                                 |
+|------------|--------|------|--------------------------------------|
+| page       | int    | 是    | 第几页                                  |
+| uid        | int    | 否    | 如果uid不为空，则返回当前用户的文章列表，否则返回所有文章列表     |
+| page_size  | int    | 否    | 每页多少条                                |
+| visibility | string | 否    | 文章的可见性, 1-全部可见 2-VIP可见 3-粉丝可见 4-仅我可见 |
+| typ        | string | 否    | 文章类型，1-原创 2-转载 3-翻译                  |
+| caller     | string | 是    | 调用方标识，请传递固定字符串`web`                  |
+| sign       | string | 是    | 见"验签sign字段"                          |
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/article/list?uid=10001&page=3&page_size=2&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg' --data 'caller=web' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request GET --url 'http://ip:port/article/list?uid=10001&page=3&page_size=2&visibility=1&typ=2&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'
 ```
 - 响应示例
 ```json
 {
   "code": 2000180,
   "message": "获取文章列表成功",
-  "result": [
-    {
-      "aid": "AA46829987331837952",
-      "title": "黑悟空的由来",
-      "content": "<p>黑悟空，正式名称为《黑神话：悟空》，是由游戏科学开发的一款以《西游记》为背景的动作角色扮演游戏。游戏的主角是猴子（很可能是孙悟空的第二元神、身外化身或者心魔的存在），在孙悟空的指引下，玩家将扮演这位&ldquo;天命之人&rdquo;，在妖魔横行、佛道衰败的东方魔幻世界中踏上冒险旅程，寻找能够拯救世界的秘密&ldquo;那个东西&rdquo;<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">30</span>。</p>\n<p>游戏的世界观和背景故事是西游取经之后，妖魔与神佛展开大战，上一代&ldquo;天命人&rdquo;孙悟空带领下的妖魔联军成功击败佛道两家，成为新任三界统治阶级，导致末法时代来临，如来涅槃，弥勒转世，道门隐遁。但随着时间推移，孙悟空发现世界并没有变得更好，反而更糟，因此他内心充满自责和愧疚，开始寻找新的救世之道，催生心魔，培育成身外化身，也就是玩家操作的主角猴子，并指使玩家去寻找救世之道<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">30</span>。</p>\n<p>《黑神话：悟空》在游戏行业及玩家中具有强大的号召力，被视为&ldquo;国产3A之光&rdquo;，在预售阶段就获得了极大的关注和支持<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">33</span>。游戏的实机演示视频一经发布，就引起了轰动效应，让许多玩家和从业者看到了国产3A游戏的希望<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">28</span>。尽管游戏还未正式面世，但其宣传片已经激发了国外玩家对中国神话的兴趣，开始好奇《龙珠》中的悟空与《西游记》中的悟空之间的区别<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">28</span>。</p>\n<p class=\"last-node\">然而，游戏在预售和即将上线的过程中也遇到了一些争议，涉及到&ldquo;政治正确&rdquo;和&ldquo;性别议题&rdquo;。不过，这些争议反而激发了更多玩家的热情，纷纷预购游戏以示支持<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">33</span>。尽管面临一些挑战，《黑神话：悟空》的开发团队依然在积极推进游戏的开发，并希望通过这款游戏向全球玩家展示中国传统文化的魅力<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">28</span><span class=\"refIndex___iN7ZN ragIndex___HYxyx\">33</span></p>",
-      "cover_img": "http://sghu8zs4b.hb-bkt.clouddn.com/FnKt4JTjW0m83WLrNKqaWG8NrleB",
-      "summary": "黑悟空，正式名称为《黑神话：悟空》，是由游戏科学开发的一款以《西游记》为背景的动作角色扮演游戏。游戏的主角是猴子（很可能是孙悟空的第二元神、身外化身或者心魔的存在），在孙悟空的指引下，玩家将扮演这位“天命之人”，在妖魔横行、佛道衰败的东方魔幻世界中踏上冒险旅程，寻找能够拯救世界的秘密“那个东西”30。",
-      "read_num": 0,
-      "comment_num": 0,
-      "collect_num": 0,
-      "uid": 10001,
-      "create_time": "2024-07-16T13:25:39+08:00",
-      "update_time": "2024-07-16T13:25:39+08:00"
-    },
-    {
-      "aid": "AA46830307449507840",
-      "title": "超二午饭大站沙鲁解说",
-      "content": "<p>在《龙珠Z》的沙鲁篇中，孙悟饭（午饭）变身为超级赛亚人2（Super Saiyan 2，简称超二）与沙鲁的战斗是一个标志性的情节。以下是对这场战斗的解说：</p>\n<p>1. 背景：沙鲁是由格罗博士制造的终极人造人，他拥有吸收他人能力的特性，并在吸收了众多Z战士的能力后变得异常强大。沙鲁还自导了一场武道会，邀请Z战士们参加，实际上是为了展示自己的力量。</p>\n<p>2. 沙鲁的挑衅：沙鲁在武道会上击败了众多Z战士，包括比克、天津饭、克林和特兰克斯等，他的强大让Z战士们感到绝望。</p>\n<p>3. 孙悟饭的觉醒：在沙鲁的挑衅和对家人及朋友的威胁下，孙悟饭的愤怒被激发，他开始变身为超级赛亚人2。</p>\n<p>4. 超二变身：孙悟饭变身为超二时，他的头发变得更长，身体周围环绕着闪电，气焰更加强烈，力量、速度和耐力都有了质的飞跃。</p>\n<p>5. 战斗开始：变身后的孙悟饭与沙鲁展开了激烈的战斗。超二状态下的孙悟饭展现出了惊人的战斗力，能够与沙鲁进行正面对抗。</p>\n<p>6. 战斗高潮：孙悟饭使用了他的招牌技能，如&ldquo;神龙翔拳&rdquo;和&ldquo;怒放撃心&rdquo;，对沙鲁造成了重创。沙鲁虽然强大，但在超二的孙悟饭面前开始显得力不从心。</p>\n<p>7. 战斗结果：尽管孙悟饭在战斗中占据了上风，但沙鲁在最后选择了自爆，企图与Z战士们同归于尽。孙悟饭在紧急时刻被孙悟空用瞬间移动救走，而孙悟空不幸牺牲。</p>\n<p>8. 后续影响：孙悟饭的超二变身不仅在战斗中取得了胜利，也为他赢得了&ldquo;神童&rdquo;的称号。这场战斗成为了《龙珠Z》中的经典时刻，展示了孙悟饭作为Z战士的潜力和勇气。</p>\n<p>9. 文化影响：孙悟饭与沙鲁的战斗在《龙珠》粉丝中具有极高的知名度，成为了赛亚人变身和战斗精神的象征。</p>\n<p>孙悟饭的超二变身与沙鲁的战斗是《龙珠Z》中一个非常重要的转折点，它不仅展示了孙悟饭的成长和力量，也是对赛亚人不屈不挠、勇往直前精神的体现。</p>",
-      "cover_img": "http://sghu8zs4b.hb-bkt.clouddn.com/FgD5d5tDjLBvT8KwSe7J8iyKoMmQ",
-      "summary": "在《龙珠Z》的沙鲁篇中，孙悟饭（午饭）变身为超级赛亚人2（Super Saiyan 2，简称超二）与沙鲁的战斗是一个标志性的情节。以下是对这场战斗的解说：",
-      "read_num": 0,
-      "comment_num": 0,
-      "collect_num": 0,
-      "uid": 10001,
-      "create_time": "2024-07-16T13:26:55+08:00",
-      "update_time": "2024-07-16T13:26:55+08:00"
-    }
-  ]
+  "result": {
+    "article_list": [
+      {
+        "aid": "AA65663744146935808",
+        "title": "123123",
+        "content": "<p>123123</p>",
+        "cover_img": "http://sihrw5mu0.sabkt.gdipper.com/FjrPyNkiUjTQ2Y6EUB_ANokpfVPa",
+        "summary": "123",
+        "tags": "",
+        "visibility": "",
+        "typ": "",
+        "share_num": 0,
+        "comment_num": 0,
+        "like_num": 0,
+        "read_num": 0,
+        "collect_num": 0,
+        "status": "",
+        "uid": 10001,
+        "create_time": "2024-09-06T12:44:16+08:00",
+        "update_time": "2024-09-06T12:44:16+08:00"
+      },
+      {
+        "aid": "AA65799607635939328",
+        "title": "如何搭建redis主从同步集群",
+        "content": "主从复制集群是一种高可用性架构，它允许多个Redis实",
+        "cover_img": "https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg",
+        "summary": "从复制集群是一种高可用性架构，它允许",
+        "tags": "",
+        "visibility": "",
+        "typ": "",
+        "share_num": 0,
+        "comment_num": 0,
+        "like_num": 0,
+        "read_num": 0,
+        "collect_num": 0,
+        "status": "",
+        "uid": 10001,
+        "create_time": "2024-09-07T18:25:50+08:00",
+        "update_time": "2024-09-07T18:25:50+08:00"
+      },
+      {
+        "aid": "AA66119067731234816",
+        "title": "如何搭建redis主从同步集群",
+        "content": "主从复制集群是一种高可用性架构，它允许多个Redis实",
+        "cover_img": "https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg",
+        "summary": "从复制集群是一种高可用性架构，它允许",
+        "tags": "数据结构,leetcode",
+        "visibility": "1",
+        "typ": "1",
+        "share_num": 0,
+        "comment_num": 0,
+        "like_num": 0,
+        "read_num": 0,
+        "collect_num": 0,
+        "status": "",
+        "uid": 10001,
+        "create_time": "2024-09-07T19:29:57+08:00",
+        "update_time": "2024-09-07T19:29:57+08:00"
+      }
+    ],
+    "count": 3
+  }
 }
 ```
 
