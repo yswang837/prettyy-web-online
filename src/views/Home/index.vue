@@ -13,7 +13,8 @@ const articleList = ref([])
 const getArticleList = async (page, page_size) => {
   // 主页获取文章列表，不需要传递uid，获取所有文章列表
   const res = await getArticleListAPI(0, page, page_size)
-  articleList.value = res.result
+  articleList.value = res.result.article_list
+  console.log('article list', articleList.value)
 }
 
 onMounted(() => getArticleList(page.value, pageSize))
@@ -78,8 +79,8 @@ let disabled = ref(false)
 const load = async () => {
   // console.log('准备加载更多数据..')
   page.value++
-  const res = await getArticleListAPI(page.value, pageSize)
-  articleList.value=[...articleList.value,...res.result]
+  const res = await getArticleListAPI(0, page.value, pageSize)
+  articleList.value=[...articleList.value,...res.result.article_list]
   // 加载完毕，停止监听
   if (res.result.length !== pageSize) {
     disabled.value = true
