@@ -38,6 +38,7 @@ const loginOut = () => {
     </ul>
     <div class="top-middle">
       <div class="search">
+        <!--    todo placeholder里面的内容每10s动态变化一次，“热门”的词条可显示小火花图标，是否热门目前可自定义，后期由搜索算法决定词条是否热门    -->
         <el-input class="search-input" placeholder="如何搭建redis的主从同步" type="text"></el-input>
         <el-button class="search-button"><i class="iconfont icon-sousuo"></i>搜索</el-button>
       </div>

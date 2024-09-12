@@ -18,6 +18,10 @@ const form = ref({
   summary: ''
 })
 
+// todo tinymec编辑区支持图片上传功能
+// todo 仿csdn的发布文章页面的相关布局
+// todo 支持切换到markdown编辑器的功能
+
 const submit = async () => {
   await publishArticleAPI(form.value.title,form.value.content, userStore.userInfo.user.uid, form.value.cover_img,form.value.summary)
   ElMessage({type:'success', message: '文章添加成功'})
@@ -78,14 +82,11 @@ const files = ref([])
   <div class="publish-article-container container">
     <div class="left">
       目录
+      <!--   todo tinymec有付费插件支持自动目录的功能，目前未考虑付费，需要实现该功能，想支持h1,h2,h3,h4的自动目录   -->
       <br>
       <br>
       <br>
       为文内增加标题，这里将生成目录
-      <br>
-      <br>
-      <br>
-      程序员小哥正在加班开发中
     </div>
     <div class="right">
       <el-form :model="form">
@@ -93,10 +94,10 @@ const files = ref([])
           <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）" />
         </el-form-item>
         <el-form-item>
-<!--          <Editor v-model="content" api-key="znm35mtysrhghs059pa4iacbmxhyrsjoxhybvknrl9offdxp" :init="tiny.init"/>-->
           <TEditor v-model="form.content" />
         </el-form-item>
         <el-form-item class="shangchaun" label="上传封面">
+          <!--     todo 上传封面的功能，该功能偶尔正常，偶尔失败，不知道是什么bug     -->
           <UploadImg :showDelete="true" :files="files">
             <template v-slot:trigger="slotProps">
               <div class="preview-container" v-if="!slotProps.myCoverImg">
@@ -118,7 +119,6 @@ const files = ref([])
       </el-form>
     </div>
   </div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -147,7 +147,6 @@ const files = ref([])
   margin-right: 350px;
   background-color: #ffffff;
   border: 1px solid #cccccc;
-
 }
 
 .article-title {
