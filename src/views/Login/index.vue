@@ -10,9 +10,9 @@ const userStore = useUserStore()
 const captchaStore = useCaptchaStore()
 
 // todo 登录组件
-// 1、在点击圆形的文字登录avatar的时候，出现的是登录弹窗，
-// 2、在点击别的需要登录态（这里需要在router那边设置路由导航守卫，验证拿到的token是否合法，合法这正常跳转到相应的功能，比如说发布文章等，不合法则跳转到登录页/login）的按钮或者链接的时候，
-//    如果跳转到登录页面/login，此时把dialog的蒙层等去掉，加上背景图片assets/login-background.jpg，常显示登录弹窗，让其看起来像个普通的form，并调整该'form'到合适的位置
+// todo 1、在点击圆形的文字登录avatar的时候，出现的是登录弹窗，
+// todo 2、在点击别的需要登录态（这里需要在router那边设置路由导航守卫，验证拿到的token是否合法，合法这正常跳转到相应的功能，比如说发布文章等，不合法则跳转到登录页/login）的按钮或者链接的时候，
+// todo   如果跳转到登录页面/login，此时把dialog的蒙层等去掉，加上背景图片assets/login-background.jpg，常显示登录弹窗，让其看起来像个普通的form，并调整该'form'到合适的位置
 
 // 控制登录的弹窗是否显示
 const showLoginDialog = ref(false)
