@@ -22,6 +22,8 @@ npm run dev
 - 鉴权
   - 采用Bearer auth认证，在header中添加键值对，键为：Authorization，值的格式格式为Bearer $token,其中token是jwt生成的。
   - 除接口/user/login-register，/user/captcha-by-email，/user/captcha，/article/detail和/article/list不需要填写该字段，其余接口都需要，不再另外说明。示例值：Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIzODAwOTQwLCJpYXQiOjE3MjM4MDA5NDB9fQ.4wJGLMOp2eVKwOFq1ltyKq-z7zBdHgF2OD45L_N3HT4
+  - uid放在jwt生成的token中，前端需要uid时，需自己从token中解析，不再单独说明。
+  - 后端下发的token，有效期是1天。
 - 调用方
   - caller的值为web，用于标识调用方的字段，所有接口都需要该字段
 - 验签sign字段
@@ -106,60 +108,57 @@ curl --request GET --url http://ip:port/user/captcha?caller=web&sign=fb469d7ef43
 
 - 请求示例
 ```text
-curl --request POST --url http://ip:port/user/login-register --header 'content-type: application/x-www-form-urlencoded' --data caller=web --data email=yswang837@gmail.com --data identify_code=667788 --data method=1 --data caller=test --data sign=fb469d7ef430b0baf0cab6c436e70375
+curl --request POST --url http://ip:port/user/login-register --header 'content-type: application/x-www-form-urlencoded' --data caller=web --data email=yswang837@gmail.com --data identify_code=667788 --data method=1 --data sign=fb469d7ef430b0baf0cab6c436e70375
 ```
 - 响应示例
 ```json
 {
-	"code": 2000001,
-	"message": "注册成功",
-	"result": {
-		"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDI4NDQ3LCJpYXQiOjE3MjQwMjg0NDd9fQ.TEZLCHmFjX99FFYuw848kI4X24hmRUObNatTF2wFpS8",
-		"user": {
-			"uid": 10001,
-			"email": "yswang837@gmail.com",
-			"password": "",
-			"phone": "",
-			"nick_name": "yswang837",
-			"role": 1,
-			"grade": 1,
-			"avatar": "https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg",
-			"summary": "",
-			"gender": "保密",
-			"province_city": "",
-			"code_age": 1,
-			"is_certified": 0,
-			"data_integrity": 0,
-			"birthday": "",
-			"create_time": "2024-08-19T08:47:27Z",
-			"update_time": "2024-08-19T08:47:27Z",
-			"login_time": "2024-08-19T08:47:27Z"
-		}
-	}
+  "code": 2000001,
+  "message": "注册成功",
+  "result": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVaWQiOjEwMDAzLCJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI2MTMzOTMzLCJpYXQiOjE3MjYxMzM5MzN9fQ.QKzOm2JJ0K3s19BS69OPm3irrs4TNXigdLEqaHxEkCE",
+    "user": {
+      "avatar": "https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg",
+      "code_age": 1,
+      "create_time": "2024-09-12 17:38:53",
+      "data_integrity": 30,
+      "email": "yswang8371111@gmail.com",
+      "gender": "保密",
+      "grade": 1,
+      "is_certified": 0,
+      "login_time": "2024-09-12 17:38:53",
+      "nick_name": "yswang8371111",
+      "password": "e10adc3949ba59abbe56e057f20f883e",
+      "phone": "",
+      "role": 1,
+      "summary": "",
+      "update_time": "2024-09-12 17:38:53"
+    }
+  }
 }
 ```
 
 ### 3.4 检查密码是否为空 ( /user/check-password )
 
 - 接口说明
-  - 检查当前用户是否设置密码，如果未设置密码，则只能通过邮箱登录，无法账密登录，在免密登录后，才能设置密码，之后才能账号密码登录。
+  - 检查当前用户是否设置密码，如录果未设置密码，则只能通过邮箱登录，无法账密登，在免密登录后，才能设置密码，之后才能账号密码登录。
   - 请求方式：GET
 
 | 参数名    | 类型     | 是否必填 | 参数说明                |
 |--------|--------|------|---------------------|
-| email  | string | 是    | 邮箱                  |
+| uid    | string | 是    | 用户id，需从token中解析     |
 | caller | string | 是    | 调用方标识，请传递固定字符串`web` |
 | sign   | string | 是    | 签名，见"验签sign字段"      |
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/user/check-password?caller=web&email=yswang837@gmail.com&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDMwMjAwLCJpYXQiOjE3MjQwMzAyMDB9fQ.pmlYFOMilNjoFX9vSc9CRsvaQ_MB30gYTx7aJLi6hkM'
+curl --request GET --url 'http://ip:port/user/check-password?caller=web&uid=10001&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzI0MDMwMjAwLCJpYXQiOjE3MjQwMzAyMDB9fQ.pmlYFOMilNjoFX9vSc9CRsvaQ_MB30gYTx7aJLi6hkM'
 ```
 - 响应示例
 ```json
 {
   "code": 2000020,
-  "message": "empty password, please set it"
+  "message": "有效的密码"
 }
 ```
 
@@ -181,8 +180,8 @@ curl --request GET --url http://ip:port/user/login-out?caller=web&sign=04e229d3f
 - 响应示例
 ```json
 {
-  "code": 2000061,
-  "message": "jwt作废成功"
+  "code": 2000060,
+  "message": "token作废成功"
 }
 ```
 
@@ -492,7 +491,7 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
 | 2000001 | 注册成功                | 
 | 2000002 | 免密方式，登录成功           | 
 | 2000003 | 账密方式，登录成功           |
-| 2000021 | 有效的密码               |
+| 2000020 | 有效的密码               |
 | 2000040 | 设置邮箱验证码成功           |
 | 2000060 | token作废成功           |
 | 2000100 | 生成验证码成功             |
