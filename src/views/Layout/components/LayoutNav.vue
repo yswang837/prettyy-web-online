@@ -177,7 +177,6 @@ const loginOut = () => {
 .search-button, .search-input:deep(.el-input__wrapper) {
   border-radius: 0;
 }
-// todo 搜索框选中的时候，边框颜色显示为$bjColor
 .search-input:deep(.el-input__wrapper) {
   border-top-left-radius: 20px; /* 右上角圆角 */
   border-bottom-left-radius: 20px; /* 右下角圆角 */

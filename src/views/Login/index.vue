@@ -3,12 +3,16 @@ import { ref, computed } from 'vue';
 import { getIdentityCodeByEmailAPI} from '@/apis/base.js';
 import { useCountDown, countDown } from '@/utils/countDown';
 import {ElMessage} from "element-plus";
-import { useRouter } from "vue-router";
+import {useRouter} from "vue-router";
 import {useUserStore} from "@/stores/user.js";
 import { useCaptchaStore } from "@/stores/captcha.js";
-
 const userStore = useUserStore()
 const captchaStore = useCaptchaStore()
+
+// todo 登录组件
+// 1、在点击圆形的文字登录avatar的时候，出现的是登录弹窗，
+// 2、在点击别的需要登录态（这里需要在router那边设置路由导航守卫，验证拿到的token是否合法，合法这正常跳转到相应的功能，比如说发布文章等，不合法则跳转到登录页/login）的按钮或者链接的时候，
+//    如果跳转到登录页面/login，此时把dialog的蒙层等去掉，加上背景图片assets/login-background.jpg，常显示登录弹窗，让其看起来像个普通的form，并调整该'form'到合适的位置
 
 // 控制登录的弹窗是否显示
 const showLoginDialog = ref(false)
@@ -183,74 +187,76 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
 </script>
 
 <template>
-  <el-dialog v-model="showLoginDialog" width="410px" style="padding: 0" center :show-close="false">
-    <template #header="{}">
-      <div class="welcome-msg">
-        <span class="welcome-words">终于等到你~</span>
-        <el-image class="welcome-img" src="http://sihrw5mu0.sabkt.gdipper.com/wel_tips.5624828-removebg-preview.png" alt=""></el-image>
-      </div>
-      <div class="login-slogan1">登录可享更多权益</div>
-    </template>
-    <div class="login-slogan2" v-if="activeName==='1'">与专业的创作者进行<span class="login-slogan3">深度的互动交流</span></div>
-    <div class="login-slogan2" v-if="activeName==='2'">提高技能水平<span class="login-slogan3">海量资源免费使用</span></div>
-    <el-tabs class="my-el-tabs" v-model="activeName" :stretch="true" @tab-click="handleClick">
-      <el-tab-pane label="免密登录" name="1">
-        <el-form @keyup.enter="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)"
-                 ref="formRef1" :model="form1" :rules="rules1" size="default" status-icon>
-              <el-form-item prop="email">
-                <el-input v-model="form1.email" placeholder="请输入邮箱" clearable/>
-              </el-form-item>
-              <el-form-item prop="identifyCode1">
-                <el-input v-model="form1.identifyCode1" placeholder="6位数字验证码" clearable>
-                    <template v-slot:append>
-                        <el-button :disabled="disabled" @click="getIdentityCodeByEmail(form1.email)">{{buttonText}}</el-button>
-                    </template>
-                </el-input>
-              </el-form-item>
-              <el-button :class="[isFilledAll1?'filled-all':'not-filled-all','login-btn']" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录</el-button>
-          <el-form-item prop="agree">
-            <el-checkbox  size="small" v-model="form1.agree"></el-checkbox>
-            <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
-
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-      <el-tab-pane label="账密登录" name="2">
-        <el-form @keyup.enter="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
-                 ref="formRef2" :model="form2" :rules="rules2" size="default" status-icon>
-          <el-form-item prop="email">
-            <el-input v-model="form2.email" placeholder="请输入邮箱" clearable />
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input v-model="form2.password" type="password" show-password placeholder="请输入密码" clearable/>
-          </el-form-item>
-          <el-form-item prop="captcha">
-            <el-input class="captcha-input" v-model="form2.captcha" placeholder="6位数字验证码" clearable>
-              <template v-slot:append>
+  <!-- 在el-dialog上套一个div，确保样式能穿透el-dialog -->
+  <div class="my-dialog">
+    <el-dialog :modal="showLoginDialog" v-model="showLoginDialog" center :show-close="false">
+      <template #header="{}">
+        <div class="welcome-msg">
+          <span class="welcome-words">终于等到你~</span>
+          <el-image class="welcome-img" src="http://sihrw5mu0.sabkt.gdipper.com/wel_tips.5624828-removebg-preview.png" alt=""></el-image>
+        </div>
+        <div class="login-slogan1">登录可享更多权益</div>
+      </template>
+      <div class="login-slogan2" v-if="activeName==='1'">与专业的创作者进行<span class="login-slogan3">深度的互动交流</span></div>
+      <div class="login-slogan2" v-if="activeName==='2'">提高技能水平<span class="login-slogan3">海量资源免费使用</span></div>
+      <el-tabs class="my-el-tabs" v-model="activeName" :stretch="true" @tab-click="handleClick">
+        <el-tab-pane label="免密登录" name="1">
+          <el-form @keyup.enter="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)"
+                   ref="formRef1" :model="form1" :rules="rules1" size="default" status-icon>
+            <el-form-item prop="email">
+              <el-input v-model="form1.email" placeholder="请输入邮箱" clearable/>
+            </el-form-item>
+            <el-form-item prop="identifyCode1">
+              <el-input v-model="form1.identifyCode1" placeholder="6位数字验证码" clearable>
+                <template v-slot:append>
+                  <el-button :disabled="disabled" @click="getIdentityCodeByEmail(form1.email)">{{buttonText}}</el-button>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-button :class="[isFilledAll1?'filled-all':'not-filled-all','login-btn']" @click="loginOrRegisterByCode(form1.email, form1.identifyCode1, activeName)">登录</el-button>
+            <el-form-item prop="agree">
+              <el-checkbox  size="small" v-model="form1.agree"></el-checkbox>
+              <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
+        <el-tab-pane label="账密登录" name="2">
+          <el-form @keyup.enter="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
+                   ref="formRef2" :model="form2" :rules="rules2" size="default" status-icon>
+            <el-form-item prop="email">
+              <el-input v-model="form2.email" placeholder="请输入邮箱" clearable />
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input v-model="form2.password" type="password" show-password placeholder="请输入密码" clearable/>
+            </el-form-item>
+            <el-form-item prop="captcha">
+              <el-input class="captcha-input" v-model="form2.captcha" placeholder="6位数字验证码" clearable>
+                <template v-slot:append>
                   <img class="captcha-img" @click="captchaStore.getIdentityCode" :src="captchaStore.captchaInfo.picPath" alt>
-              </template>
-            </el-input>
-          </el-form-item>
-          <el-button :class="[isFilledAll2?'filled-all':'not-filled-all','login2-btn']" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
-                     type="primary">登录</el-button>
-          <el-form-item prop="agree" class="agree-box">
-            <el-checkbox v-model="form2.agree" size="small"></el-checkbox>
-            <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-    </el-tabs>
-    <template #footer="{}">
-      <span class="other-words">其他登录方式</span>
-      <div>
-        <img class="other-login-img" src="@/assets/images/social-weibo.svg" alt="">
-        <img class="other-login-img" src="@/assets/images/GitHub.svg" alt="">
-        <img class="other-login-img" src="@/assets/images/weixin.svg" alt="">
-        <img class="other-login-img" src="@/assets/images/QQ.svg" alt="">
-        <img class="other-login-img" src="@/assets/images/baidu.svg" alt="">
-      </div>
-    </template>
-  </el-dialog>
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-button :class="[isFilledAll2?'filled-all':'not-filled-all','login2-btn']" @click="loginOrRegisterByPwd(form2.email, form2.password, activeName,captchaStore.captchaInfo.captchaId, form2.captcha)"
+                       type="primary">登录</el-button>
+            <el-form-item prop="agree" class="agree-box">
+              <el-checkbox v-model="form2.agree" size="small"></el-checkbox>
+              <div class="agree-box">我已阅读并同意<router-link to="secret-policy" target="_blank" class="service-policy">《隐私保护协议》</router-link>和<router-link to="service-item" target="_blank" class="service-policy">《服务条款》</router-link></div>
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
+      </el-tabs>
+      <template #footer="{}">
+        <span class="other-words">其他登录方式</span>
+        <div>
+          <img class="other-login-img" src="@/assets/images/social-weibo.svg" alt="">
+          <img class="other-login-img" src="@/assets/images/GitHub.svg" alt="">
+          <img class="other-login-img" src="@/assets/images/weixin.svg" alt="">
+          <img class="other-login-img" src="@/assets/images/QQ.svg" alt="">
+          <img class="other-login-img" src="@/assets/images/baidu.svg" alt="">
+        </div>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <style scoped>
@@ -327,7 +333,10 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
   padding: 10px 5px;
   cursor: pointer;
 }
-
+.my-dialog:deep(.el-dialog) {
+  padding: 0;
+  width: 410px;
+}
 
 
 

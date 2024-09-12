@@ -184,11 +184,9 @@ const schoolCancel = () => {
         </div>
         <!--  奖牌相关信息  -->
         <div class="medal-info">
-          <!--     todo 点击出现已解锁的勋章详情弹窗    -->
           <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/qixiebiaobing4%40240.png" title="勤写标兵" alt />
           <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/chizhiyiheng%40240.png" title="持之以恒" alt />
           <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/xinxiu%40240.png" title="创作新秀" alt />
-          <!--     todo 点击出现所有勋章详情弹窗    -->
           <span class="all-medals">查看所有勋章 ></span>
         </div>
         <!--  会员相关信息  -->
