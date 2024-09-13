@@ -412,7 +412,7 @@ curl --request POST --url http://ip:port/article/publish --header 'Authorization
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/article/list?uid=10001&page=3&page_size=2&visibility=1&typ=2&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'
+curl --request GET --url 'http://ip:port/article/list?uid=10001&page=3&page_size=2&visibility=1&typ=2&caller=web&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'
 ```
 - 响应示例
 ```json
@@ -422,64 +422,45 @@ curl --request GET --url 'http://ip:port/article/list?uid=10001&page=3&page_size
   "result": {
     "article_list": [
       {
-        "aid": "AA65663744146935808",
-        "title": "123123",
-        "content": "<p>123123</p>",
-        "cover_img": "http://sihrw5mu0.sabkt.gdipper.com/FjrPyNkiUjTQ2Y6EUB_ANokpfVPa",
-        "summary": "123",
-        "tags": "",
-        "visibility": "",
-        "typ": "",
-        "share_num": 0,
-        "comment_num": 0,
-        "like_num": 0,
-        "read_num": 0,
-        "collect_num": 0,
-        "status": "",
-        "uid": 10001,
-        "create_time": "2024-09-06T12:44:16+08:00",
-        "update_time": "2024-09-06T12:44:16+08:00"
-      },
-      {
-        "aid": "AA65799607635939328",
-        "title": "如何搭建redis主从同步集群",
-        "content": "主从复制集群是一种高可用性架构，它允许多个Redis实",
-        "cover_img": "https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg",
-        "summary": "从复制集群是一种高可用性架构，它允许",
-        "tags": "",
-        "visibility": "",
-        "typ": "",
-        "share_num": 0,
-        "comment_num": 0,
-        "like_num": 0,
-        "read_num": 0,
-        "collect_num": 0,
-        "status": "",
-        "uid": 10001,
-        "create_time": "2024-09-07T18:25:50+08:00",
-        "update_time": "2024-09-07T18:25:50+08:00"
-      },
-      {
-        "aid": "AA66119067731234816",
-        "title": "如何搭建redis主从同步集群",
-        "content": "主从复制集群是一种高可用性架构，它允许多个Redis实",
-        "cover_img": "https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg",
-        "summary": "从复制集群是一种高可用性架构，它允许",
-        "tags": "数据结构,leetcode",
+        "aid": "AB125",
+        "title": "test",
+        "content": "\ufffd\ufffd-",
+        "cover_img": "http://sihrw5mu0.sabkt.gdipper.com/Fgh2Yat8CNpeOrbzLm1Sf-gxJ4tG",
+        "summary": "test",
+        "tags": "test",
         "visibility": "1",
-        "typ": "1",
-        "share_num": 0,
-        "comment_num": 0,
-        "like_num": 0,
-        "read_num": 0,
-        "collect_num": 0,
-        "status": "",
+        "typ": "2",
+        "share_num": 1,
+        "comment_num": 1,
+        "like_num": 1,
+        "read_num": 1,
+        "collect_num": 1,
+        "status": "1",
         "uid": 10001,
-        "create_time": "2024-09-07T19:29:57+08:00",
-        "update_time": "2024-09-07T19:29:57+08:00"
+        "create_time": "2024-09-01T21:11:35+08:00",
+        "update_time": "2024-09-01T21:11:35+08:00"
+      },
+      {
+        "aid": "AB126",
+        "title": "test",
+        "content": "\ufffd\ufffd-",
+        "cover_img": "http://sihrw5mu0.sabkt.gdipper.com/Fgh2Yat8CNpeOrbzLm1Sf-gxJ4tG",
+        "summary": "test",
+        "tags": "test",
+        "visibility": "1",
+        "typ": "2",
+        "share_num": 1,
+        "comment_num": 1,
+        "like_num": 1,
+        "read_num": 1,
+        "collect_num": 1,
+        "status": "1",
+        "uid": 10001,
+        "create_time": "2024-09-01T21:11:35+08:00",
+        "update_time": "2024-09-01T21:11:35+08:00"
       }
     ],
-    "count": 3
+    "count": 8
   }
 }
 ```
@@ -492,13 +473,13 @@ curl --request GET --url 'http://ip:port/article/list?uid=10001&page=3&page_size
 
 | 参数名    | 类型     | 是否必填 | 参数说明                                       |
 |--------|--------|------|--------------------------------------------|
-| aid    | string | 是    | 文章的唯一ID                                    |
+| aid    | string | 是    | 文章的唯一id                                    |
 | caller | string | 是    | 调用方标识，请传递固定字符串`web`                        |
 | sign   | string | 是    | 签名，$attrString为aid的字段值拼接而成的字符串，见"验签sign字段" |
 
 - 请求示例
 ```text
-curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg' --data 'caller=web'  --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&caller=web&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7' --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMDQwMzEwLCJpYXQiOjE3MjEwNDAzMTB9fQ.tN_YD55WpkRsOXIfiH5TlI5MKp84ziRg0veSCXSxyjg'
 ```
 - 响应示例
 ```json
@@ -506,17 +487,23 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
   "code": 2000160,
   "message": "获取文章详情成功",
   "result": {
-    "aid": "AA46828731192315904",
-    "title": "比克大魔王的人生经历",
-    "content": "<div class=\"main-content\">\n<div class=\"pop-container\">\n<div class=\"popcontent-hole\">\n<div class=\"pop-content\">\n<div class=\"normal___qxduM\">\n<div class=\"markdown___vuBDJ\">\n<p>比克大魔王是《龙珠》系列中一个重要的反派角色，他的人生经历跌宕起伏，充满了转变和成长。以下是对他人生经历的总结：</p>\n<ol>\n<li>\n<p><strong>身份背景</strong>：比克大魔王原本是地球神仙的邪恶化身，由于那美克星气候恶劣，他的父亲卡达兹将他送到地球上，但不幸失去记忆。后来被地球的神看重，却因产生邪念被排出体外，成为了比克大魔王<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">9</span>。</p>\n</li>\n<li>\n<p><strong>特征特点</strong>：比克大魔王有着一张可怕的脸和绿色皮肤，穿着带有&ldquo;魔&rdquo;字的道服，性格邪恶，喜欢征服世界和欣赏人类的恐惧表情<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">9</span>。</p>\n</li>\n<li>\n<p><strong>恢复青春</strong>：在被皮拉夫一伙释放后，比克大魔王为了恢复青春和力量，搜集龙珠，并命令手下杀害武道会的知名人士。最终通过龙珠成功恢复了青春<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">9</span>。</p>\n</li>\n<li>\n<p><strong>征服世界</strong>：恢复年轻后的比克大魔王攻入世界首都，杀死阻挡自己的军队和武术家，逼迫国王退位，并宣布将世界变成人间地狱<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">9</span>。</p>\n</li>\n<li>\n<p><strong>失败死亡</strong>：在与孙悟空的决战中，比克大魔王被击败，临死前吐出了带有全部力量的卵，诞生了儿子比克，并嘱咐其为自己报仇<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">9</span>。</p>\n</li>\n<li>\n<p><strong>转变与成长</strong>：比克，作为比克大魔王的儿子，最初是为了复仇而诞生，但在与孙悟饭的相处中逐渐发生了改变。他成为了悟饭的师傅，并在多次战斗中为保护悟饭而牺牲自己，表现出了深厚的情感<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">11</span>。</p>\n</li>\n<li>\n<p><strong>与神仙同化</strong>：比克为了获得更强大的力量，选择与神仙重新合体，不仅增强了战斗力，还继承了神仙的智慧和超能力，成为了超级那美克星人<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">11</span>。</p>\n</li>\n<li>\n<p><strong>最终牺牲</strong>：在《龙珠GT》中，地球面临毁灭时，比克选择与地球同归于尽，成为了地狱的守护者，体现了他作为天神的责任感<span class=\"refIndex___iN7ZN ragIndex___HYxyx\">9</span>。</p>\n</li>\n</ol>\n<p class=\"last-node\">比克大魔王的人生经历从邪恶的征服者到为保护世界而牺牲的英雄，展现了一个反派角色深刻的转变和成长。</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"contentbottom-hole\">&nbsp;</div>\n</div>",
-    "cover_img": "http://sghu8zs4b.hb-bkt.clouddn.com/FiYcUo-9yt9kVXscPWb-pYY72ceS",
-    "summary": "比克大魔王是《龙珠》系列中一个重要的反派角色，他的人生经历跌宕起伏，充满了转变和成长。以下是对他人生经历的总结：",
-    "read_num": 0,
+    "aid": "AA66157908588498944",
+    "title": "海贼王",
+    "content": "贴上这张图的时候，我们就已经知道它的作用了，将一些模糊不清的照片修复至高清\n\n",
+    "cover_img": "http://sihrw5mu0.sabkt.gdipper.com/Fgh2Yat8CNpeOrbzLm1Sf-gxJ4tG",
+    "summary": "贴上这张图的时候，我们就已经知道它的作用了，将一些模糊不清的照片修复至高清",
+    "tags": "tag",
+    "visibility": "1",
+    "typ": "1",
+    "share_num": 0,
     "comment_num": 0,
+    "like_num": 0,
+    "read_num": 0,
     "collect_num": 0,
+    "status": "",
     "uid": 10001,
-    "create_time": "2024-07-16T13:20:39+08:00",
-    "update_time": "2024-07-16T13:20:39+08:00"
+    "create_time": "2024-09-07T21:27:54+08:00",
+    "update_time": "2024-09-07T21:27:54+08:00"
   }
 }
 ```

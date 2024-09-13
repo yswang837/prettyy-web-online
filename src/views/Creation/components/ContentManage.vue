@@ -6,7 +6,7 @@ import {getArticleListAPI} from "@/apis/article.js";
 const userStore = useUserStore()
 const activeName = ref('tab1')
 const articleList = ref([])
-// todo 接口已经提供，是（/article/list），uid需要从token中解析
+// todo 创作中心->内容管理页面，根据各种条件获取文章列表的接口已经提供，是（/article/list），uid需要从token中解析
 const getArticleList = async (uid, page, page_size) => {
   const res = await getArticleListAPI(uid, page, page_size)
   articleList.value = res.result
