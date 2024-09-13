@@ -16,6 +16,27 @@ const loginOut = () => {
   ElMessage({type:'success', message:'退出登录成功'})
 }
 
+// 搜索框中显示的热门词条，目前先写死固定的几条，每5秒切换一条，后期直接对接搜索算法的热门词条即可
+const hotWord = [
+  'vue3中如何集成tinymce',
+  '如何搭建redis的主从同步',
+  '在gin中如何集成Prometheus监控系统',
+  'go如何利用consul做服务中心',
+  'go如何异步处理web系统的请求日志',
+  'mysql为什么要做分库分表'
+]
+const searchPlaceholder = ref(hotWord[0])
+let index = 1; // 用于跟踪当前要打印的数组元素的索引
+setInterval(() => {
+  if (index < hotWord.length) {
+    searchPlaceholder.value = hotWord[index];
+    index++;
+  } else {
+    index = 1; // 重置索引，从头开始
+  }
+}, 5000)
+
+
 </script>
 
 <template>
@@ -38,8 +59,11 @@ const loginOut = () => {
     </ul>
     <div class="top-middle">
       <div class="search">
-        <!--    todo placeholder里面的内容每10s动态变化一次，“热门”的词条可显示小火花图标，是否热门目前可自定义，后期由搜索算法决定词条是否热门    -->
-        <el-input class="search-input" placeholder="如何搭建redis的主从同步" type="text"></el-input>
+        <el-input class="search-input" :placeholder="searchPlaceholder" type="text">
+          <template #prefix>
+            <img class="hot-img" src="@/assets/images/hot.svg" alt="">
+          </template>
+        </el-input>
         <el-button class="search-button"><i class="iconfont icon-sousuo"></i>搜索</el-button>
       </div>
     </div>
@@ -181,6 +205,10 @@ const loginOut = () => {
 .search-input:deep(.el-input__wrapper) {
   border-top-left-radius: 20px; /* 右上角圆角 */
   border-bottom-left-radius: 20px; /* 右下角圆角 */
+}
+.hot-img {
+  width: 15px;
+  margin-left: 10px;
 }
 .search-button {
   background-color: $bjColor;
