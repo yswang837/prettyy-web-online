@@ -1,5 +1,5 @@
 /**
- * useCountDown，倒计时，主要用于发送短信验证码倒计时
+ * useCountDown，倒计时，主要用于发送短信或邮件验证码的倒计时
  * 利用到期时间做倒计时，解决倒计时在页面关闭后就被不会更新的痛点
  */
 import { onMounted, ref, computed } from "vue";

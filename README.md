@@ -489,7 +489,7 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
   "result": {
     "aid": "AA66157908588498944",
     "title": "海贼王",
-    "content": "贴上这张图的时候，我们就已经知道它的作用了，将一些模糊不清的照片修复至高清\n\n",
+    "content": "贴上这张图的时候，我们就已经知道它的作用了，将一些模糊不清的照片修复至高清",
     "cover_img": "http://sihrw5mu0.sabkt.gdipper.com/Fgh2Yat8CNpeOrbzLm1Sf-gxJ4tG",
     "summary": "贴上这张图的时候，我们就已经知道它的作用了，将一些模糊不清的照片修复至高清",
     "tags": "tag",

@@ -8,13 +8,12 @@ import HomeNav from "@/views/Home/components/HomeNav.vue";
 import {getArticleListAPI} from "@/apis/article.js";
 import {ref, onMounted} from "vue";
 
-// todo 获取文章列表并渲染
 const articleList = ref([])
 const getArticleList = async (page, page_size) => {
   // 主页获取文章列表，不需要传递uid，获取所有文章列表
   const res = await getArticleListAPI(0, page, page_size)
   articleList.value = res.result.article_list
-  console.log('article list', articleList.value)
+  // console.log('article list', articleList.value)
 }
 
 onMounted(() => getArticleList(page.value, pageSize))
