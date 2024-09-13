@@ -141,7 +141,7 @@ setInterval(() => {
             </el-popover>
           </li>
           <li><a href="#">会员中心</a></li>
-
+          <!-- todo 需要加上鼠标移入事件，根据是否登录来区分显示不同的模板，是否登录根据是否有token来区分，比如说'消息'：未登录则提醒用户，登录了显示消息的具体功能 -->
           <li><a href="#"><el-badge is-dot :offset="[5, 2]">消息</el-badge></a></li>
           <li><a href="#">历史</a></li>
           <li><a href="#">创作中心</a></li>
