@@ -6,6 +6,7 @@ import {getArticleListAPI} from "@/apis/article.js";
 const userStore = useUserStore()
 const activeName = ref('tab1')
 const articleList = ref([])
+// todo 接口已经提供，是（/article/list），uid需要从token中解析
 const getArticleList = async (uid, page, page_size) => {
   const res = await getArticleListAPI(uid, page, page_size)
   articleList.value = res.result
@@ -22,7 +23,7 @@ onMounted(() => {getArticleList(userStore.userInfo.user.uid, 1,10)})
 
 <template>
 <div>
-  <el-tabs v-model="activeName" :stretch="true" @tab-click="handleClick">
+  <el-tabs v-model="activeName" @tab-click="handleClick">
     <el-tab-pane label="文章" name="tab1">
       <ArticlePanel v-for="item in articleList" :key="item.aid" :aid="item.aid" :title="item.title" :cover-img="item.cover_img" :is-show-edit="true" :is-show-delete="true"/>
     </el-tab-pane>
