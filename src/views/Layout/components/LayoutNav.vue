@@ -168,7 +168,7 @@ setInterval(() => {
   height: 48px;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 2012; // 该值在Elmessage之下，在el-dialog的遮罩层之上，保证登录页隐藏的遮罩层不会影响topnav相关数据的点击
   box-shadow: 0 1px 3px rgba(118, 118, 118, 0.2); /* 下方阴影 */
 }
 
