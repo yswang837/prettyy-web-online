@@ -2,7 +2,7 @@
 import {useUserStore} from "@/stores/user.js";
 import {ElMessage} from "element-plus";
 import {ref} from "vue";
-import Login from "@/views/Login/index.vue";
+import LoginComp from "@/views/Login/components/LoginComp.vue";
 
 const userStore = useUserStore()
 
@@ -152,9 +152,8 @@ setInterval(() => {
           </li>
         </template>
       </ul>
-      <Login ref="c1" />
+      <LoginComp ref="c1" />
     </div>
-
   </nav>
 </template>
 
