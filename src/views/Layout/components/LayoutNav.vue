@@ -2,7 +2,7 @@
 import {useUserStore} from "@/stores/user.js";
 import {ElMessage} from "element-plus";
 import {ref} from "vue";
-import Login from "@/views/Login/index.vue";
+import LoginComp from "@/views/Login/components/LoginComp.vue";
 
 const userStore = useUserStore()
 
@@ -142,19 +142,22 @@ setInterval(() => {
           </li>
           <li><a href="#">会员中心</a></li>
           <!-- todo 需要加上鼠标移入事件，根据是否登录来区分显示不同的模板，是否登录根据是否有token来区分，比如说'消息'：未登录则提醒用户，登录了显示消息的具体功能 -->
-          <li><a href="#"><el-badge is-dot :offset="[5, 2]">消息</el-badge></a></li>
-          <li><a href="#">历史</a></li>
-          <li><a href="#">创作中心</a></li>
           <li>
-            <router-link to="/publish-article">
+            <router-link to="login/normal">
+              <el-badge is-dot :offset="[5, 2]">消息</el-badge>
+            </router-link>
+          </li>
+          <li><router-link to="login/normal">历史</router-link></li>
+          <li><router-link to="login/normal">创作中心</router-link></li>
+          <li>
+            <router-link to="login/normal">
               <el-button class="publish-btn"><i class="iconfont icon-tianjia1"></i>发布</el-button>
             </router-link>
           </li>
         </template>
       </ul>
-      <Login ref="c1" />
+      <LoginComp ref="c1" />
     </div>
-
   </nav>
 </template>
 

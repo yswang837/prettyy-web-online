@@ -7,6 +7,7 @@ import User from '@/views/User/index.vue'
 import Creation from '@/views/Creation/index.vue'
 import SecRetPolicy from '@/views/Policy/secret-policy/index.vue'
 import ServiceItem from '@/views/Policy/service-item/index.vue'
+import Login from '@/views/Login/index.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   // 一级路由 / 
@@ -35,6 +36,11 @@ const router = createRouter({
         {
           path: 'article/detail/:aid',
           component: Detail,
+          props: true
+        },
+        {
+          path: 'login/:test',
+          component: Login,
           props: true
         },
         {
