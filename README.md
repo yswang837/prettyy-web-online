@@ -507,6 +507,31 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
   }
 }
 ```
+### 3.16 删除文章 ( /article/del )
+
+- 接口说明
+  - 通过aid，uid删除一篇文章
+  - 请求方式：POST
+
+| 参数名    | 类型     | 是否必填 | 参数说明                                       |
+|--------|--------|------|--------------------------------------------|
+| aid    | string | 是    | 文章的唯一id                                    |
+| uid    | int64  | 是    | 该文章所属的用户                                   |
+| caller | string | 是    | 调用方标识，请传递固定字符串`web`                        |
+| sign   | string | 是    | 签名，$attrString为aid的字段值拼接而成的字符串，见"验签sign字段" |
+
+- 请求示例
+```text
+curl --request POST --url http://ip:port/article/del --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSZWdpc3RlcmVkQ2xhaW1zIjp7InN1YiI6IlRva2VuIiwiZXhwIjoxNzIxMTgwMTM5LCJpYXQiOjE3MjExODAxMzl9fQ.UXcN0t5kxzq9aBgMOU9jQ5P5LtaFZg_lFeyShuZPmsc' --header 'content-type: application/x-www-form-urlencoded' --data 'aid=AA66157908588498944' --data 'uid=10001' --data 'caller=web' --data 'sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+```
+- 响应示例
+
+```json
+{
+  "code": 2000320,
+  "message": "删除文章成功"
+}
+```
 
 ## 4.错误码汇总
 
@@ -529,6 +554,7 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
 | 2000260 | 更新省市成功              |
 | 2000280 | 更新生日成功              |
 | 2000300 | 密码更新成功              |
+| 2000320 | 删除文章成功              |
 | 4000001 | 参数错误                |
 | 4000002 | 免密方式，验证码为空          |
 | 4000003 | 免密方式，验证码错误          |
@@ -587,3 +613,5 @@ curl --request GET --url 'http://ip:port/article/detail?aid=AA46828731192315904&
 | 4000302 | 获取用户信息失败            |
 | 4000303 | 密码未改变               |
 | 4000304 | 密码更新失败              |
+| 4000320 | 参数错误                |
+| 4000321 | 删除文章失败              |
