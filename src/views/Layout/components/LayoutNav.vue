@@ -53,7 +53,7 @@ setInterval(() => {
       <li><router-link to="/">学习</router-link></li>
       <li><router-link to="/">社区</router-link></li>
       <li><router-link to="/">知道</router-link></li>
-      <li><a href="https://github.com/yswang837/prettyy-web-online" target="_blank">项目Github地址</a></li>
+      <li><a href="#">项目Github地址</a></li>
       <li><router-link to="/">InsCode</router-link></li>
       <li><router-link to="/">会议</router-link></li>
     </ul>

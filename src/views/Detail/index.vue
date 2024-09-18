@@ -22,33 +22,38 @@ onMounted(() => {
 
 <template>
     <div class="container article-detail-container">
-      <div class="article-left">
-        <div class="base-info">
-          <!--     文章属于谁，获取谁的头像，而不是登录者的头像     -->
-<!--          <el-image class="avatar" :src="userStore.userInfo.user.avatar"></el-image>-->
+        <div class="article-left">
+          <div class="base-info">
+            left
+            <!--     文章属于谁，获取谁的头像，而不是登录者的头像     -->
+            <!--          <el-image class="avatar" :src="userStore.userInfo.user.avatar"></el-image>-->
+          </div>
+        </div>
+        <div class="article-content">
+          <div class="article-content-title">
+            {{articleDetail?.title}}
+          </div>
+          <div class="article-detail" v-html="articleDetail?.content"></div>
+        </div>
+
+        <div class="article-right">
+          right
         </div>
       </div>
-      <div class="article-content">
-        <div class="article-content-title">
-          {{articleDetail?.title}}
-        </div>
-        <div class="article-detail" v-html="articleDetail?.content"></div>
-      </div>
-      <div class="article-right">
-        right
-      </div>
-    </div>
 </template>
 
 <style scoped lang="scss">
 @import "src/styles/tinymce-custom-editor.css";
+
 .article-detail-container {
   display: flex;
-  margin-top: 10px;
+  padding-top: 10px;
+  background-image: url("@/assets/images/background-detail.gif");
+
 }
 .article-left,  {
-  flex: 1;
-  margin-left: 110px;
+  flex: 1.07;
+  margin-left: 123px;
   background-color: #e5e4e2;
 }
 .avatar {
@@ -57,14 +62,15 @@ onMounted(() => {
 }
 
 .article-right {
-  flex: 1;
-  margin-right: 110px;
+  flex: 1.07;
+  margin-right: 123px;
   background-color: #e5e4e2;
 }
 .article-content {
-  flex: 3;
+  flex: 2.90;
   margin: 0 10px;
   background-color: #fcfcfc;
+  height: 1000px;
 }
 .article-content-title {
   font-size: 27px;
