@@ -192,7 +192,7 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
 <template>
   <!-- 在el-dialog上套一个div，确保样式能穿透el-dialog -->
   <div class="my-dialog">
-    <el-dialog :modal="!normal" :close-on-click-modal="!normal" v-model="showLoginDialog" center :show-close="false">
+    <el-dialog :modal="!normal" :close-on-click-modal="!normal" v-model="showLoginDialog" center :show-close="false" :z-index="1000">
       <template #header="{}">
         <div class="welcome-msg">
           <span class="welcome-words">终于等到你~</span>
