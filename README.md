@@ -532,6 +532,49 @@ curl --request POST --url http://ip:port/article/del --header 'Authorization: Be
   "message": "删除文章成功"
 }
 ```
+### 3.17 通过aid获取用户信息 ( /article/get-user-info-by-aid )
+
+- 接口说明
+  - 通过aid获取用户信息。
+  - 请求方式：GET
+
+| 参数名    | 类型     | 是否必填 | 参数说明                                       |
+|--------|--------|------|--------------------------------------------|
+| aid    | string | 是    | 文章的唯一id                                    |
+| caller | string | 是    | 调用方标识，请传递固定字符串`web`                        |
+| sign   | string | 是    | 签名，$attrString为aid的字段值拼接而成的字符串，见"验签sign字段" |
+
+- 请求示例
+```text
+curl --request GET --url 'http://127.0.0.1:6677/article/get-user-info-by-aid?aid=AA66157908588498944&caller=web&sign=04e229d3fddf82f2e6cb6c9e5dac3ab7'
+```
+- 响应示例
+```json
+{
+  "code": 2000340,
+  "message": "获取用户信息成功",
+  "result": {
+    "uid": 10001,
+    "email": "yswang837@gmail.com",
+    "password": "e10adc3949ba59abbe56e057f20f883e",
+    "phone": "",
+    "nick_name": "yswang837",
+    "role": 1,
+    "grade": 1,
+    "avatar": "https://s21.ax1x.com/2024/07/05/pkRgyT0.jpg",
+    "summary": "",
+    "gender": "保密",
+    "province_city": "",
+    "code_age": 1,
+    "is_certified": 0,
+    "data_integrity": 30,
+    "birthday": "",
+    "create_time": "2024-09-09T09:41:36+08:00",
+    "update_time": "2024-09-09T09:41:36+08:00",
+    "login_time": "2024-09-13T14:37:04+08:00"
+  }
+}
+```
 
 ## 4.错误码汇总
 
@@ -555,6 +598,7 @@ curl --request POST --url http://ip:port/article/del --header 'Authorization: Be
 | 2000280 | 更新生日成功              |
 | 2000300 | 密码更新成功              |
 | 2000320 | 删除文章成功              |
+| 2000340 | 获取用户信息成功            |
 | 4000001 | 参数错误                |
 | 4000002 | 免密方式，验证码为空          |
 | 4000003 | 免密方式，验证码错误          |
@@ -615,3 +659,6 @@ curl --request POST --url http://ip:port/article/del --header 'Authorization: Be
 | 4000304 | 密码更新失败              |
 | 4000320 | 参数错误                |
 | 4000321 | 删除文章失败              |
+| 4000340 | 参数错误                |
+| 4000341 | 获取文章信息失败            |
+| 4000342 | 获取用户信息失败            |
