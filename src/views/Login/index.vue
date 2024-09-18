@@ -1,14 +1,10 @@
 <script setup>
 import LoginComp from "@/views/Login/components/LoginComp.vue";
 import {ref,onMounted} from "vue";
-import {useRoute} from "vue-router";
 
-const route = useRoute()
 let c1 = ref()
 onMounted(() => {
-  if (route.params.test === 'normal') {
     c1.value.showLoginDialog = true
-  }
 })
 </script>
 

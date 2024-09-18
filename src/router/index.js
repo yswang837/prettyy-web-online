@@ -39,9 +39,8 @@ const router = createRouter({
           props: true
         },
         {
-          path: 'login/:test',
+          path: 'login',
           component: Login,
-          props: true
         },
         {
           path: 'user-center',

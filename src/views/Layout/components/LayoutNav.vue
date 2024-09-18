@@ -142,12 +142,12 @@ setInterval(() => {
           </li>
           <li><a href="#">会员中心</a></li>
           <!-- todo 需要加上鼠标移入事件，根据是否登录来区分显示不同的模板，是否登录根据是否有token来区分，比如说'消息'：未登录则提醒用户，登录了显示消息的具体功能 -->
-          <li @click="$router.push(`login/normal`)">
+          <li style="cursor: pointer" @click="$router.push(`login`)">
               <el-badge is-dot :offset="[5, 2]">消息</el-badge>
           </li>
-          <li @click="$router.push(`login/normal`)">历史</li>
-          <li @click="$router.push(`login/normal`)">创作中心</li>
-          <li @click="$router.push(`login/normal`)">
+          <li style="cursor: pointer" @click="$router.push(`login`)">历史</li>
+          <li style="cursor: pointer" @click="$router.push(`login`)">创作中心</li>
+          <li style="cursor: pointer" @click="$router.push(`login`)">
               <el-button class="publish-btn"><i class="iconfont icon-tianjia1"></i>发布</el-button>
           </li>
         </template>
