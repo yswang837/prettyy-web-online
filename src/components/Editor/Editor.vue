@@ -136,6 +136,7 @@ const init = reactive({
       "body { font-family:Helvetica,Arial,sans-serif; font-size:16px }p {margin:3px; line-height:24px;}",
   image_advtab: true,
   importcss_append: true,
+  highlight_on_focus: false, // 禁用 点击编辑区时，添加tox-edit-focus类名，导致出现边框
   paste_webkit_styles: "all",
   toolbar_drawer:false,
   paste_merge_formats: true,
