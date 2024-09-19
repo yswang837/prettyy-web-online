@@ -127,10 +127,12 @@ const files = ref([])
 <style lang="scss" scoped>
 .toolbar-bacc {
   position: fixed;
-  top: 50px;
+  top: 44px;
   width: 100%;
-  height: 88px;
+  height: 90px;
   background-color: #f5f6f7;
+  z-index: 300;
+  border-bottom: 1px solid #d7d6d6;
 }
 .publish-article-container {
   display: flex;

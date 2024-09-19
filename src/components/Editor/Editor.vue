@@ -266,6 +266,7 @@ defineExpose({
   padding: 0 !important;
   width: 1088px;
   box-shadow: none !important;
+  z-index: 400 !important;
 }
 .editor-container {
   border: none; /* 移除边框 */
