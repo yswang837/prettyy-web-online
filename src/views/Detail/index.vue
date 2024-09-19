@@ -2,9 +2,9 @@
 import {getArticleDetailAPI} from "@/apis/article.js";
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
-// import {useUserStore} from "@/stores/user.js";
+import {useUserStore} from "@/stores/user.js";
 
-// const userStore = useUserStore()
+const userStore = useUserStore()
 const route = useRoute()
 const articleDetail = ref(null)
 const getArticleDetail = async () => {
@@ -24,9 +24,69 @@ onMounted(() => {
     <div class="container article-detail-container">
         <div class="article-left">
           <div class="base-info">
-            文章属于谁，ta的基础信息汇总
-            <!--     文章属于谁，获取谁的头像，而不是登录者的头像     -->
-            <!--          <el-image class="avatar" :src="userStore.userInfo.user.avatar"></el-image>-->
+            <div class="part1-container">
+              <el-avatar shape="circle" :size="48" :src="userStore.userInfo.user.avatar"/>
+              <div class="info">
+                <div class="username">{{userStore.userInfo.user.nick_name}}</div>
+                <div>
+                  <span>码龄7年</span>
+                  <span><i class="iconfont icon-daV"></i>暂无认证</span>
+                </div>
+              </div>
+            </div>
+            <div class="part2-container">
+              <dl>
+                <dt>76</dt>
+                <dd>原创</dd>
+              </dl>
+              <dl>
+                <dt>30万+</dt>
+                <dd>周排名</dd>
+              </dl>
+              <dl>
+                <dt>5万+</dt>
+                <dd>总排名</dd>
+              </dl>
+              <dl>
+                <dt>2万+</dt>
+                <dd>访问量</dd>
+              </dl>
+              <dl>
+                <dt>4</dt>
+                <dd>等级</dd>
+              </dl>
+            </div>
+            <div class="part3-container">
+              <dl>
+                <dt>827</dt>
+                <dd>积分</dd>
+              </dl>
+              <dl>
+                <dt>45</dt>
+                <dd>粉丝</dd>
+              </dl>
+              <dl>
+                <dt>61</dt>
+                <dd>获赞</dd>
+              </dl>
+              <dl>
+                <dt>9</dt>
+                <dd>评论</dd>
+              </dl>
+              <dl>
+                <dt>59</dt>
+                <dd>收藏</dd>
+              </dl>
+            </div>
+            <div class="part4-container">
+              <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/qixiebiaobing4%40240.png" title="勤写标兵" alt />
+              <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/chizhiyiheng%40240.png" title="持之以恒" alt />
+              <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/xinxiu%40240.png" title="创作新秀" alt />
+            </div>
+            <div class="part5-container">
+              <el-button>私信</el-button>
+              <el-button>关注</el-button>
+            </div>
           </div>
           <div class="hot-article">
             ta的热门文章
@@ -74,6 +134,26 @@ onMounted(() => {
   height: 308px;
   margin-bottom: 10px;
   background-color: white;
+}
+.part1-container {
+  display: flex;
+  padding: 16px 16px 6px 16px; // 上右下左
+}
+.part2-container, .part3-container {
+  display: flex;
+  padding: 9px 10px;
+}
+.part2-container {
+  border-bottom: 1px solid #f5f6f7;
+}
+.part4-container {
+  padding: 0 16px;
+}
+.polygon-image {
+  margin-right: 5px;
+  width: 36px; /* 设置图片的宽度 */
+  height: 36px; /* 设置图片的高度，根据六边形的比例计算 */
+  cursor: pointer;
 }
 
 .hot-article {
