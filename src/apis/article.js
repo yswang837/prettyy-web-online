@@ -35,3 +35,12 @@ export const getArticleDetailAPI = (aid) => {
         }
     })
 }
+
+export const getUserInfoByAidAPI = (aid) => {
+    return httpInstance({
+        url:'/article/get-user-info-by-aid',
+        params: {
+            aid
+        }
+    })
+}
