@@ -252,9 +252,6 @@ defineExpose({
     display: none;
   }
 }
-.editor-container:deep(.tox-sidebar-wrap:active) {
-  border: none;
-}
 :deep(.tox-toolbar__group .tox-tbtn),:deep(.tox-toolbar__group) {
   background-color: #f5f6f7;
   color: #555665;
@@ -262,7 +259,7 @@ defineExpose({
 :deep(.tox-editor-header) {
   position: fixed;
   top: 54px;
-  left: 290px;
+  left: 310px;
   padding: 0 !important;
   width: 1088px;
   box-shadow: none !important;

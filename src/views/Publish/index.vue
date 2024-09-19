@@ -87,7 +87,7 @@ const files = ref([])
         <br>
         <br>
         <br>
-        为文内增加标题，这里将生成目录
+        <span style="font-size: 13px">为文内增加标题，这里将生成目录</span>
       </div>
       <div class="right">
         <el-form :model="form">
@@ -136,36 +136,36 @@ const files = ref([])
 }
 .publish-article-container {
   display: flex;
-  margin-top: 100px;
+  padding-top: 120px;
   background-color: #f5f6f7;
   .left {
     flex: 1;
     margin-left: 50px;
-    margin-right: 20px;
-    background-color: #f8f8f8;
+    margin-right: 35px;
+    background-color: #fff;
   }
   .right {
     flex: 5;
-    margin-left: 50px;
-    margin-right: 350px;
+    margin-left: 40px;
+    margin-right: 330px;
     background-color: #ffffff;
   }
 }
 
 .article-title {
   border: none; /* 移除边框 */
-  background: transparent; /* 透明背景 */
   padding: 15px;
   outline: none; /* 移除聚焦时的轮廓 */
-  box-shadow: none; /* 无阴影 */
   font-family: Arial, sans-serif; /* 设置字体 */
-  font-size: 22px; /* 设置字号 */
+  font-size: 20px; /* 设置字号 */
+  font-weight: bold;
   line-height: 1.5; /* 设置行高 */
-  white-space: nowrap; /* 文本不换行 */
   border-bottom: 1px solid #e8e7e8;
-  cursor: text; /* 显示文本光标 */
   min-width: 100px; /* 设置最小宽度，防止输入框过窄 */
   width: 100%;
+}
+.article-title::placeholder {
+  color: #c1c4cb;
 }
 
 
