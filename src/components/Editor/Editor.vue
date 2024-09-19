@@ -1,5 +1,5 @@
 <template>
-  <div class="test111kfjsldf">
+  <div class="editor-container">
     <editor v-model="myValue" :init="init" :enabled="enabled" :id="tinymceId"></editor>
   </div>
 </template>
@@ -247,25 +247,27 @@ defineExpose({
 
 <style lang="scss" scoped>
 :deep(.tox-tinymce) {
-  border: 1px solid #dcdfe6;
-  border-radius: 4px;
+  border: none;
   .tox-statusbar {
     display: none;
   }
 }
-:deep(.tox-toolbar) {
-  position: fixed;
-  top: 50px; /* 根据需要调整 */
-  left: 290px;
-  z-index: 9999;
-  width: 1088px;
-  border: 1px solid #545453;
-  border-top: none;
-}
-:deep(.tox-tinymce) {
+.editor-container:deep(.tox-sidebar-wrap:active) {
   border: none;
 }
-.test111kfjsldf {
+:deep(.tox-toolbar__group .tox-tbtn),:deep(.tox-toolbar__group) {
+  background-color: #f5f6f7;
+  color: #555665;
+}
+:deep(.tox-editor-header) {
+  position: fixed;
+  top: 54px;
+  left: 290px;
+  padding: 0 !important;
+  width: 1088px;
+  box-shadow: none !important;
+}
+.editor-container {
   border: none; /* 移除边框 */
   background: transparent; /* 透明背景 */
   padding: 0 4px; /* 轻微的内边距，模仿 span 的默认样式 */

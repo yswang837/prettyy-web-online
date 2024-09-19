@@ -78,75 +78,76 @@ const files = ref([])
 </script>
 
 <template>
-  <div class="publish-article-title"><a href="/">&lt; 发布文章</a></div>
-  <div class="publish-article-container container">
-    <div class="left">
-      目录
-      <!--   todo tinymec有付费插件支持自动目录的功能，目前未考虑付费，需要实现该功能，想支持h1,h2,h3,h4的自动目录   -->
-      <br>
-      <br>
-      <br>
-      为文内增加标题，这里将生成目录
+  <div class="container">
+    <div class="toolbar-bacc"></div>
+    <div class="publish-article-container">
+      <div class="left">
+        目录
+        <!--   todo tinymec有付费插件支持自动目录的功能，目前未考虑付费，需要实现该功能，想支持h1,h2,h3,h4的自动目录   -->
+        <br>
+        <br>
+        <br>
+        为文内增加标题，这里将生成目录
+      </div>
+      <div class="right">
+        <el-form :model="form">
+          <el-form-item>
+            <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）" />
+          </el-form-item>
+          <el-form-item>
+            <TEditor v-model="form.content" />
+          </el-form-item>
+          <el-form-item class="shangchaun" label="上传封面">
+            <!--     todo 上传封面的功能，该功能偶尔正常，偶尔失败，不知道是什么bug     -->
+            <UploadImg :showDelete="true" :files="files">
+              <template v-slot:trigger="slotProps">
+                <div class="preview-container" v-if="!slotProps.myCoverImg">
+                  <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
+                  <div>添加文章封面</div>
+                </div>
+                <div class="preview-container" v-else>
+                  <el-image :src="form.cover_img=slotProps?.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
+                </div>
+              </template>
+            </UploadImg>
+          </el-form-item>
+          <el-form-item label="文章摘要">
+            <textarea v-model="form.summary"></textarea>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="submit" class="publish-btn">立即发布</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
-    <div class="right">
-      <el-form :model="form">
-        <el-form-item>
-          <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）" />
-        </el-form-item>
-        <el-form-item>
-          <TEditor v-model="form.content" />
-        </el-form-item>
-        <el-form-item class="shangchaun" label="上传封面">
-          <!--     todo 上传封面的功能，该功能偶尔正常，偶尔失败，不知道是什么bug     -->
-          <UploadImg :showDelete="true" :files="files">
-            <template v-slot:trigger="slotProps">
-              <div class="preview-container" v-if="!slotProps.myCoverImg">
-                <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
-                <div>添加文章封面</div>
-              </div>
-              <div class="preview-container" v-else>
-                <el-image :src="form.cover_img=slotProps?.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
-              </div>
-            </template>
-          </UploadImg>
-        </el-form-item>
-        <el-form-item label="文章摘要">
-          <textarea v-model="form.summary"></textarea>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="submit" class="publish-btn">立即发布</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
+
   </div>
 </template>
 
 <style lang="scss" scoped>
-.publish-article-title {
+.toolbar-bacc {
+  position: fixed;
+  top: 50px;
   width: 100%;
-  height: 50px;
-  background-color: #ffffff;
-  line-height: 50px;
-  margin-left: 90px;
-  margin-top: 15px;
-  font-size: 17px;
+  height: 88px;
+  background-color: #f5f6f7;
 }
 .publish-article-container {
   display: flex;
-  margin-top: 50px;
-}
-.publish-article-container .left {
-  flex: 1;
-  margin-left: 50px;
-  margin-right: 20px;
-  background-color: #f8f8f8;
-}
-.publish-article-container .right {
-  flex: 5;
-  margin-left: 50px;
-  margin-right: 350px;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
+  margin-top: 100px;
+  background-color: #f5f6f7;
+  .left {
+    flex: 1;
+    margin-left: 50px;
+    margin-right: 20px;
+    background-color: #f8f8f8;
+  }
+  .right {
+    flex: 5;
+    margin-left: 50px;
+    margin-right: 350px;
+    background-color: #ffffff;
+  }
 }
 
 .article-title {
@@ -159,7 +160,7 @@ const files = ref([])
   font-size: 22px; /* 设置字号 */
   line-height: 1.5; /* 设置行高 */
   white-space: nowrap; /* 文本不换行 */
-  border-bottom: 1px solid #43341b;
+  border-bottom: 1px solid #e8e7e8;
   cursor: text; /* 显示文本光标 */
   min-width: 100px; /* 设置最小宽度，防止输入框过窄 */
   width: 100%;
