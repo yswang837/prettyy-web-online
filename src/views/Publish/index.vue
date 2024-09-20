@@ -1,8 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import {ref, watch} from 'vue'
 import {useRouter} from "vue-router";
 import {ElMessage} from "element-plus";
-// import Editor from "@tinymce/tinymce-vue";
 import {publishArticleAPI} from "@/apis/article.js";
 import { useUserStore } from "@/stores/user.js";
 import UploadImg from '@/components/UploadImg/index.vue'
@@ -17,6 +16,12 @@ const form = ref({
   cover_img: '',
   summary: ''
 })
+
+// title字数统计
+const titleLength = ref(0)
+watch(()=>form.value.title, (newValue) => {
+  titleLength.value = newValue.length
+});
 
 // todo tinymec编辑区支持图片上传功能
 // todo 仿csdn的发布文章页面的相关布局
@@ -93,8 +98,8 @@ const files = ref([])
         <el-form :model="form">
           <el-form-item>
             <div class="title-container">
-              <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）" />
-              <span class="word-count"> 0 / 100 </span>
+              <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）"  maxlength="100" minlength="5"/>
+              <span class="word-count"> {{titleLength}} / 100 </span>
             </div>
           </el-form-item>
           <el-form-item>
