@@ -92,7 +92,10 @@ const files = ref([])
       <div class="right">
         <el-form :model="form">
           <el-form-item>
-            <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）" />
+            <div class="title-container">
+              <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）" />
+              <span class="word-count"> 0 / 100 </span>
+            </div>
           </el-form-item>
           <el-form-item>
             <TEditor v-model="form.content" />
@@ -150,19 +153,30 @@ const files = ref([])
     background-color: #ffffff;
   }
 }
-
-.article-title {
-  border: none; /* 移除边框 */
-  padding: 15px;
-  outline: none; /* 移除聚焦时的轮廓 */
-  font-family: Arial, sans-serif; /* 设置字体 */
-  font-size: 20px; /* 设置字号 */
-  font-weight: bold;
-  line-height: 1.5; /* 设置行高 */
-  border-bottom: 1px solid #e8e7e8;
-  min-width: 100px; /* 设置最小宽度，防止输入框过窄 */
+.title-container {
+  display: flex;
+  align-items: center;
   width: 100%;
+  border-bottom: 1px solid #e8e7e8;
+  .article-title {
+    flex: 10;
+    border: none; /* 移除边框 */
+    padding: 15px 15px 15px 35px;
+    outline: none; /* 移除聚焦时的轮廓 */
+    font-family: Arial, sans-serif; /* 设置字体 */
+    font-size: 20px; /* 设置字号 */
+    font-weight: bold;
+    line-height: 1.5; /* 设置行高 */
+    min-width: 100px; /* 设置最小宽度，防止输入框过窄 */
+  }
+  .word-count {
+    flex: 1;
+    color: #364354;
+    font-size: 12px;
+  }
 }
+
+
 .article-title::placeholder {
   color: #c1c4cb;
 }
