@@ -99,7 +99,10 @@ const files = ref([])
           <el-form-item>
             <div class="title-container">
               <input class="article-title" v-model="form.title" placeholder="请输入文章标题（5～100个字）"  maxlength="100" minlength="5"/>
-              <span class="word-count"> {{titleLength}} / 100 </span>
+              <div class="word-count">
+                <span class="title-desc" v-if="titleLength<5">还需输入 {{ 5-titleLength }} 个字</span>
+                <span v-else>{{titleLength}} / 100</span>
+              </div>
             </div>
           </el-form-item>
           <el-form-item>
@@ -175,9 +178,12 @@ const files = ref([])
     min-width: 100px; /* 设置最小宽度，防止输入框过窄 */
   }
   .word-count {
-    flex: 1;
+    flex: 1.3;
     color: #364354;
     font-size: 12px;
+    .title-desc {
+      margin-right: 20px
+    }
   }
 }
 
