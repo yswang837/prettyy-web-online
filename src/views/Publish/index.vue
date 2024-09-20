@@ -97,8 +97,7 @@ const files = ref([])
           <el-form-item>
             <TEditor v-model="form.content" />
           </el-form-item>
-          <el-form-item class="shangchaun" label="上传封面">
-            <!--     todo 上传封面的功能，该功能偶尔正常，偶尔失败，不知道是什么bug     -->
+          <el-form-item label="上传封面">
             <UploadImg :showDelete="true" :files="files">
               <template v-slot:trigger="slotProps">
                 <div class="preview-container" v-if="!slotProps.myCoverImg">

@@ -29,6 +29,9 @@ import "tinymce/plugins/quickbars"; // 光标处快捷提示
 import "tinymce/plugins/nonbreaking"; //插入不间断空格
 import "tinymce/plugins/searchreplace"; //查找替换
 import "tinymce/plugins/autolink"; //自动链接
+import "tinymce/plugins/media" // 媒体
+import "tinymce/plugins/autosave" // 自动保存
+import "tinymce/plugins/pagebreak" // 分页
 import "tinymce/plugins/directionality"; //文字方向
 import "tinymce/plugins/visualblocks"; //显示元素范围
 import "tinymce/plugins/visualchars"; //显示不可见字符
@@ -67,7 +70,7 @@ const props = defineProps({
   plugins: {
     type: [String, Array],
     default:
-        "preview media pagebreak autosave fimportcss autoresize searchreplace autolink directionality code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking anchor insertdatetime advlist lists wordcount charmap quickbars emoticons accordion",
+        "preview media pagebreak autosave importcss autoresize searchreplace autolink directionality code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking anchor insertdatetime advlist lists wordcount charmap quickbars emoticons accordion",
   },
   knwlgId: {
     type: String,
@@ -138,7 +141,6 @@ const init = reactive({
   importcss_append: true,
   highlight_on_focus: false, // 禁用 点击编辑区时，添加tox-edit-focus类名，导致出现边框
   paste_webkit_styles: "all",
-  toolbar_drawer:false,
   paste_merge_formats: true,
   nonbreaking_force_tab: false,
   paste_auto_cleanup_on_paste: false,
@@ -260,9 +262,9 @@ defineExpose({
 :deep(.tox-editor-header) {
   position: fixed;
   top: 54px;
-  left: 310px;
+  left: 288px;
   padding: 0 !important;
-  width: 1088px;
+  width: 1120px;
   box-shadow: none !important;
   z-index: 400 !important;
 }
