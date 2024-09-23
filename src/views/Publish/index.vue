@@ -80,6 +80,29 @@ const submit = async () => {
 
 const files = ref([])
 
+// 文章标签逻辑
+const dynamicTags = ref(['Tag 1', 'Tag 2', 'Tag 3'])
+const handleClose = (tag) => {
+  dynamicTags.value.splice(dynamicTags.value.indexOf(tag), 1)
+}
+const inputVisible = ref(false)
+const inputValue = ref('')
+const InputRef = ref(null)
+const showInput = () => {
+  inputVisible.value = true
+  nextTick(() => {
+    InputRef.value.input.focus()
+  })
+}
+const handleInputConfirm = () => {
+  if (inputValue.value) {
+    dynamicTags.value.push(inputValue.value)
+  }
+  inputVisible.value = false
+  inputValue.value = ''
+}
+
+
 </script>
 
 <template>
@@ -110,6 +133,16 @@ const files = ref([])
           </el-form-item>
           <!--     为了遮住无法去掉的横线的空的div条     -->
           <div class="empty-div"></div>
+          <el-form-item label="文章标签">
+            <div class="tags-container">
+              <el-tag class="tag" v-for="tag in dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
+                {{ tag }}
+              </el-tag>
+              <el-input v-if="inputVisible" ref="InputRef" size="small" v-model="inputValue" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"/>
+              <!--       最多只能添加7个标签       -->
+              <el-button v-if="!inputValue" class="button-new-tag" size="small" @click="showInput">添加文章标签</el-button>
+            </div>
+          </el-form-item>
           <el-form-item label="上传封面">
             <UploadImg :showDelete="true" :files="files">
               <template v-slot:trigger="slotProps">
@@ -136,7 +169,8 @@ const files = ref([])
       <div class="content">
         <div class="desc">
           <span class="word-count">共7字</span>
-          <span>回到顶部</span>
+          <span>回到顶部<i class="iconfont icon-jiankuohaoshang"></i>
+          </span>
         </div>
         <div class="buttons">
           <el-button class="btn">保存草稿</el-button>
@@ -144,9 +178,7 @@ const files = ref([])
           <el-button class="btn" type="primary">发布文章</el-button>
         </div>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -209,6 +241,12 @@ const files = ref([])
       background-color: #f5f6f7;
       position: relative;
       top: -30px
+    }
+    .tags-container {
+      .tag {
+        margin-right: 10px;
+        border-radius: 5px;
+      }
     }
   }
 }
