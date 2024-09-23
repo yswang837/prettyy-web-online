@@ -157,10 +157,28 @@ const handleInputConfirm = () => {
             </UploadImg>
           </el-form-item>
           <el-form-item label="文章摘要">
-            <textarea v-model="form.summary"></textarea>
+            <textarea class="summary" v-model="form.summary"></textarea>
           </el-form-item>
-          <el-form-item>
-            <el-button @click="submit" class="publish-btn">立即发布</el-button>
+          <el-form-item label="分类专栏">
+            <div class="tags-container">
+              <el-tag class="tag" v-for="tag in dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
+                {{ tag }}
+              </el-tag>
+              <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" size="small" style="width: 100px;" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"/>
+              <!--       最多只能添加7个标签       -->
+              <el-button v-else :class="dynamicTags.length >= 7?'hidden-add-tags':''" size="small" @click="showInput">+ 添加文章标签</el-button>
+            </div>
+          </el-form-item>
+          <el-form-item label="文章类型">
+            <input type="radio" value="1">原创
+            <input type="radio" value="2">转载
+            <input type="radio" value="3">翻译
+          </el-form-item>
+          <el-form-item label="可见范围">
+            <input type="radio" value="1">全部可见
+            <input type="radio" value="2">仅我可见
+            <input type="radio" value="3">粉丝可见
+            <input type="radio" value="4">VIP可见
           </el-form-item>
         </el-form>
       </div>
@@ -175,7 +193,7 @@ const handleInputConfirm = () => {
         <div class="buttons">
           <el-button class="btn">保存草稿</el-button>
           <el-button class="btn">定时发布</el-button>
-          <el-button class="btn" type="primary">发布文章</el-button>
+          <el-button class="btn" @click="submit" type="primary">发布文章</el-button>
         </div>
       </div>
     </div>
@@ -244,13 +262,19 @@ const handleInputConfirm = () => {
     }
     .tags-container {
       display: flex;
+      flex-wrap: wrap;
       .tag {
         margin-right: 10px;
-        border-radius: 5px;
+        margin-bottom: 10px;
+        border-radius: 8px;
       }
       .hidden-add-tags {
         display: none;
       }
+    }
+    .summary {
+      width: 80%;
+      height: 60px;
     }
   }
 }
