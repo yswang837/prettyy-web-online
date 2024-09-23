@@ -133,9 +133,18 @@ const files = ref([])
       </div>
     </div>
     <div class="footer-container">
-      <el-button>保存草稿</el-button>
-      <el-button>定时发布</el-button>
-      <el-button type="primary">发布文章</el-button>
+      <div class="content">
+        <div class="desc">
+          <span class="word-count">共7字</span>
+          <span>回到顶部</span>
+        </div>
+        <div class="buttons">
+          <el-button class="btn">保存草稿</el-button>
+          <el-button class="btn">定时发布</el-button>
+          <el-button class="btn" type="primary">发布文章</el-button>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -205,10 +214,28 @@ const files = ref([])
 }
 .footer-container {
   position: fixed;
+  display: flex;
   bottom: 0;
   background-color: white;
   height: 50px;
   width: 100%;
+  justify-content: center;
+  align-items: center;
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 800px;
+    .word-count {
+      color: #787984;
+      margin-right: 20px;
+    }
+    .btn {
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: normal;
+    }
+  }
 }
 
 .preview-container {
