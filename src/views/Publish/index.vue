@@ -108,6 +108,8 @@ const files = ref([])
           <el-form-item>
             <TEditor v-model="form.content" />
           </el-form-item>
+          <!--     为了遮住无法去掉的横线的空的div条     -->
+          <div class="empty-div"></div>
           <el-form-item label="上传封面">
             <UploadImg :showDelete="true" :files="files">
               <template v-slot:trigger="slotProps">
@@ -186,6 +188,13 @@ const files = ref([])
           margin-right: 20px
         }
       }
+    }
+    .empty-div {
+      width: 100%;
+      height: 20px;
+      background-color: #f5f6f7;
+      position: relative;
+      top: -30px
     }
   }
 }
