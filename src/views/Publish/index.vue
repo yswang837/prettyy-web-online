@@ -113,8 +113,6 @@ const handleInputConfirm = () => {
         目录
         <!--   todo tinymec有付费插件支持自动目录的功能，目前未考虑付费，需要实现该功能，想支持h1,h2,h3,h4的自动目录   -->
         <br>
-        <br>
-        <br>
         <span style="font-size: 13px">为文内增加标题，这里将生成目录</span>
       </div>
       <div class="right">
@@ -183,6 +181,8 @@ const handleInputConfirm = () => {
         </el-form>
       </div>
     </div>
+    <!--     占位，避免”可见范围“离底部太近     -->
+    <div style="width: 100%;height: 80px;background-color: #f5f6f7;"></div>
     <div class="footer-container">
       <div class="content">
         <div class="desc">
@@ -215,8 +215,11 @@ const handleInputConfirm = () => {
   padding-top: 120px;
   background-color: #f5f6f7;
   .left {
+    position: sticky;
+    top: 140px;
     flex: 1;
     margin-left: 50px;
+    height: 610px;
     margin-right: 35px;
     background-color: #fff;
   }
@@ -283,7 +286,7 @@ const handleInputConfirm = () => {
   display: flex;
   bottom: 0;
   background-color: white;
-  height: 50px;
+  height: 45px;
   width: 100%;
   justify-content: center;
   align-items: center;
