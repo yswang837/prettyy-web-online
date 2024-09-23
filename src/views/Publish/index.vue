@@ -81,7 +81,7 @@ const submit = async () => {
 const files = ref([])
 
 // 文章标签逻辑
-const dynamicTags = ref(['Tag 1', 'Tag 2', 'Tag 3'])
+const dynamicTags = ref([])
 const handleClose = (tag) => {
   dynamicTags.value.splice(dynamicTags.value.indexOf(tag), 1)
 }
@@ -138,9 +138,9 @@ const handleInputConfirm = () => {
               <el-tag class="tag" v-for="tag in dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
                 {{ tag }}
               </el-tag>
-              <el-input v-if="inputVisible" ref="InputRef" size="small" v-model="inputValue" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"/>
+              <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" size="small" style="width: 100px;" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"/>
               <!--       最多只能添加7个标签       -->
-              <el-button v-if="!inputValue" class="button-new-tag" size="small" @click="showInput">添加文章标签</el-button>
+              <el-button v-else :class="dynamicTags.length >= 7?'hidden-add-tags':''" size="small" @click="showInput">+ 添加文章标签</el-button>
             </div>
           </el-form-item>
           <el-form-item label="上传封面">
@@ -243,9 +243,13 @@ const handleInputConfirm = () => {
       top: -30px
     }
     .tags-container {
+      display: flex;
       .tag {
         margin-right: 10px;
         border-radius: 5px;
+      }
+      .hidden-add-tags {
+        display: none;
       }
     }
   }
