@@ -6,7 +6,7 @@
 
 <script setup>
 import {computed, reactive, watch, ref, nextTick, onMounted} from "vue"; //全屏
-
+import {UploadFileAPI} from "@/apis/upload.js";
 import tinymce from "tinymce/tinymce";
 // import "tinymce/skins/content/default/content.css";
 import Editor from "@tinymce/tinymce-vue";
@@ -42,7 +42,6 @@ import "tinymce/plugins/importcss"; //引入自定义样式的css文件
 import "tinymce/plugins/accordion"; // 可折叠数据手风琴模式
 import "tinymce/plugins/anchor"; //锚点
 import "tinymce/plugins/fullscreen";
-
 
 
 const emits = defineEmits(["update:modelValue", "setHtml"]);
@@ -88,10 +87,22 @@ const props = defineProps({
     default: 630,
   },
 });
-const loading = ref(false);
+
 const tinymceId = ref(
     "vue-tinymce-" + +new Date() + ((Math.random() * 1000).toFixed(0) + "")
 );
+
+const tinymceUpload = (blobInfo) => new Promise((resolve, reject) => {
+  const formData = new FormData();
+  const file = blobInfo.blob()
+  formData.append('file', file)
+  UploadFileAPI(formData.get('file')).then(response=>{
+    // console.log('response...',response)
+    resolve(response.result);
+  }).catch(()=>{reject('上传失败')})
+  // console.log('res.......',res)
+
+})
 
 
 //定义一个对象 init初始化
@@ -105,10 +116,8 @@ const init = reactive({
   branding: false, // 是否禁用“Powered by TinyMCE”
   promotion: false, //是否显示 upgrade
   statusbar: true,  //最下方的元素路径和字数统计那一栏是否显示
-  // toolbar_sticky: true,
-  // toolbar_sticky_offset: 100,
   menubar: false,
-  paste_data_images: true, //允许粘贴图像
+  paste_data_images: true, //允许粘贴图像，图片粘贴自动上传需要
   placeholder: "尽情创作吧~",
   image_dimensions: false, //去除宽高属性
   plugins: props.plugins, //这里的数据是在props里面就定义好了的
@@ -150,42 +159,13 @@ const init = reactive({
       "bold italic | quicklink h2 h3 blockquote quickimage quicktable",
   // 编辑器高度自适应
   autoresize_bottom_margin: 20,
-  // autoresize_overflow_padding: 16,
+  images_upload_handler: tinymceUpload,
   min_height: props.minHeight,
   content_css: "/tinymce/skins/content/default/content.css", //以css文件方式自定义可编辑区域的css样式，css文件需自己创建并引入
   setup: function (editor) {
     editor.on('input change',function (){
       myValue.value = tinymce.activeEditor.getContent({ format: "html" })
     })
-  },
-  //图片上传  -实列 具体请根据官网补充-
-  images_upload_handler: function (blobInfo, progress) {
-    new Promise((resolve, reject) => {
-      let file = blobInfo.blob();
-      if (file.size / 1024 / 1024 > 200) {
-        reject({
-          message: "上传失败，图片大小请控制在 200M 以内",
-          remove: true,
-        });
-      }
-      const formData = new FormData();
-      formData.append("file", file);
-      console.log( formData)
-      axios.post("/api/upload/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        onUploadProgress: (progressEvent) => {
-          progress(
-              Math.round((progressEvent.loaded / progressEvent.total) * 100)
-          );
-        },
-      }).then((res) => {
-        resolve(res.data.url);
-      })
-          .catch()
-
-    });
   },
 });
 
