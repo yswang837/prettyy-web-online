@@ -131,7 +131,7 @@ const handleInputConfirm = () => {
           </el-form-item>
           <!--     为了遮住无法去掉的横线的空的div条     -->
           <div class="empty-div"></div>
-          <el-form-item label="文章标签">
+          <el-form-item class="setting-label" label="文章标签">
             <div class="tags-container">
               <el-tag class="tag" v-for="tag in dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
                 {{ tag }}
@@ -141,8 +141,8 @@ const handleInputConfirm = () => {
               <el-button v-else :class="dynamicTags.length >= 7?'hidden-add-tags':''" size="small" @click="showInput">+ 添加文章标签</el-button>
             </div>
           </el-form-item>
-          <el-form-item label="上传封面">
-            <UploadImg :showDelete="true" :files="files">
+          <el-form-item class="setting-label" label="上传封面">
+            <UploadImg class="cover-container" :showDelete="true" :files="files">
               <template v-slot:trigger="slotProps">
                 <div class="preview-container" v-if="!slotProps.myCoverImg">
                   <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
@@ -154,10 +154,10 @@ const handleInputConfirm = () => {
               </template>
             </UploadImg>
           </el-form-item>
-          <el-form-item label="文章摘要">
+          <el-form-item class="setting-label" label="文章摘要">
             <textarea class="summary" v-model="form.summary"></textarea>
           </el-form-item>
-          <el-form-item label="分类专栏">
+          <el-form-item class="setting-label" label="分类专栏">
             <div class="tags-container">
               <el-tag class="tag" v-for="tag in dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
                 {{ tag }}
@@ -167,16 +167,20 @@ const handleInputConfirm = () => {
               <el-button v-else :class="dynamicTags.length >= 7?'hidden-add-tags':''" size="small" @click="showInput">+ 添加文章标签</el-button>
             </div>
           </el-form-item>
-          <el-form-item label="文章类型">
-            <input type="radio" value="1">原创
-            <input type="radio" value="2">转载
-            <input type="radio" value="3">翻译
+          <el-form-item class="setting-label" label="文章类型">
+            <div class="article-type">
+              <input type="radio" value="1" name="type" checked>原创
+              <input type="radio" value="2" name="type">转载
+              <input type="radio" value="3" name="type">翻译
+            </div>
           </el-form-item>
-          <el-form-item label="可见范围">
-            <input type="radio" value="1">全部可见
-            <input type="radio" value="2">仅我可见
-            <input type="radio" value="3">粉丝可见
-            <input type="radio" value="4">VIP可见
+          <el-form-item class="setting-label" label="可见范围">
+            <div class="visibility-container">
+              <input type="radio" value="1" name="visibility" checked>全部可见
+              <input type="radio" value="2" name="visibility">仅我可见
+              <input type="radio" value="3" name="visibility">粉丝可见
+              <input type="radio" value="4" name="visibility">VIP可见
+            </div>
           </el-form-item>
         </el-form>
       </div>
@@ -263,9 +267,20 @@ const handleInputConfirm = () => {
       position: relative;
       top: -30px
     }
+    .article-type, .visibility-container {
+      margin-left: 40px;
+      input {
+        margin-left: 30px;
+      }
+      &:first-child {
+        margin-left: 10px;
+      }
+    }
+
     .tags-container {
       display: flex;
       flex-wrap: wrap;
+      margin-left: 40px;
       .tag {
         margin-right: 10px;
         margin-bottom: 10px;
@@ -278,6 +293,7 @@ const handleInputConfirm = () => {
     .summary {
       width: 80%;
       height: 60px;
+      margin-left: 40px;
     }
   }
 }
@@ -306,7 +322,9 @@ const handleInputConfirm = () => {
     }
   }
 }
-
+.cover-container {
+  margin-left: 40px;
+}
 .preview-container {
   height: 120px;
   width: 200px;
@@ -320,5 +338,10 @@ const handleInputConfirm = () => {
   height: 120px;
   width: 200px;
   position: absolute;
+}
+.setting-label {
+  margin: 0 200px 20px 200px;
+  display: flex;
+  align-items: center;
 }
 </style>
