@@ -132,6 +132,11 @@ const files = ref([])
         </el-form>
       </div>
     </div>
+    <div class="footer-container">
+      <el-button>保存草稿</el-button>
+      <el-button>定时发布</el-button>
+      <el-button type="primary">发布文章</el-button>
+    </div>
 
   </div>
 </template>
@@ -197,6 +202,13 @@ const files = ref([])
       top: -30px
     }
   }
+}
+.footer-container {
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  height: 50px;
+  width: 100%;
 }
 
 .preview-container {
