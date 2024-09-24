@@ -97,6 +97,9 @@ onMounted(() => {
               <el-button class="base-btn">关注</el-button>
             </div>
           </div>
+          <div class="person-search">
+            搜索ta的文章
+          </div>
           <div class="hot-article">
             ta的热门文章
           </div>
@@ -115,13 +118,13 @@ onMounted(() => {
           <div class="catelog">
             本文的目录，高度由文章目录撑开
           </div>
-          <div class="person-search">
-            搜索ta的文章
-          </div>
+
           <div class="new-comment">
             ta的最新评论
           </div>
-
+          <div class="column">
+            ta的专栏
+          </div>
         </div>
       </div>
 </template>
@@ -238,6 +241,7 @@ onMounted(() => {
   background-color: white;
   margin-bottom: 10px;
 }
+
 .person-search {
   height: 48px;
   margin-bottom: 10px;
@@ -245,9 +249,13 @@ onMounted(() => {
 }
 .new-comment {
   height: 385px;
-
+  margin-bottom: 10px;
   background-color: white;
 }
-
+.column {
+  height: 300px;
+  background-color: white;
+  margin-bottom: 10px;
+}
 
 </style>

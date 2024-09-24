@@ -212,7 +212,7 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
             <el-form-item prop="identifyCode1">
               <el-input v-model="form1.identifyCode1" placeholder="6位数字验证码" clearable>
                 <template v-slot:append>
-                  <!--         todo 这个按钮在点击之后，不会立刻禁用该按钮，导致用户无法知道是否点击了，导致容易重复点击并且重复发送多个请求，导致收到很多验证码         -->
+                  <!-- todo 这个按钮在点击之后，不会立刻禁用该按钮，导致用户无法知道是否点击了，导致容易重复点击并且重复发送多个请求，导致收到很多验证码 -->
                   <el-button :disabled="disabled" @click="getIdentityCodeByEmail(form1.email)">{{buttonText}}</el-button>
                 </template>
               </el-input>
