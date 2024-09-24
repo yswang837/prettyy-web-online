@@ -1,20 +1,24 @@
 <script setup>
-import {ref, watch} from 'vue'
+import {ref, watch, nextTick} from 'vue'
 import {useRouter} from "vue-router";
 import {ElMessage} from "element-plus";
 import {publishArticleAPI} from "@/apis/article.js";
-import { useUserStore } from "@/stores/user.js";
 import UploadImg from '@/components/UploadImg/index.vue'
 import TEditor from "@/components/Editor/Editor.vue";
+import getUidFromJwt from "@/utils/parseJwt.js";
 
 const router = useRouter()
-const userStore = useUserStore()
+
 // 1、表单对象
 const form = ref({
   title: '',
   content: '',
   cover_img: '',
-  summary: ''
+  summary: '',
+  visibility: '1',
+  type: '1',
+  dynamicTags : [],
+  dynamicColumnTags : []
 })
 
 // title字数统计
@@ -23,12 +27,10 @@ watch(()=>form.value.title, (newValue) => {
   titleLength.value = newValue.length
 });
 
-// todo tinymec编辑区支持图片上传功能
-// todo 仿csdn的发布文章页面的相关布局
 // todo 支持切换到markdown编辑器的功能
 
 const submit = async () => {
-  await publishArticleAPI(form.value.title,form.value.content, userStore.userInfo.user.uid, form.value.cover_img,form.value.summary)
+  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, getUidFromJwt())
   ElMessage({type:'success', message: '文章添加成功'})
   await router.push('/')
 }
@@ -81,9 +83,8 @@ const submit = async () => {
 const files = ref([])
 
 // 文章标签逻辑
-const dynamicTags = ref([])
 const handleClose = (tag) => {
-  dynamicTags.value.splice(dynamicTags.value.indexOf(tag), 1)
+  form.value.dynamicTags.splice(form.value.dynamicTags.indexOf(tag), 1)
 }
 const inputVisible = ref(false)
 const inputValue = ref('')
@@ -96,12 +97,32 @@ const showInput = () => {
 }
 const handleInputConfirm = () => {
   if (inputValue.value) {
-    dynamicTags.value.push(inputValue.value)
+    form.value.dynamicTags.push(inputValue.value)
   }
   inputVisible.value = false
   inputValue.value = ''
 }
 
+// 分类专栏逻辑
+const handleColumnClose = (tag) => {
+  form.value.dynamicColumnTags.splice(form.value.dynamicColumnTags.indexOf(tag), 1)
+}
+const inputColumnVisible = ref(false)
+const inputColumnValue = ref('')
+const InputColumnRef = ref(null)
+const showColumnInput = () => {
+  inputColumnVisible.value = true
+  nextTick(() => {
+    InputColumnRef.value.input.focus()
+  })
+}
+const handleColumnInputConfirm = () => {
+  if (inputColumnValue.value) {
+    form.value.dynamicColumnTags.push(inputColumnValue.value)
+  }
+  inputColumnVisible.value = false
+  inputColumnValue.value = ''
+}
 
 </script>
 
@@ -133,12 +154,12 @@ const handleInputConfirm = () => {
           <div class="empty-div"></div>
           <el-form-item class="setting-label" label="文章标签">
             <div class="tags-container">
-              <el-tag class="tag" v-for="tag in dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
+              <el-tag class="tag" v-for="tag in form.dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
                 {{ tag }}
               </el-tag>
               <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" size="small" style="width: 100px;" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"/>
               <!--       最多只能添加7个标签       -->
-              <el-button v-else :class="dynamicTags.length >= 7?'hidden-add-tags':''" size="small" @click="showInput">+ 添加文章标签</el-button>
+              <el-button v-else :class="form.dynamicTags.length >= 7?'hidden-add-tags':''" size="small" @click="showInput">+ 添加文章标签</el-button>
             </div>
           </el-form-item>
           <el-form-item class="setting-label" label="上传封面">
@@ -159,27 +180,26 @@ const handleInputConfirm = () => {
           </el-form-item>
           <el-form-item class="setting-label" label="分类专栏">
             <div class="tags-container">
-              <el-tag class="tag" v-for="tag in dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
+              <el-tag class="tag" v-for="tag in form.dynamicColumnTags" :key="tag" closable :disable-transitions="false" @close="handleColumnClose(tag)">
                 {{ tag }}
               </el-tag>
-              <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" size="small" style="width: 100px;" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm"/>
-              <!--       最多只能添加7个标签       -->
-              <el-button v-else :class="dynamicTags.length >= 7?'hidden-add-tags':''" size="small" @click="showInput">+ 添加文章标签</el-button>
+              <el-input v-if="inputColumnVisible" ref="InputColumnRef" v-model="inputColumnValue" size="small" style="width: 100px;" @keyup.enter="handleColumnInputConfirm" @blur="handleColumnInputConfirm"/>
+              <el-button v-else :class="form.dynamicColumnTags.length >= 4?'hidden-add-tags':''" size="small" @click="showColumnInput">+ 添加文章标签</el-button>
             </div>
           </el-form-item>
           <el-form-item class="setting-label" label="文章类型">
             <div class="article-type">
-              <input type="radio" value="1" name="type" checked>原创
-              <input type="radio" value="2" name="type">转载
-              <input type="radio" value="3" name="type">翻译
+              <input v-model="form.type" type="radio" value="1" name="type" checked>原创
+              <input v-model="form.type" type="radio" value="2" name="type">转载
+              <input v-model="form.type" type="radio" value="3" name="type">翻译
             </div>
           </el-form-item>
           <el-form-item class="setting-label" label="可见范围">
             <div class="visibility-container">
-              <input type="radio" value="1" name="visibility" checked>全部可见
-              <input type="radio" value="2" name="visibility">仅我可见
-              <input type="radio" value="3" name="visibility">粉丝可见
-              <input type="radio" value="4" name="visibility">VIP可见
+              <input v-model="form.visibility" type="radio" value="1" name="visibility" checked>全部可见
+              <input v-model="form.visibility" type="radio" value="2" name="visibility">仅我可见
+              <input v-model="form.visibility" type="radio" value="3" name="visibility">粉丝可见
+              <input v-model="form.visibility" type="radio" value="4" name="visibility">VIP可见
             </div>
           </el-form-item>
         </el-form>

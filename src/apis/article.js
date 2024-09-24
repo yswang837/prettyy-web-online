@@ -1,10 +1,10 @@
 import httpInstance from '@/utils/http'
 // 发布文章
-export const publishArticleAPI = (title, content, uid, cover_img, summary) => {
+export const publishArticleAPI = (title, content, cover_img, summary, visibility, tags, typ, uid) => {
     return httpInstance({
         url:'/article/publish',
         method: 'POST',
-        data: { title, content, uid, cover_img, summary }
+        data: { title, content, cover_img, summary, visibility, tags, typ, uid }
     })
 }
 
