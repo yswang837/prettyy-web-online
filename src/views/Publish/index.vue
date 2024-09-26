@@ -30,7 +30,7 @@ watch(()=>form.value.title, (newValue) => {
 // todo 支持切换到markdown编辑器的功能
 
 const submit = async () => {
-  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, getUidFromJwt())
+  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, form.value.dynamicColumnTags.join(','), getUidFromJwt())
   ElMessage({type:'success', message: '文章添加成功'})
   await router.push('/')
 }
