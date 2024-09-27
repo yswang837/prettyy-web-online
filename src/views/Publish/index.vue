@@ -10,9 +10,11 @@ import getUidFromJwt from "@/utils/parseJwt.js";
 
 const router = useRouter()
 
+const columnList = ref([])
 onMounted(async () => {
-  const res = await getColumnListAPI("10002")
-  console.log('res....',res)
+  const res = await getColumnListAPI(getUidFromJwt())
+  // console.log('res....',res)
+  columnList.value = res.result
 })
 
 // 1、表单对象
@@ -132,7 +134,6 @@ const handleColumnInputConfirm = () => {
   inputColumnVisible.value = false
   inputColumnValue.value = ''
 }
-
 </script>
 
 <template>
@@ -193,7 +194,14 @@ const handleColumnInputConfirm = () => {
                 {{ tag }}
               </el-tag>
               <el-input v-if="inputColumnVisible" ref="InputColumnRef" v-model="inputColumnValue" size="small" style="width: 100px;" @keyup.enter="handleColumnInputConfirm" @blur="handleColumnInputConfirm"/>
-              <el-button v-else :class="form.dynamicColumnTags.length >= 4?'hidden-add-tags':''" size="small" @click="showColumnInput">+ 添加文章专栏</el-button>
+              <el-popover placement="bottom" :width="400" trigger="click">
+                <template #reference>
+                  <el-button :class="form.dynamicColumnTags.length >= 3?'hidden-add-tags':''" size="small" @click="showColumnInput">+ 添加文章专栏</el-button>
+                </template>
+                <el-checkbox-group v-model="form.dynamicColumnTags">
+                  <el-checkbox v-for="(title, cid) in columnList" :key="cid" :value="title">{{title}}</el-checkbox>
+                </el-checkbox-group>
+              </el-popover>
             </div>
           </el-form-item>
           <el-form-item class="setting-label" label="文章类型">
