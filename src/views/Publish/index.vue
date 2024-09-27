@@ -10,11 +10,13 @@ import getUidFromJwt from "@/utils/parseJwt.js";
 
 const router = useRouter()
 
-const columnList = ref([])
+const columnObj = ref({})
 onMounted(async () => {
   const res = await getColumnListAPI(getUidFromJwt())
   // console.log('res....',res)
-  columnList.value = res.result
+  columnObj.value = res.result
+  console.log('column value',columnObj.value)
+  console.log('column value',columnObj.value['AB73256199780306944'])
 })
 
 // 1、表单对象
@@ -36,12 +38,26 @@ watch(()=>form.value.title, (newValue) => {
 });
 
 // todo 支持切换到markdown编辑器的功能
-
+function findAidByTitle(title, dictionary) {
+  // console.log('findAidByTitle', title, dictionary.value)
+  for (const aid in dictionary.value) {
+    // console.log('findAidByTitle', aid, title, dictionary.value[aid])
+    if (dictionary.value[aid] === title) {
+      return aid;
+    }
+  }
+  return '';
+}
+function concatenateAids(titles, dictionary) {
+  return titles.map(title => {
+    // 使用辅助函数查找每个标题对应的 aid
+    const aid = findAidByTitle(title, dictionary);
+    // 拼接字符串，格式为 "aid,title"
+    return `${aid},${title}`;
+  }).join(','); // 使用逗号和空格连接每个拼接好的字符串
+}
 const submit = async () => {
-  const cid = ref([""])
-  const combinedArray = cid.value.map((item, index) => [item, form.value.dynamicColumnTags[index]]).flat();
-  // console.log('aaa',combinedArray.join(','))
-  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, combinedArray.join(','), getUidFromJwt())
+  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, concatenateAids(form.value.dynamicColumnTags, columnObj), getUidFromJwt())
   ElMessage({type:'success', message: '文章添加成功'})
   await router.push('/')
 }
@@ -129,7 +145,11 @@ const showColumnInput = () => {
 }
 const handleColumnInputConfirm = () => {
   if (inputColumnValue.value) {
-    form.value.dynamicColumnTags.push(inputColumnValue.value)
+    if (!form.value.dynamicColumnTags.includes(inputColumnValue.value)) {
+      form.value.dynamicColumnTags.push(inputColumnValue.value)
+    }else {
+      ElMessage({type:'warning', message:'专栏已存在'})
+    }
   }
   inputColumnVisible.value = false
   inputColumnValue.value = ''
@@ -199,7 +219,7 @@ const handleColumnInputConfirm = () => {
                   <el-button :class="form.dynamicColumnTags.length >= 3?'hidden-add-tags':''" size="small" @click="showColumnInput">+ 添加文章专栏</el-button>
                 </template>
                 <el-checkbox-group v-model="form.dynamicColumnTags">
-                  <el-checkbox v-for="(title, cid) in columnList" :key="cid" :value="title">{{title}}</el-checkbox>
+                  <el-checkbox v-for="(title,cid ) in columnObj" :key="cid" :value="title">{{title}}</el-checkbox>
                 </el-checkbox-group>
               </el-popover>
             </div>
