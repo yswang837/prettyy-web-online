@@ -214,7 +214,7 @@ const handleColumnInputConfirm = () => {
                 {{ tag }}
               </el-tag>
               <el-input v-if="inputColumnVisible" ref="InputColumnRef" v-model="inputColumnValue" size="small" style="width: 100px;" @keyup.enter="handleColumnInputConfirm" @blur="handleColumnInputConfirm"/>
-              <el-popover placement="bottom" :width="400" trigger="click">
+              <el-popover v-if="form.dynamicColumnTags.length<3" placement="bottom" :width="400" trigger="click">
                 <template #reference>
                   <el-button :class="form.dynamicColumnTags.length >= 3?'hidden-add-tags':''" size="small" @click="showColumnInput">+ 添加文章专栏</el-button>
                 </template>
