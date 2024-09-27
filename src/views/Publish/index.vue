@@ -1,13 +1,19 @@
 <script setup>
-import {ref, watch, nextTick} from 'vue'
+import {ref, watch, nextTick, onMounted} from 'vue'
 import {useRouter} from "vue-router";
 import {ElMessage} from "element-plus";
 import {publishArticleAPI} from "@/apis/article.js";
+import {getColumnListAPI} from "@/apis/column.js";
 import UploadImg from '@/components/UploadImg/index.vue'
 import TEditor from "@/components/Editor/Editor.vue";
 import getUidFromJwt from "@/utils/parseJwt.js";
 
 const router = useRouter()
+
+onMounted(async () => {
+  const res = await getColumnListAPI("10002")
+  console.log('res....',res)
+})
 
 // 1、表单对象
 const form = ref({
@@ -30,7 +36,10 @@ watch(()=>form.value.title, (newValue) => {
 // todo 支持切换到markdown编辑器的功能
 
 const submit = async () => {
-  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, form.value.dynamicColumnTags.join(','), getUidFromJwt())
+  const cid = ref([""])
+  const combinedArray = cid.value.map((item, index) => [item, form.value.dynamicColumnTags[index]]).flat();
+  // console.log('aaa',combinedArray.join(','))
+  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, combinedArray.join(','), getUidFromJwt())
   ElMessage({type:'success', message: '文章添加成功'})
   await router.push('/')
 }
@@ -184,7 +193,7 @@ const handleColumnInputConfirm = () => {
                 {{ tag }}
               </el-tag>
               <el-input v-if="inputColumnVisible" ref="InputColumnRef" v-model="inputColumnValue" size="small" style="width: 100px;" @keyup.enter="handleColumnInputConfirm" @blur="handleColumnInputConfirm"/>
-              <el-button v-else :class="form.dynamicColumnTags.length >= 4?'hidden-add-tags':''" size="small" @click="showColumnInput">+ 添加文章标签</el-button>
+              <el-button v-else :class="form.dynamicColumnTags.length >= 4?'hidden-add-tags':''" size="small" @click="showColumnInput">+ 添加文章专栏</el-button>
             </div>
           </el-form-item>
           <el-form-item class="setting-label" label="文章类型">
