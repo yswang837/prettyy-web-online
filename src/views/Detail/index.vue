@@ -8,9 +8,11 @@ import ArticleList from "./components/ArticleList.vue";
 import CateLog from "./components/CateLog.vue";
 import NewComment from "./components/NewComment.vue";
 import Column from "./components/Column.vue";
-import Profile from "@/views/User/components/Profile.vue";
 
 const route = useRoute()
+
+const fullPath = ref('')
+
 
 const tags = ref(['vue.js','golang','博客系统'])
 const articleUserStore = useArticleUserStore()
@@ -33,6 +35,7 @@ const showCopyRight = () => {
 onMounted(() => {
   getArticleDetail()
   articleUserStore.getUserInfoByAid(route.params.aid)
+  fullPath.value = route.fullPath
 })
 
 </script>
@@ -64,16 +67,14 @@ onMounted(() => {
               </div>
               <div class="article-tags">
                 文章标签
-                <el-tag class="tag" v-for="(tag,index) in tags" :key="index"  :disable-transitions="false">
-                  {{tag}}
-                </el-tag>
+                <el-tag class="tag" v-for="(tag,index) in tags" :key="index"  :disable-transitions="false">{{tag}}</el-tag>
               </div>
             </div>
             <div class="copy-right" @click="showCopyRight">版权</div>
           </div>
           <div v-if="isShowCopyRight" class="copy-right-detail">
             <div>版权声明：本文为博主原创文章，遵循 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC 4.0 BY-SA</a> 版权协议，转载请附上原文出处链接和本声明。</div>
-            <div>本文链接：</div>
+            <div style="margin-top: 5px">本文链接：http://120.26.203.121{{fullPath}}</div>
           </div>
           <div class="article-detail" v-html="articleDetail?.content"></div>
         </div>
