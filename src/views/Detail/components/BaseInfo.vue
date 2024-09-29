@@ -73,9 +73,9 @@ onMounted(() => {
       </dl>
     </div>
     <div class="part4-container">
-      <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/qixiebiaobing4%40240.png" title="勤写标兵" alt />
-      <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/chizhiyiheng%40240.png" title="持之以恒" alt />
-      <img class="polygon-image" src="http://sihrw5mu0.sabkt.gdipper.com/xinxiu%40240.png" title="创作新秀" alt />
+      <img class="polygon-image" src="@/assets/images/qixiebiaobing4@240.png" title="勤写标兵" alt />
+      <img class="polygon-image" src="@/assets/images/chizhiyiheng@240.png" title="持之以恒" alt />
+      <img class="polygon-image" src="@/assets/images/chizhiyiheng@240.png" title="创作新秀" alt />
     </div>
     <div class="part5-container">
       <el-button class="base-btn">私信</el-button>
