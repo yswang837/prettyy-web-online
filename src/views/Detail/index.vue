@@ -8,6 +8,7 @@ import ArticleList from "./components/ArticleList.vue";
 import CateLog from "./components/CateLog.vue";
 import NewComment from "./components/NewComment.vue";
 import Column from "./components/Column.vue";
+import Profile from "@/views/User/components/Profile.vue";
 
 const route = useRoute()
 
@@ -54,12 +55,12 @@ onMounted(() => {
             <img class="article-type" src="@/assets/images/original.png" alt="">
             <div class="detail-info">
               <div>
-                <span>{{articleUserStore.articleUserInfo.nick_name}}</span>
-                <i v-if="articleDetail?.create_time===articleDetail?.update_time" class="iconfont icon-shizhongfill">发布于{{articleDetail?.create_time}}</i>
-                <i v-if="articleDetail?.create_time!==articleDetail?.update_time" class="iconfont icon-shizhongfill">修改于{{articleDetail?.update_time}}</i>
-                <span><i class="iconfont icon-yuedushu">阅读量573</i></span>
-                <span><i class="iconfont icon-shoucangshu-yishoucang">收藏11</i></span>
-                <span><i class="iconfont icon-dianzan_kuai">点赞数28</i></span>
+                <span class="username">{{articleUserStore.articleUserInfo.nick_name}}</span>
+                <i v-if="articleDetail?.create_time===articleDetail?.update_time" class="iconfont icon-shizhongfill"><span class="detail-info-item">发布于{{articleDetail?.create_time}}</span></i>
+                <i v-if="articleDetail?.create_time!==articleDetail?.update_time" class="iconfont icon-shizhongfill"><span class="detail-info-item">修改于{{articleDetail?.update_time}}</span></i>
+                <i class="iconfont icon-yuedushu"><span class="detail-info-item">阅读量573</span></i>
+                <i class="iconfont icon-shoucangshu-yishoucang"><span class="detail-info-item">收藏11</span></i>
+                <i class="iconfont icon-dianzan_kuai"><span class="detail-info-item">点赞数28</span></i>
               </div>
               <div class="article-tags">
                 文章标签
@@ -70,7 +71,10 @@ onMounted(() => {
             </div>
             <div class="copy-right" @click="showCopyRight">版权</div>
           </div>
-          <div v-if="isShowCopyRight">展示版权</div>
+          <div v-if="isShowCopyRight" class="copy-right-detail">
+            <div>版权声明：本文为博主原创文章，遵循 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC 4.0 BY-SA</a> 版权协议，转载请附上原文出处链接和本声明。</div>
+            <div>本文链接：</div>
+          </div>
           <div class="article-detail" v-html="articleDetail?.content"></div>
         </div>
         <div class="article-right">
@@ -110,12 +114,46 @@ onMounted(() => {
       justify-content: space-between;
       background-color: #f8f8f8;
       width: 100%;
-      height: 60px;
+      height: 66px;
       padding: 10px;
       .article-type {
         width: 36px;
         height: 32px;
       }
+      .detail-info {
+        .username {
+          margin-right: 20px;
+          color: #555665;
+          font-size: 14px;
+        }
+        .icon-shizhongfill,.icon-yuedushu, .icon-shoucangshu-yishoucang, .icon-dianzan_kuai {
+          margin-right: 20px;
+          color: #999aa9;
+          font-size: 14px;
+        }
+        .article-tags {
+          margin: 8px 0 3px 0;
+          color: #999aa9;
+          .tag {
+            margin: -3px 8px 0 8px;
+            cursor: pointer;
+          }
+        }
+        .detail-info-item {
+          margin-left: 4px;
+        }
+      }
+      .copy-right {
+        color: #9eb5ca;
+        cursor: pointer;
+      }
+    }
+    .copy-right-detail {
+      margin-top: 20px;
+      color: #9a9aab;
+    }
+    .article-detail {
+      margin-top: 40px;
     }
   }
   .article-right {
