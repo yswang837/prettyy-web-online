@@ -1,27 +1,17 @@
 <script setup>
-import {onMounted, ref} from "vue";
-import {getUserInfoByAidAPI} from "@/apis/article.js";
-import {useRoute} from "vue-router";
 
-const route = useRoute()
-const userInfo = ref(null)
-const getUserInfoByAid = async () => {
-  const res = await getUserInfoByAidAPI(route.params.aid)
-  userInfo.value = res.result
-  // console.log('aa',userInfo.value)
-}
-onMounted(() => {
-  getUserInfoByAid()
-})
+import {useArticleUserStore} from "@/stores/articleuser.js";
+const articleUserStore = useArticleUserStore()
+
 </script>
 
 <template>
   <div class="base-info">
     <div class="part1-container">
       <!--       这里的相关信息均是文章所属者的       -->
-      <el-avatar class="avatar" shape="circle" :size="48" :src="userInfo?.avatar"/>
+      <el-avatar class="avatar" shape="circle" :size="48" :src="articleUserStore.articleUserInfo?.avatar"/>
       <div>
-        <div class="username">{{userInfo?.nick_name}}</div>
+        <div class="username">{{articleUserStore.articleUserInfo?.nick_name}}</div>
         <div>
           <span class="code-age">码龄 1733 天</span>
           <span class="auth"><i class="iconfont icon-daV"></i>暂无认证</span>
@@ -75,7 +65,7 @@ onMounted(() => {
     <div class="part4-container">
       <img class="polygon-image" src="@/assets/images/qixiebiaobing4@240.png" title="勤写标兵" alt />
       <img class="polygon-image" src="@/assets/images/chizhiyiheng@240.png" title="持之以恒" alt />
-      <img class="polygon-image" src="@/assets/images/chizhiyiheng@240.png" title="创作新秀" alt />
+      <img class="polygon-image" src="@/assets/images/xinxiu@240.png" title="创作新秀" alt />
     </div>
     <div class="part5-container">
       <el-button class="base-btn">私信</el-button>
