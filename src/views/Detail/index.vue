@@ -35,7 +35,7 @@ onMounted(() => {
             <div class="part1-container">
               <!--       这里的相关信息均是文章所属者的       -->
               <el-avatar class="avatar" shape="circle" :size="48" :src="userInfo?.avatar"/>
-              <div class="info">
+              <div>
                 <div class="username">{{userInfo?.nick_name}}</div>
                 <div>
                   <span class="code-age">码龄 1733 天</span>
@@ -111,9 +111,12 @@ onMounted(() => {
           <div class="article-content-title">
             {{articleDetail?.title}}
           </div>
+          <div class="sample-desc">
+            <img class="article-type" src="@/assets/images/original.png" alt="">
+
+          </div>
           <div class="article-detail" v-html="articleDetail?.content"></div>
         </div>
-
         <div class="article-right">
           <div class="catelog">
             本文的目录，高度由文章目录撑开
@@ -131,131 +134,138 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "src/styles/tinymce-custom-editor.css";
-
 .article-detail-container {
   display: flex;
   padding-top: 10px;
   background-image: url("@/assets/images/background-detail.gif");
   background-repeat: repeat;
-}
-.article-left {
-  flex: 1.07;
-  margin-left: 123px;
-}
-.base-info {
-  height: 308px;
-  margin-bottom: 10px;
-  background-color: white;
-}
-.part1-container {
-  display: flex;
-  padding: 16px 16px 6px 16px; // 上右下左
-  align-items: center;
-}
-.part2-container, .part3-container {
-  display: flex;
-  padding: 10px;
-  justify-content: space-around;
-}
-.part2-container dl, .part3-container dl {
-  text-align: center;
-}
-.part2-container dt, .part3-container dt {
-  margin-bottom: 6px;
-}
-.part2-container {
-  border-bottom: 1px solid #f5f6f7;
-}
-.part3-container dd {
-  color: #999aa9;
-}
-.part4-container {
-  padding: 5px 16px;
-  .polygon-image {
-    margin-right: 5px;
-    width: 36px; /* 设置图片的宽度 */
-    height: 36px; /* 设置图片的高度，根据六边形的比例计算 */
-    cursor: pointer;
-  }
-}
-.part5-container {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px 16px 10px 16px;
-  .base-btn {
-    width: 124px;
-    border-radius: 20px;
-    font-weight: normal;
-    &:hover {
-      border: 1px solid black;
+  .article-left {
+    flex: 1.07;
+    margin-left: 123px;
+    .base-info {
+      height: 308px;
+      margin-bottom: 10px;
       background-color: white;
-      color: #606266;
+      .part1-container {
+        display: flex;
+        padding: 16px 16px 6px 16px; // 上右下左
+        align-items: center;
+        .avatar {
+          width: 50px;
+          height: 50px;
+          margin-right: 10px;
+        }
+        .username {
+          font-size: 15px;
+          margin-bottom: 2px;
+        }
+        .code-age {
+          color: #999aa9;
+          margin-right: 25px;
+        }
+        .auth {
+          color: #848594;
+          .icon-daV {
+            margin-right: 5px;
+          }
+        }
+      }
+      .part2-container, .part3-container {
+        display: flex;
+        padding: 10px;
+        justify-content: space-around;
+      }
+      .part2-container dl, .part3-container dl {
+        text-align: center;
+      }
+      .part2-container dt, .part3-container dt {
+        margin-bottom: 6px;
+      }
+      .part2-container {
+        border-bottom: 1px solid #f5f6f7;
+      }
+      .part3-container dd {
+        color: #999aa9;
+      }
+      .part4-container {
+        padding: 5px 16px;
+        .polygon-image {
+          margin-right: 5px;
+          width: 36px; /* 设置图片的宽度 */
+          height: 36px; /* 设置图片的高度，根据六边形的比例计算 */
+          cursor: pointer;
+        }
+      }
+      .part5-container {
+        display: flex;
+        justify-content: space-between;
+        margin: 8px 16px 10px 16px;
+        .base-btn {
+          width: 124px;
+          border-radius: 20px;
+          font-weight: normal;
+          &:hover {
+            border: 1px solid black;
+            background-color: white;
+            color: #606266;
+          }
+        }
+      }
+    }
+    .person-search {
+      height: 48px;
+      margin-bottom: 10px;
+      background-color: white;
+    }
+    .hot-article {
+      height: 350px;
+      margin-bottom: 10px;
+      background-color: white;
+    }
+    .new-article {
+      height: 345px;
+      background-color: white;
+      margin-bottom: 10px;
     }
   }
-}
-.avatar {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-}
-.username {
-  font-size: 15px;
-  margin-bottom: 2px;
-}
-.code-age {
-  color: #999aa9;
-  margin-right: 25px;
-}
-.auth {
-  color: #848594;
-  .icon-daV {
-    margin-right: 5px;
+  .article-content {
+    flex: 2.90;
+    margin: 0 10px;
+    padding: 20px 30px;
+    background-color: white;
+    .article-content-title {
+      font-size: 27px;
+    }
+    .sample-desc {
+      background-color: #f8f8f8;
+      width: 100%;
+      height: 60px;
+      margin: 10px 0;
+      .article-type {
+        width: 36px;
+        height: 32px;
+      }
+    }
   }
-}
-.hot-article {
-  height: 350px;
-  margin-bottom: 10px;
-  background-color: white;
-}
-.new-article {
-  height: 345px;
-  background-color: white;
-  margin-bottom: 10px;
-}
-.article-content {
-  flex: 2.90;
-  margin: 0 10px;
-  background-color: #fcfcfc;
-  height: 1000px;
-}
-.article-content-title {
-  font-size: 27px;
-  margin: 15px;
-}
-.article-right {
-  flex: 1.07;
-  margin-right: 123px;
-}
-.catelog {
-  height: 300px;
-  background-color: white;
-  margin-bottom: 10px;
-}
+  .article-right {
+    flex: 1.07;
+    margin-right: 123px;
+    .catelog {
+      height: 300px;
+      background-color: white;
+      margin-bottom: 10px;
+    }
+    .new-comment {
+      height: 385px;
+      margin-bottom: 10px;
+      background-color: white;
+    }
+    .column {
+      height: 300px;
+      background-color: white;
+      margin-bottom: 10px;
+    }
+  }
 
-.person-search {
-  height: 48px;
-  margin-bottom: 10px;
-  background-color: white;
 }
-.new-comment {
-  height: 385px;
-  margin-bottom: 10px;
-  background-color: white;
-}
-.column {
-  height: 300px;
-  background-color: white;
-  margin-bottom: 10px;
-}
-
 </style>
