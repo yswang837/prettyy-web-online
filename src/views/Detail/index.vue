@@ -1,8 +1,12 @@
 <script setup>
-import {getArticleDetailAPI, getUserInfoByAidAPI} from "@/apis/article.js";
+import {getArticleDetailAPI} from "@/apis/article.js";
 import {onMounted, ref} from "vue";
 import {useRoute} from "vue-router";
 import BaseInfo from "./components/BaseInfo.vue";
+import ArticleList from "./components/ArticleList.vue";
+import CateLog from "./components/CateLog.vue";
+import NewComment from "./components/NewComment.vue";
+import Column from "./components/Column.vue";
 
 const route = useRoute()
 
@@ -15,16 +19,8 @@ const getArticleDetail = async () => {
   // console.log(articleDetail.value.title)
 }
 
-const userInfo = ref(null)
-const getUserInfoByAid = async () => {
-  const res = await getUserInfoByAidAPI(route.params.aid)
-  userInfo.value = res.result
-  // console.log('aa',userInfo.value)
-}
-
 onMounted(() => {
   getArticleDetail()
-  getUserInfoByAid()
 })
 
 </script>
@@ -36,12 +32,8 @@ onMounted(() => {
           <div class="person-search">
             搜索ta的文章
           </div>
-          <div class="hot-article">
-            ta的热门文章
-          </div>
-          <div class="new-article">
-            ta的最新文章，以及文章发布情况汇总
-          </div>
+          <ArticleList article-type="hot"/>
+          <ArticleList article-type="new"/>
         </div>
         <div class="article-content">
           <div class="article-content-title">
@@ -49,21 +41,13 @@ onMounted(() => {
           </div>
           <div class="sample-desc">
             <img class="article-type" src="@/assets/images/original.png" alt="">
-
           </div>
           <div class="article-detail" v-html="articleDetail?.content"></div>
         </div>
         <div class="article-right">
-          <div class="catelog">
-            本文的目录，高度由文章目录撑开
-          </div>
-
-          <div class="new-comment">
-            ta的最新评论
-          </div>
-          <div class="column">
-            ta的专栏
-          </div>
+          <CateLog />
+          <NewComment />
+          <Column />
         </div>
       </div>
 </template>
@@ -82,16 +66,6 @@ onMounted(() => {
       height: 48px;
       margin-bottom: 10px;
       background-color: white;
-    }
-    .hot-article {
-      height: 350px;
-      margin-bottom: 10px;
-      background-color: white;
-    }
-    .new-article {
-      height: 345px;
-      background-color: white;
-      margin-bottom: 10px;
     }
   }
   .article-content {
@@ -116,21 +90,6 @@ onMounted(() => {
   .article-right {
     flex: 1.07;
     margin-right: 123px;
-    .catelog {
-      height: 300px;
-      background-color: white;
-      margin-bottom: 10px;
-    }
-    .new-comment {
-      height: 385px;
-      margin-bottom: 10px;
-      background-color: white;
-    }
-    .column {
-      height: 300px;
-      background-color: white;
-      margin-bottom: 10px;
-    }
   }
 
 }
