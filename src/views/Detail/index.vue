@@ -102,9 +102,9 @@ onMounted(() => {
         </div>
 
         <div class="article-right">
+          <Column />
           <CateLog />
           <NewComment />
-          <Column />
         </div>
       </div>
 </template>
@@ -120,6 +120,8 @@ onMounted(() => {
     flex: 1.07;
     margin-left: 123px;
     .person-search {
+      position: sticky;
+      top: 60px;
       height: 48px;
       margin-bottom: 10px;
       background-color: white;

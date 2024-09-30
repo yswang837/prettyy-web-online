@@ -10,7 +10,9 @@
 
 <style scoped lang="scss">
 .new-comment {
-  height: 385px;
+  position: sticky;
+  top: 460px;
+  height: 365px;
   margin-bottom: 10px;
   background-color: white;
 }

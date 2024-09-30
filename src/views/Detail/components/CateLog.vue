@@ -10,7 +10,9 @@
 
 <style scoped lang="scss">
 .catelog {
-  height: 300px;
+  position: sticky;
+  top: 60px;
+  height: 390px;
   background-color: white;
   margin-bottom: 10px;
 }
