@@ -14,7 +14,7 @@ const route = useRoute()
 const fullPath = ref('')
 
 
-const tags = ref(['vue.js','golang','博客系统'])
+const tags = ref([])
 const articleUserStore = useArticleUserStore()
 const articleDetail = ref(null)
 const getArticleDetail = async () => {
@@ -25,6 +25,7 @@ const getArticleDetail = async () => {
   // console.log('aaaa',articleDetail.value)
   articleDetail.value.create_time = articleDetail.value.create_time.replace("T", " ").replace("Z", "")
   articleDetail.value.update_time = articleDetail.value.update_time.replace("T", " ").replace("Z", "")
+  tags.value = articleDetail.value.tags.split(",")
 }
 
 const isShowCopyRight = ref(false)
