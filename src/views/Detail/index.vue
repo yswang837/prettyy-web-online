@@ -62,9 +62,9 @@ onMounted(() => {
                 <span class="username">{{articleUserStore.articleUserInfo.nick_name}}</span>
                 <i v-if="articleDetail?.create_time===articleDetail?.update_time" class="iconfont icon-shizhongfill"><span class="detail-info-item">发布于{{articleDetail?.create_time}}</span></i>
                 <i v-if="articleDetail?.create_time!==articleDetail?.update_time" class="iconfont icon-shizhongfill"><span class="detail-info-item">修改于{{articleDetail?.update_time}}</span></i>
-                <i class="iconfont icon-yuedushu"><span class="detail-info-item">阅读量573</span></i>
-                <i class="iconfont icon-shoucangshu-yishoucang"><span class="detail-info-item">收藏11</span></i>
-                <i class="iconfont icon-dianzan_kuai"><span class="detail-info-item">点赞数28</span></i>
+                <i class="iconfont icon-yuedushu"><span class="detail-info-item">阅读量{{articleDetail?.read_num}}</span></i>
+                <i class="iconfont icon-shoucangshu-yishoucang"><span class="detail-info-item">收藏{{articleDetail?.collect_num}}</span></i>
+                <i class="iconfont icon-dianzan_kuai"><span class="detail-info-item">点赞数{{articleDetail?.like_num}}</span></i>
               </div>
               <div class="article-tags">
                 文章标签
@@ -78,7 +78,17 @@ onMounted(() => {
             <div style="margin-top: 5px">本文链接：http://120.26.203.121{{fullPath}}</div>
           </div>
           <div class="article-detail" v-html="articleDetail?.content"></div>
+          <div class="knowledge-tree">
+            知识树
+          </div>
+          <div class="article-interactive">
+            文章交互区域
+          </div>
+          <div class="detail-article-list">
+            文章详情页，文章列表区域
+          </div>
         </div>
+
         <div class="article-right">
           <CateLog />
           <NewComment />
@@ -155,7 +165,23 @@ onMounted(() => {
       color: #9a9aab;
     }
     .article-detail {
-      margin-top: 40px;
+      margin: 40px 0;
+    }
+    .knowledge-tree {
+      width: 100%;
+      height: 100px;
+      border-top: 1px solid #f0f0f2;
+      border-bottom: 1px solid #f0f0f2;
+    }
+    .article-interactive {
+      position: sticky;
+      bottom: 0;
+      background-color: #cccccc;
+      width: 100%;
+      height: 65px;
+    }
+    .detail-article-list {
+      height: 800px;
     }
   }
   .article-right {
