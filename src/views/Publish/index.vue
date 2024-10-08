@@ -206,7 +206,11 @@ const handleColumnInputConfirm = () => {
             </UploadImg>
           </el-form-item>
           <el-form-item class="setting-label" label="文章摘要">
-            <textarea class="summary" v-model="form.summary"></textarea>
+            <textarea class="summary" placeholder="摘要：会在推荐、列表等场景外露，帮助读者快速了解内容，支持一键AI提取摘要到本文本框" v-model="form.summary"></textarea>
+            <div class="summary-detail">
+              <span class="summary-count">{{titleLength}} / 256</span>
+              <el-button class="btn-extract">一键提取</el-button>
+            </div>
           </el-form-item>
           <el-form-item class="setting-label" label="分类专栏">
             <div class="tags-container">
@@ -348,10 +352,30 @@ const handleColumnInputConfirm = () => {
       }
     }
     .summary {
-      width: 80%;
-      height: 60px;
+      width: 85%;
+      height: 80px;
       margin-left: 40px;
+      resize: none;
+      border: 1px solid #d6d6d8;
+      &::placeholder {
+        color: #c1c4cb;
+      }
     }
+    .summary-detail {
+      margin-top: -45px;
+      margin-left: 380px;
+      .summary-count {
+        font-size: 12px;
+        margin-right: 8px;
+      }
+      .btn-extract {
+        font-size: 12px;
+        border-radius: 20px;
+        width: 60px;
+        height: 22px;
+      }
+    }
+
   }
 }
 .footer-container {
