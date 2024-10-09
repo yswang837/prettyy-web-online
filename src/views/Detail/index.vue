@@ -8,11 +8,11 @@ import ArticleList from "./components/ArticleList.vue";
 import CateLog from "./components/CateLog.vue";
 import NewComment from "./components/NewComment.vue";
 import Column from "./components/Column.vue";
+import ArticleInteractive from "./components/ArticleInteractive.vue";
 
 const route = useRoute()
 
 const fullPath = ref('')
-
 
 const tags = ref([])
 const articleUserStore = useArticleUserStore()
@@ -83,17 +83,7 @@ onMounted(() => {
               知识树
             </div>
             <div class="article-interactive">
-              <div class="left">
-                <el-avatar class="avatar" shape="circle" :size="40" :src="articleUserStore.articleUserInfo?.avatar"/>
-                <span class="username">{{articleUserStore.articleUserInfo?.nick_name}}</span>
-                <el-button class="base-btn">关注</el-button>
-              </div>
-              <div class="right">
-                <i class="iconfont icon-dianzan_kuai"><span class="number">{{articleDetail?.like_num}}</span></i>
-                <i class="iconfont icon-shoucangshu-yishoucang"><span class="number">{{articleDetail?.collect_num}}</span></i>
-                <i class="iconfont icon-pinglun1"><span class="number">{{articleDetail?.comment_num}}</span></i>
-                <i class="iconfont icon-fenxiang"></i>
-              </div>
+              <ArticleInteractive :article-detail="articleDetail" :article-user-info="articleUserStore.articleUserInfo" />
             </div>
           </div>
           <div class="detail-article-list">
@@ -199,45 +189,6 @@ onMounted(() => {
         background-color: white;
         width: 100%;
         height: 65px;
-        .left {
-          display: flex;
-          align-items: center;
-          .username {
-            font-size: 16px;
-            font-weight: bold;
-            padding: 0 14px;
-          }
-          .base-btn {
-            width: 55px;
-            border-radius: 20px;
-            font-weight: normal;
-            &:hover {
-              border: 1px solid black;
-              background-color: white;
-              color: #606266;
-            }
-          }
-        }
-        .right {
-          display: flex;
-          align-items: center;
-          .icon-dianzan_kuai, .icon-shoucangshu-yishoucang, .icon-pinglun1, .icon-fenxiang {
-            margin: 0 12px;
-            color: #82838e;
-            font-size: 17px;
-            cursor: pointer;
-            .number {
-              margin-left: 6px;
-            }
-            &:hover {
-              color: #de9393;
-            }
-          }
-          .icon-fenxiang {
-            padding-left: 20px;
-            border-left: 1px solid #f0f0f2;
-          }
-        }
       }
     }
     .detail-article-list {
