@@ -1,8 +1,16 @@
 <script setup>
+import {useLikeClickedStore} from "@/stores/articleinteracitve.js";
+
 defineProps({
   articleUserInfo: Object,
   articleDetail: Object
 })
+
+const likeClickedStore = useLikeClickedStore()
+
+const likeFunc = () => {
+  likeClickedStore.setClickedStatus()
+}
 </script>
 
 <template>
@@ -12,7 +20,7 @@ defineProps({
     <el-button class="base-btn">关注</el-button>
   </div>
   <div class="right">
-    <i class="iconfont icon-dianzan_kuai"><span class="number">{{articleDetail?.like_num}}</span></i>
+    <i @click="likeFunc" class="iconfont icon-dianzan_kuai" :class="likeClickedStore.interactiveInfo?'like-active':''"><span class="number">{{articleDetail?.like_num}}</span></i>
     <i class="iconfont icon-shoucangshu-yishoucang"><span class="number">{{articleDetail?.collect_num}}</span></i>
     <i class="iconfont icon-pinglun1"><span class="number">{{articleDetail?.comment_num}}</span></i>
     <i class="iconfont icon-fenxiang"></i>
@@ -50,9 +58,9 @@ defineProps({
     .number {
       margin-left: 6px;
     }
-    &:hover {
-      color: #de9393;
-    }
+  }
+  .like-active {
+    color: #e96140;
   }
   .icon-fenxiang {
     padding-left: 20px;
