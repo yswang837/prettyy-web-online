@@ -226,7 +226,10 @@ const handleColumnInputConfirm = () => {
             <textarea class="summary" placeholder="摘要：会在推荐、列表等场景外露，帮助读者快速了解内容，支持一键AI提取摘要到本文本框" v-model="form.summary" maxlength="256"></textarea>
             <div class="summary-detail">
               <span class="summary-count">{{summaryLength}} / 256</span>
-              <el-button class="btn-extract" @click="extractSummary" :disabled="isLoading">一键提取</el-button>
+              <el-button class="btn-extract" @click="extractSummary" :disabled="isLoading">
+                <span v-if="!isLoading">一键提取</span>
+                <img class="load-img" v-else src="/src/assets/images/loading.gif" alt="">
+              </el-button>
             </div>
           </el-form-item>
           <el-form-item class="setting-label" label="分类专栏">
@@ -389,6 +392,9 @@ const handleColumnInputConfirm = () => {
         border-radius: 20px;
         width: 60px;
         height: 22px;
+        .load-img {
+          width: 16px;
+        }
       }
     }
 
