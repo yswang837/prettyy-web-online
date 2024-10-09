@@ -7,6 +7,7 @@ import {getColumnListAPI} from "@/apis/column.js";
 import UploadImg from '@/components/UploadImg/index.vue'
 import TEditor from "@/components/Editor/Editor.vue";
 import getUidFromJwt from "@/utils/parseJwt.js";
+import {extractSummaryAPI} from "@/apis/article.js";
 
 const router = useRouter()
 
@@ -15,8 +16,8 @@ onMounted(async () => {
   const res = await getColumnListAPI(getUidFromJwt())
   // console.log('res....',res)
   columnObj.value = res.result
-  console.log('column value',columnObj.value)
-  console.log('column value',columnObj.value['AB73256199780306944'])
+  // console.log('column value',columnObj.value)
+  // console.log('column value',columnObj.value['AB73256199780306944'])
 })
 
 // 1、表单对象
@@ -36,6 +37,19 @@ const titleLength = ref(0)
 watch(()=>form.value.title, (newValue) => {
   titleLength.value = newValue.length
 });
+
+// 摘要字数统计
+const summaryLength = ref(0)
+watch(()=>form.value.summary, (newValue) => {
+  summaryLength.value = newValue.length
+});
+
+// 一键提取摘要
+const extractSummary = async () => {
+  const res = await extractSummaryAPI("提取一下这段话的一个摘要，字数在100字以下。塔什库尔干又名“石头城”，塔县的石头城遗址是世界四大石头城之一。全球12座8000米以上的高峰中有4座是在塔 县境内。高寒缺氧、山高路远的极端自然环境，曾给塔县的经济发展和老百姓的生活带来很多困难。如今，塔县依托独特的高原风光和民族文化，大力发展旅游产业，开启了乡村振兴和文旅融合发展的新篇章。")
+  // console.log('摘要res', res)
+  form.value.summary = res.result
+}
 
 // todo 支持切换到markdown编辑器的功能
 function findAidByTitle(title, dictionary) {
@@ -206,10 +220,10 @@ const handleColumnInputConfirm = () => {
             </UploadImg>
           </el-form-item>
           <el-form-item class="setting-label" label="文章摘要">
-            <textarea class="summary" placeholder="摘要：会在推荐、列表等场景外露，帮助读者快速了解内容，支持一键AI提取摘要到本文本框" v-model="form.summary"></textarea>
+            <textarea class="summary" placeholder="摘要：会在推荐、列表等场景外露，帮助读者快速了解内容，支持一键AI提取摘要到本文本框" v-model="form.summary" maxlength="256"></textarea>
             <div class="summary-detail">
-              <span class="summary-count">{{titleLength}} / 256</span>
-              <el-button class="btn-extract">一键提取</el-button>
+              <span class="summary-count">{{summaryLength}} / 256</span>
+              <el-button class="btn-extract" @click="extractSummary">一键提取</el-button>
             </div>
           </el-form-item>
           <el-form-item class="setting-label" label="分类专栏">
@@ -363,13 +377,13 @@ const handleColumnInputConfirm = () => {
     }
     .summary-detail {
       margin-top: -45px;
-      margin-left: 380px;
+      margin-left: 385px;
       .summary-count {
-        font-size: 12px;
+        font-size: 11px;
         margin-right: 8px;
       }
       .btn-extract {
-        font-size: 12px;
+        font-size: 11px;
         border-radius: 20px;
         width: 60px;
         height: 22px;

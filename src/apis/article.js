@@ -44,3 +44,11 @@ export const getUserInfoByAidAPI = (aid) => {
         }
     })
 }
+
+export const extractSummaryAPI = (content) => {
+    return httpInstance({
+        url:'/article/extract-summary',
+        method: 'POST',
+        data: { content }
+    })
+}
