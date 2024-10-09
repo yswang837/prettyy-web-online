@@ -8,8 +8,11 @@ import UploadImg from '@/components/UploadImg/index.vue'
 import TEditor from "@/components/Editor/Editor.vue";
 import getUidFromJwt from "@/utils/parseJwt.js";
 import {extractSummaryAPI} from "@/apis/article.js";
+import { useScroll } from '@vueuse/core'
+
 
 const router = useRouter()
+const { y } = useScroll(window)
 
 const columnObj = ref({})
 onMounted(async () => {
@@ -44,6 +47,12 @@ watch(()=>form.value.summary, (newValue) => {
   summaryLength.value = newValue.length
 });
 
+// 正文字数统计
+const contentLength = ref(0)
+watch(()=>form.value.content, () => {
+  contentLength.value = t1.value.handleGetContent().replaceAll('\n','').length
+});
+
 // 一键提取摘要
 const t1 = ref(null)
 const isLoading = ref(false)
@@ -56,6 +65,7 @@ const extractSummary = async () => {
 }
 
 // todo 支持切换到markdown编辑器的功能
+
 function findAidByTitle(title, dictionary) {
   // console.log('findAidByTitle', title, dictionary.value)
   for (const aid in dictionary.value) {
@@ -126,6 +136,25 @@ const handleColumnInputConfirm = () => {
   }
   inputColumnVisible.value = false
   inputColumnValue.value = ''
+}
+
+const backTop = () => {
+  let top = document.documentElement.scrollTop//获取点击时页面的滚动条纵坐标位置
+  const timeTop = setInterval(() => {
+    document.documentElement.scrollTop = top -= 50//一次减50往上滑动
+    if (top <= 0) {
+      clearInterval(timeTop)
+    }
+  }, 5)//定时调用函数使其更顺滑
+}
+const backBottom = () => {
+  let top = document.documentElement.scrollTop//获取点击时页面的滚动条纵坐标位置
+  const timeTop = setInterval(() => {
+    document.documentElement.scrollTop = top += 50//一次减50往上滑动
+    if (top >= 700) {
+      clearInterval(timeTop)
+    }
+  }, 5)//定时调用函数使其更顺滑
 }
 
 </script>
@@ -228,9 +257,9 @@ const handleColumnInputConfirm = () => {
     <div class="footer-container">
       <div class="content">
         <div class="desc">
-          <span class="word-count">共7字</span>
-          <span>回到顶部<i class="iconfont icon-jiankuohaoshang"></i>
-          </span>
+          <span class="word-count">正文共{{contentLength}}字</span>
+          <span v-if="y>400" style="cursor: pointer" @click="backTop">回到顶部<i class="iconfont icon-jiankuohaoshang"></i></span>
+          <span v-else style="cursor: pointer" @click="backBottom">发文设置<i class="iconfont icon-jiankuohaoshang-copy"></i></span>
         </div>
         <div class="buttons">
           <el-button class="btn">保存草稿</el-button>
@@ -374,6 +403,9 @@ const handleColumnInputConfirm = () => {
     .word-count {
       color: #787984;
       margin-right: 20px;
+    }
+    .back-to-top {
+      top: 0;
     }
     .btn {
       border-radius: 20px;
