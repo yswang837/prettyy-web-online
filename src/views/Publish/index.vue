@@ -10,7 +10,6 @@ import getUidFromJwt from "@/utils/parseJwt.js";
 import {extractSummaryAPI} from "@/apis/article.js";
 import { useScroll } from '@vueuse/core'
 
-
 const router = useRouter()
 const { y } = useScroll(window)
 
@@ -262,8 +261,8 @@ const backBottom = () => {
           <span v-else style="cursor: pointer" @click="backBottom">发文设置<i class="iconfont icon-jiankuohaoshang-copy"></i></span>
         </div>
         <div class="buttons">
-          <el-button class="btn">保存草稿</el-button>
-          <el-button class="btn">定时发布</el-button>
+<!--          <el-button class="btn">保存草稿</el-button>-->
+<!--          <el-button class="btn">定时发布</el-button>-->
           <el-button class="btn" @click="submit" type="primary">发布文章</el-button>
         </div>
       </div>
@@ -416,16 +415,6 @@ const backBottom = () => {
 }
 .cover-container {
   margin-left: 40px;
-}
-:deep(.el-loading-mask) {
-  font-size: 11px;
-  width: 2px;
-  height: 2px;
-}
-.custom-loading .el-loading-mask {
-  font-size:11px;
-  width: 2px;
-  height: 2px;
 }
 .preview-container {
   height: 120px;

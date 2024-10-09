@@ -116,6 +116,7 @@ onMounted(() => {
   padding-top: 10px;
   background-image: url("@/assets/images/background-detail.gif");
   background-repeat: repeat;
+  user-select: text;
   .article-left {
     flex: 1.07;
     margin-left: 123px;
