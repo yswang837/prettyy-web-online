@@ -159,14 +159,17 @@ const countDown2 = useCountDown()
 // 所以在此基础上，继续在后端新增频次限制
 
 // 通过邮箱获取验证码
+const isLoading = ref(false)
 const { formatTime, start } = countDown(300)
 const getIdentityCodeByEmail = async (email)=>{
   if (email === "") {
     ElMessage({type: 'warning', message: '请输入邮箱'})
     return
   }
+  isLoading.value = true
   await getIdentityCodeByEmailAPI(email)
   ElMessage({type: 'success', message: '验证码已发送，请查看邮箱'})
+  isLoading.value = false
   start()
   countDown2.startCountDown(60)
 }
@@ -196,7 +199,7 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
       <template #header="{}">
         <div class="welcome-msg">
           <span class="welcome-words">终于等到你~</span>
-          <el-image class="welcome-img" src="http://sihrw5mu0.sabkt.gdipper.com/wel_tips.5624828-removebg-preview.png" alt=""></el-image>
+          <el-image class="welcome-img" src="src/assets/images/welcome.png" alt=""></el-image>
         </div>
         <div class="login-slogan1">登录可享更多权益</div>
       </template>
@@ -212,8 +215,7 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
             <el-form-item prop="identifyCode1">
               <el-input v-model="form1.identifyCode1" placeholder="6位数字验证码" clearable>
                 <template v-slot:append>
-                  <!-- todo 这个按钮在点击之后，不会立刻禁用该按钮，导致用户无法知道是否点击了，导致容易重复点击并且重复发送多个请求，导致收到很多验证码 -->
-                  <el-button :disabled="disabled" @click="getIdentityCodeByEmail(form1.email)">{{buttonText}}</el-button>
+                  <el-button :disabled="isLoading || disabled" @click="getIdentityCodeByEmail(form1.email)">{{buttonText}}</el-button>
                 </template>
               </el-input>
             </el-form-item>
