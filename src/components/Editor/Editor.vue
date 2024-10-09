@@ -219,7 +219,7 @@ const handleSetContent = (content) => {
 
 // 获取值
 const handleGetContent = () => {
-  return tinymce.activeEditor.getContent();
+  return tinymce.activeEditor.getContent({ format: "text" });
 };
 
 defineExpose({
