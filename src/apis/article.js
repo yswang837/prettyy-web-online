@@ -52,3 +52,12 @@ export const extractSummaryAPI = (content) => {
         data: { content }
     })
 }
+
+
+export const clickLikeOrCollectAPI = (m_uid, s_uid, aid, typ) => {
+    return httpInstance({
+        url:'/article/like-collect',
+        method: 'POST',
+        data: { m_uid, s_uid, aid, typ }
+    })
+}

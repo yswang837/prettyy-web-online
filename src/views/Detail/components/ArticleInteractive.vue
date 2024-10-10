@@ -1,15 +1,23 @@
 <script setup>
 import {useLikeClickedStore} from "@/stores/articleinteracitve.js";
+import {ref} from "vue";
+import {clickLikeOrCollectAPI} from "@/apis/article.js";
+import getUidFromJwt from "@/utils/parseJwt.js";
 
-defineProps({
+const props = defineProps({
   articleUserInfo: Object,
   articleDetail: Object
 })
 
 const likeClickedStore = useLikeClickedStore()
 
-const likeFunc = () => {
+const likeOrCollect = ref(null)
+const likeFunc = async () => {
   likeClickedStore.setClickedStatus()
+  // console.log('muid',props.articleUserInfo.uid, 'suid',getUidFromJwt(), 'aid',props.articleDetail.aid,)
+  const res = await clickLikeOrCollectAPI(props.articleUserInfo.uid, getUidFromJwt(), props.articleDetail.aid, '4')
+  // console.log('res',res)
+  likeOrCollect.value = res.result
 }
 </script>
 
@@ -20,7 +28,7 @@ const likeFunc = () => {
     <el-button class="base-btn">关注</el-button>
   </div>
   <div class="right">
-    <i @click="likeFunc" class="iconfont icon-dianzan_kuai" :class="likeClickedStore.interactiveInfo?'like-active':''"><span class="number">{{articleDetail?.like_num}}</span></i>
+    <i @click="likeFunc" class="iconfont icon-dianzan_kuai" :class="likeClickedStore.interactiveInfo?'like-active':''"><span class="number">{{likeOrCollect?.like_num}}</span></i>
     <i class="iconfont icon-shoucangshu-yishoucang"><span class="number">{{articleDetail?.collect_num}}</span></i>
     <i class="iconfont icon-pinglun1"><span class="number">{{articleDetail?.comment_num}}</span></i>
     <i class="iconfont icon-fenxiang"></i>
