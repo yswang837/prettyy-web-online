@@ -5,15 +5,23 @@ import { defineStore } from 'pinia'
 
 export const useLikeClickedStore = defineStore('islikeclicked', () => {
   // 1、定义state
-  const interactiveInfo = ref(false)
+  const interactiveInfo = ref([])
   // 2、定义action函数
-  const setClickedStatus = () => {
-    // 取反
-    interactiveInfo.value = !interactiveInfo.value
+  const setClickedStatus = (aid) => {
+    // 在则删除，不在则添加
+    if (interactiveInfo.value.includes(aid)) {
+      interactiveInfo.value.splice(interactiveInfo.value.indexOf(aid), 1)
+    }else {
+      interactiveInfo.value.push(aid)
+    }
+  }
+  const getClickStatus = (aid) => {
+    return interactiveInfo.value.includes(aid);
   }
   // 3、以对象的格式，把state和action return
   return {
-    interactiveInfo,
+    interactiveInfo, // 外部未直接使用该数组，可以不暴露
     setClickedStatus,
+    getClickStatus
   }
 }, {persist: true})
