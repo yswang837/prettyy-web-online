@@ -11,14 +11,15 @@ const props = defineProps({
 
 const likeClickedStore = useLikeClickedStore()
 
-const likeOrCollect = ref(null)
+const like = ref(null)
 const likeFunc = async () => {
   likeClickedStore.setClickedStatus(props.articleDetail?.aid) // 用于区分该客户端给哪篇文章点赞了
   // console.log('muid',props.articleUserInfo.uid, 'suid',getUidFromJwt(), 'aid',props.articleDetail.aid,)
   const res = await clickLikeOrCollectAPI(props.articleUserInfo.uid, getUidFromJwt(), props.articleDetail.aid, '4')
   // console.log('res',res)
-  likeOrCollect.value = res.result
+  like.value = res.result
 }
+
 </script>
 
 <template>
@@ -29,7 +30,7 @@ const likeFunc = async () => {
   </div>
   <div class="right">
     <i @click="likeFunc" class="iconfont icon-dianzan_kuai" :class="likeClickedStore.getClickStatus(props.articleDetail?.aid)?'like-active':''">
-      <span v-if="likeOrCollect?.like_num" class="number">{{likeOrCollect?.like_num}}</span>
+      <span v-if="like?.like_num" class="number">{{like?.like_num}}</span>
       <span v-else class="number">{{articleDetail?.like_num}}</span>
     </i>
     <i class="iconfont icon-shoucangshu-yishoucang"><span class="number">{{articleDetail?.collect_num}}</span></i>
