@@ -116,7 +116,23 @@ setInterval(() => {
             </a>
           </li>
           <li><a href="#">会员中心</a></li>
-          <li><a href="#">消息</a></li>
+          <li>
+            <a href="/message-center">
+              <el-popover placement="bottom" :width="100" trigger="hover">
+                <template #reference>
+                  <span>消息</span>
+                </template>
+                <ul>
+                  <li>评论和@</li>
+                  <li>新增粉丝</li>
+                  <li>赞和收藏</li>
+                  <li>私信</li>
+                  <li>系统通知</li>
+                  <li>消息设置</li>
+                </ul>
+              </el-popover>
+            </a>
+          </li>
           <li><a href="#">历史</a></li>
           <li><router-link to="/creation-center">创作中心</router-link></li>
           <li>
@@ -141,7 +157,6 @@ setInterval(() => {
             </el-popover>
           </li>
           <li><a href="#">会员中心</a></li>
-          <!-- todo 需要加上鼠标移入事件，根据是否登录来区分显示不同的模板，是否登录根据是否有token来区分，比如说'消息'：未登录则提醒用户，登录了显示消息的具体功能 -->
           <li style="cursor: pointer" @click="$router.push(`login`)">
               <el-badge is-dot :offset="[5, 2]">消息</el-badge>
           </li>
