@@ -28,7 +28,10 @@ const likeFunc = async () => {
     <el-button class="base-btn">关注</el-button>
   </div>
   <div class="right">
-    <i @click="likeFunc" class="iconfont icon-dianzan_kuai" :class="likeClickedStore.interactiveInfo?'like-active':''"><span class="number">{{likeOrCollect?.like_num}}</span></i>
+    <i @click="likeFunc" class="iconfont icon-dianzan_kuai" :class="likeClickedStore.interactiveInfo?'like-active':''">
+      <span v-if="likeOrCollect?.like_num" class="number">{{likeOrCollect?.like_num}}</span>
+      <span v-else class="number">{{articleDetail?.like_num}}</span>
+    </i>
     <i class="iconfont icon-shoucangshu-yishoucang"><span class="number">{{articleDetail?.collect_num}}</span></i>
     <i class="iconfont icon-pinglun1"><span class="number">{{articleDetail?.comment_num}}</span></i>
     <i class="iconfont icon-fenxiang"></i>
