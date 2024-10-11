@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 // 管理用户和文章详情页的转评赞藏数据相关
 
-export const useLikeClickedStore = defineStore('islikeclicked', () => {
+export const useLikeCollectClickedStore = defineStore('islikecollectclicked', () => {
   // 1、定义state
   const interactiveInfo = ref([])
   // 2、定义action函数

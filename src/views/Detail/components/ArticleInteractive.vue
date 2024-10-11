@@ -1,5 +1,5 @@
 <script setup>
-import {useLikeClickedStore} from "@/stores/articleinteracitve.js";
+import {useLikeCollectClickedStore} from "@/stores/articleinteracitve.js";
 import {ref} from "vue";
 import {clickLikeOrCollectAPI} from "@/apis/article.js";
 import getUidFromJwt from "@/utils/parseJwt.js";
@@ -9,11 +9,11 @@ const props = defineProps({
   articleDetail: Object
 })
 
-const likeClickedStore = useLikeClickedStore()
+const likeCollectClickedStore = useLikeCollectClickedStore()
 
 const like = ref(null)
 const likeFunc = async () => {
-  likeClickedStore.setClickedStatus(props.articleDetail?.aid) // 用于区分该客户端给哪篇文章点赞了
+  likeCollectClickedStore.setClickedStatus(props.articleDetail?.aid) // 用于区分该客户端给哪篇文章点赞了
   // console.log('muid',props.articleUserInfo.uid, 'suid',getUidFromJwt(), 'aid',props.articleDetail.aid,)
   const res = await clickLikeOrCollectAPI(props.articleUserInfo.uid, getUidFromJwt(), props.articleDetail.aid, '4')
   // console.log('res',res)
