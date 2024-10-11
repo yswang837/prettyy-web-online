@@ -13,11 +13,20 @@ const likeCollectClickedStore = useLikeCollectClickedStore()
 
 const like = ref(null)
 const likeFunc = async () => {
-  likeCollectClickedStore.setClickedStatus(props.articleDetail?.aid) // 用于区分该客户端给哪篇文章点赞了
+  likeCollectClickedStore.setClickedStatus(props.articleDetail?.aid+'like') // 用于区分该客户端给哪篇文章点赞了
   // console.log('muid',props.articleUserInfo.uid, 'suid',getUidFromJwt(), 'aid',props.articleDetail.aid,)
   const res = await clickLikeOrCollectAPI(props.articleUserInfo.uid, getUidFromJwt(), props.articleDetail.aid, '4')
   // console.log('res',res)
   like.value = res.result
+}
+
+const collect = ref(null)
+const collectFunc = async () => {
+  likeCollectClickedStore.setClickedStatus(props.articleDetail?.aid+'collect') // 用于区分该客户端收藏了哪篇文章
+  // console.log('muid',props.articleUserInfo.uid, 'suid',getUidFromJwt(), 'aid',props.articleDetail.aid,)
+  const res = await clickLikeOrCollectAPI(props.articleUserInfo.uid, getUidFromJwt(), props.articleDetail.aid, '5')
+  // console.log('res',res)
+  collect.value = res.result
 }
 
 </script>
@@ -29,11 +38,14 @@ const likeFunc = async () => {
     <el-button class="base-btn">关注</el-button>
   </div>
   <div class="right">
-    <i @click="likeFunc" class="iconfont icon-dianzan_kuai" :class="likeClickedStore.getClickStatus(props.articleDetail?.aid)?'like-active':''">
+    <i @click="likeFunc" class="iconfont icon-dianzan_kuai" :class="likeCollectClickedStore.getClickStatus(props.articleDetail?.aid+'like')?'like-active':''">
       <span v-if="like?.like_num" class="number">{{like?.like_num}}</span>
       <span v-else class="number">{{articleDetail?.like_num}}</span>
     </i>
-    <i class="iconfont icon-shoucangshu-yishoucang"><span class="number">{{articleDetail?.collect_num}}</span></i>
+    <i @click="collectFunc" class="iconfont icon-shoucangshu-yishoucang" :class="likeCollectClickedStore.getClickStatus(props.articleDetail?.aid+'collect')?'collect-active':''">
+      <span v-if="collect?.collect_num" class="number">{{collect?.collect_num}}</span>
+      <span v-else class="number">{{articleDetail?.collect_num}}</span>
+    </i>
     <i class="iconfont icon-pinglun1"><span class="number">{{articleDetail?.comment_num}}</span></i>
     <i class="iconfont icon-fenxiang"></i>
   </div>
@@ -72,6 +84,9 @@ const likeFunc = async () => {
     }
   }
   .like-active {
+    color: #e96140;
+  }
+  .collect-active {
     color: #e96140;
   }
   .icon-fenxiang {
