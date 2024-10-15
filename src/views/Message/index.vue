@@ -21,7 +21,8 @@ export default {
   },
   methods: {
     setupWebSocket() {
-      this.websocket = new WebSocket("ws://localhost:8888/websocket/connection");
+      this.websocket = new WebSocket("ws://120.26.203.121:8888/ws");  // 线上地址
+      // this.websocket = new WebSocket("ws://localhost:6677/ws"); // 本地测试
       this.websocket.onopen = this.onWebSocketOpen;
       this.websocket.onmessage = this.onWebSocketMessage;
       this.websocket.onclose = this.onWebSocketClose;
@@ -41,7 +42,7 @@ export default {
       }
     },
     sendLike() {
-      fetch("http://120.26.203.121:8888/like", {
+      fetch("http://localhost:6677/like", {
         method: "POST"
       }).then(response => response.json())
           .then(data => console.log(data));
