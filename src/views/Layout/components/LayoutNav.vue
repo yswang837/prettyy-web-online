@@ -34,7 +34,7 @@ setInterval(() => {
   } else {
     index = 1; // 重置索引，从头开始
   }
-}, 5000)
+}, 2000)
 
 
 </script>
@@ -47,23 +47,23 @@ setInterval(() => {
           <img class="logo" src="/src/assets/images/logo.png" alt="">
         </router-link>
       </li>
-      <li><router-link to="/">博客</router-link></li>
-      <li><router-link to="/">下载</router-link></li>
-      <li><router-link to="/">学习</router-link></li>
-      <li><router-link to="/">社区</router-link></li>
-      <li><router-link to="/">知道</router-link></li>
-      <li><a href="#">项目Github地址</a></li>
-      <li><router-link to="/">InsCode</router-link></li>
-      <li><router-link to="/">会议</router-link></li>
+<!--      <li><router-link to="/">博客</router-link></li>-->
+<!--      <li><router-link to="/">下载</router-link></li>-->
+<!--      <li><router-link to="/">学习</router-link></li>-->
+<!--      <li><router-link to="/">社区</router-link></li>-->
+<!--      <li><router-link to="/">知道</router-link></li>-->
+      <li><a href="https://github.com/yswang837/prettyy-web-online" target="_blank">项目Github地址</a></li>
+<!--      <li><router-link to="/">InsCode</router-link></li>-->
+<!--      <li><router-link to="/">会议</router-link></li>-->
     </ul>
     <div class="top-middle">
       <div class="search">
-        <el-input class="search-input" :placeholder="searchPlaceholder" type="text">
+        <el-input class="search-input" :placeholder="searchPlaceholder" type="text" disabled>
           <template #prefix>
             <img class="hot-img" src="@/assets/images/hot.svg" alt="">
           </template>
         </el-input>
-        <el-button class="search-button"><i class="iconfont icon-sousuo"></i>搜索</el-button>
+        <el-button class="search-button" disabled><i class="iconfont icon-sousuo"></i>搜索</el-button>
       </div>
     </div>
     <div class="top-right">
@@ -78,61 +78,61 @@ setInterval(() => {
                   <el-avatar shape="circle" :size="40" :src="userStore.userInfo.user.avatar"/>
                 </template>
                 <div class="nick-name">{{userStore.userInfo.user.nick_name}}</div>
-                <hr>
-                <div class="person-data">
-                  <div>
-                    <router-link to="/">
-                      <div class="person-data-number">301</div>
-                      <div>粉丝</div>
-                    </router-link>
-                  </div>
-                  <div>
-                    <router-link to="/">
-                      <div class="person-data-number">29</div>
-                      <div>关注</div>
-                    </router-link>
-                  </div>
-                  <div>
-                    <router-link to="/">
-                      <div class="person-data-number">155</div>
-                      <div>获赞</div>
-                    </router-link>
-                  </div>
-                </div>
+<!--                <hr>-->
+<!--                <div class="person-data">-->
+<!--                  <div>-->
+<!--                    <router-link to="/">-->
+<!--                      <div class="person-data-number">301</div>-->
+<!--                      <div>粉丝</div>-->
+<!--                    </router-link>-->
+<!--                  </div>-->
+<!--                  <div>-->
+<!--                    <router-link to="/">-->
+<!--                      <div class="person-data-number">29</div>-->
+<!--                      <div>关注</div>-->
+<!--                    </router-link>-->
+<!--                  </div>-->
+<!--                  <div>-->
+<!--                    <router-link to="/">-->
+<!--                      <div class="person-data-number">155</div>-->
+<!--                      <div>获赞</div>-->
+<!--                    </router-link>-->
+<!--                  </div>-->
+<!--                </div>-->
                 <hr>
                 <ul class="func-list">
                   <li><router-link :to="{path: `user-center`}"><i class="iconfont icon-geren"></i>个人中心</router-link></li>
                   <li><router-link :to="{path: `creation-center/2-1`}"><i class="iconfont icon-wodewengao"></i>内容管理</router-link></li>
-                  <li><router-link to="/"><i class="iconfont icon-xiaoyuanzhaopin"></i>我的学习</router-link></li>
-                  <li><router-link to="/"><i class="iconfont icon-dingdan"></i>我的订单</router-link></li>
-                  <li><router-link to="/"><i class="iconfont icon-licai"></i>我的钱包</router-link></li>
-                  <li><router-link to="/"><i class="iconfont icon-yunzhineng"></i>我的云服务</router-link></li>
-                  <li><router-link to="/"><i class="iconfont icon-dengji"></i>我的等级</router-link></li>
-                  <li><router-link to="/"><i class="iconfont icon-liwu"></i>签到抽奖</router-link></li>
+<!--                  <li><router-link to="/"><i class="iconfont icon-xiaoyuanzhaopin"></i>我的学习</router-link></li>-->
+<!--                  <li><router-link to="/"><i class="iconfont icon-dingdan"></i>我的订单</router-link></li>-->
+<!--                  <li><router-link to="/"><i class="iconfont icon-licai"></i>我的钱包</router-link></li>-->
+<!--                  <li><router-link to="/"><i class="iconfont icon-yunzhineng"></i>我的云服务</router-link></li>-->
+<!--                  <li><router-link to="/"><i class="iconfont icon-dengji"></i>我的等级</router-link></li>-->
+<!--                  <li><router-link to="/"><i class="iconfont icon-liwu"></i>签到抽奖</router-link></li>-->
                   <li><router-link to="/" @click="loginOut"><i class="iconfont icon-tuichu"></i>退出登录</router-link></li>
                 </ul>
               </el-popover>
             </a>
           </li>
-          <li><a href="#">会员中心</a></li>
-          <li>
-            <a href="/message-center">
-              <el-popover placement="bottom" :width="100" trigger="hover">
-                <template #reference>
-                  <span>消息</span>
-                </template>
-                <ul>
-                  <li>评论和@</li>
-                  <li>新增粉丝</li>
-                  <li>赞和收藏</li>
-                  <li>私信</li>
-                  <li>系统通知</li>
-                  <li>消息设置</li>
-                </ul>
-              </el-popover>
-            </a>
-          </li>
-          <li><a href="#">历史</a></li>
+<!--          <li><a href="#">会员中心</a></li>-->
+<!--          <li>-->
+<!--            <a href="/message-center">-->
+<!--              <el-popover placement="bottom" :width="100" trigger="hover">-->
+<!--                <template #reference>-->
+<!--                  <span>消息</span>-->
+<!--                </template>-->
+<!--                <ul>-->
+<!--                  <li>评论和@</li>-->
+<!--                  <li>新增粉丝</li>-->
+<!--                  <li>赞和收藏</li>-->
+<!--                  <li>私信</li>-->
+<!--                  <li>系统通知</li>-->
+<!--                  <li>消息设置</li>-->
+<!--                </ul>-->
+<!--              </el-popover>-->
+<!--            </a>-->
+<!--          </li>-->
+<!--          <li><a href="#">历史</a></li>-->
           <li><router-link to="/creation-center">创作中心</router-link></li>
           <li>
             <router-link to="/publish-article">
@@ -155,7 +155,7 @@ setInterval(() => {
               <el-button class="to-login-btn" type="primary" @click="toLoginComponent">立即登录</el-button>
             </el-popover>
           </li>
-          <li><a href="#">会员中心</a></li>
+<!--          <li><a href="#">会员中心</a></li>-->
           <li style="cursor: pointer" @click="$router.push(`login`)">
               <el-badge is-dot :offset="[5, 2]">消息</el-badge>
           </li>
