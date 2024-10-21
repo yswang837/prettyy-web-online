@@ -27,11 +27,11 @@ defineProps({
         <div class="summary">{{ summary }}</div>
         </router-link>
         <div class="panel-data-detail">
-          <span><a href="#"><i class="iconfont icon-dianzan"></i>482</a></span>
-          <span><a href="#"><i class="iconfont icon-pinglun"></i>7</a></span>
-          <span><a href="#"><i class="iconfont icon-shoucang1"></i>22</a></span>
-          <span><a href="#"><i class="iconfont icon-geren1"></i>转让半包辣条</a></span>
-          <span><a href="#"><i class="iconfont icon-gengduo"></i>更多</a></span>
+<!--          <span><a href="#"><i class="iconfont icon-dianzan"></i>482</a></span>-->
+<!--          <span><a href="#"><i class="iconfont icon-pinglun"></i>7</a></span>-->
+<!--          <span><a href="#"><i class="iconfont icon-shoucang1"></i>22</a></span>-->
+          <span><i class="iconfont icon-geren1"></i>转让半包辣条</span>
+<!--          <span><a href="#"><i class="iconfont icon-gengduo"></i>更多</a></span>-->
         </div>
       </div>
     </div>
