@@ -185,6 +185,7 @@ setInterval(() => {
 .app-topnav-container {
   display: flex;
   padding: 0 24px;
+  justify-content: space-around; // 该样式加的原因：模板区域注释很多暂时未实现的功能，避免用户以为是静态页面，之后可直接删除
 }
 //
 .app-topnav-container .top-left {
