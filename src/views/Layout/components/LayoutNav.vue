@@ -44,8 +44,7 @@ setInterval(() => {
     <ul class="top-left">
       <li>
         <router-link to="/">
-          <el-image class="logo" src="/src/assets/images/logo.png">
-          </el-image>
+          <img class="logo" src="/src/assets/images/logo.png" alt="">
         </router-link>
       </li>
       <li><router-link to="/">博客</router-link></li>
