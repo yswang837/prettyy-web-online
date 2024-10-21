@@ -199,7 +199,7 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
       <template #header="{}">
         <div class="welcome-msg">
           <span class="welcome-words">终于等到你~</span>
-          <el-image class="welcome-img" src="src/assets/images/welcome.png" alt=""></el-image>
+          <img class="welcome-img" src="/src/assets/images/welcome.png" alt="">
         </div>
         <div class="login-slogan1">登录可享更多权益</div>
       </template>
@@ -255,11 +255,11 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
       <template #footer="{}">
         <span class="other-words">其他登录方式</span>
         <div>
-          <img class="other-login-img" src="@/assets/images/social-weibo.svg" alt="">
-          <img class="other-login-img" src="@/assets/images/GitHub.svg" alt="">
-          <img class="other-login-img" src="@/assets/images/weixin.svg" alt="">
-          <img class="other-login-img" src="@/assets/images/QQ.svg" alt="">
-          <img class="other-login-img" src="@/assets/images/baidu.svg" alt="">
+<!--          <img class="other-login-img" src="@/assets/images/social-weibo.svg" alt="">-->
+<!--          <img class="other-login-img" src="@/assets/images/GitHub.svg" alt="">-->
+<!--          <img class="other-login-img" src="@/assets/images/weixin.svg" alt="">-->
+<!--          <img class="other-login-img" src="@/assets/images/QQ.svg" alt="">-->
+<!--          <img class="other-login-img" src="@/assets/images/baidu.svg" alt="">-->
         </div>
       </template>
     </el-dialog>
