@@ -4,7 +4,7 @@
 
 <template>
 <div class="feedback">
-  <div class="title">您愿意向朋友推荐"点滴博客"吗？</div>
+  <div class="title">您愿意向朋友推荐"笔尖博客"吗？</div>
   <ul class="feedback-svg">
     <li>
       <i class="iconfont icon-feichangbumanyi"></i>

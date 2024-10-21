@@ -106,7 +106,8 @@ const load = async () => {
             <RightCard title="优秀作者" :auth-data-list="authDataList"/>
           </div>
           <div class="official-blog">
-            <RightCard title="官方博客" :auth-data-list="authDataList" sub-title="官方账号入住"/>
+            <RightCard title="官方博客" :auth-data-list="authDataList"/>
+<!--            <RightCard title="官方博客" :auth-data-list="authDataList" sub-title="官方账号入住"/>-->
           </div>
           <div class="feedback">
             <FeedBack />
