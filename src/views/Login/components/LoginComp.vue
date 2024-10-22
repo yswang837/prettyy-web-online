@@ -126,7 +126,7 @@ const rules2 = {
   ],
   captcha: [
     {required: true, message: '请输入验证码', trigger: 'blur'},
-    {min:6, max:6, message: '验证码必须为6位', trigger: 'blur'},
+    {min:4, max:4, message: '验证码必须为4位', trigger: 'blur'},
   ],
   // 自定义校验规则，勾选了checkbox就通过，不勾选就不通过
   agree: [
@@ -237,7 +237,7 @@ const isFilledAll2 = computed(()=>form2.value.email && form2.value.password && f
               <a href="#" class="forget-password">忘记密码</a>
             </el-form-item>
             <el-form-item prop="captcha">
-              <el-input class="captcha-input" v-model="form2.captcha" placeholder="6位数字验证码" clearable>
+              <el-input class="captcha-input" v-model="form2.captcha" placeholder="4位数字验证码" clearable>
                 <template v-slot:append>
                   <img class="captcha-img" @click="captchaStore.getIdentityCode" :src="captchaStore.captchaInfo.picPath" alt>
                 </template>
