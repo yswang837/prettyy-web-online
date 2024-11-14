@@ -37,7 +37,7 @@ const toDelete = async (aid, uid) => {
       <el-image class="cover-image" :src="coverImg" lazy alt=""></el-image>
     </router-link>
     <div class="panel-data">
-      <router-link :to="{path:`article/detail/${aid}`}">
+      <router-link :to="{path:`/article/detail/${aid}`}">
         <div class="title">{{ title }}</div>
       </router-link>
       <div class="panel-data-detail">
