@@ -125,7 +125,9 @@ onMounted(() => {
       background-color: white;
       padding: 20px 30px 0 30px;
       .article-content-title {
-        font-size: 27px;
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 10px;
       }
       .sample-desc {
         display: flex;

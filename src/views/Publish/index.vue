@@ -1,8 +1,9 @@
 <script setup>
 import {ref, watch, nextTick, onMounted} from 'vue'
 import {useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 import {ElMessage} from "element-plus";
-import {publishArticleAPI} from "@/apis/article.js";
+import {getArticleDetailAPI, publishArticleAPI} from "@/apis/article.js";
 import {getColumnListAPI} from "@/apis/column.js";
 import UploadImg from '@/components/UploadImg/index.vue'
 import TEditor from "@/components/Editor/Editor.vue";
@@ -11,6 +12,7 @@ import {extractSummaryAPI} from "@/apis/article.js";
 import { useScroll } from '@vueuse/core'
 
 const router = useRouter()
+const route = useRoute()
 const { y } = useScroll(window)
 
 const columnObj = ref({})
@@ -20,6 +22,20 @@ onMounted(async () => {
   columnObj.value = res.result
   // console.log('column value',columnObj.value)
   // console.log('column value',columnObj.value['AB73256199780306944'])
+  // console.log('编辑文章的aid',route.params.aid)
+  if (route.params.aid) {
+    const res2 = await getArticleDetailAPI(route.params.aid)
+    console.log(res2)
+    form.value.title = res2.result.title
+    form.value.content = res2.result.content
+    form.value.cover_img = res2.result.cover_img
+    form.value.summary = res2.result.summary
+    form.value.visibility = res2.result.visibility
+    form.value.type = res2.result.type
+    form.value.dynamicTags = res2.result.tags
+  }
+
+
 })
 
 // 1、表单对象

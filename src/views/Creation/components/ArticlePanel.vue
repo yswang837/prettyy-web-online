@@ -2,6 +2,7 @@
 import {useUserStore} from "@/stores/user.js";
 import {delArticleAPI} from "@/apis/article.js";
 import {ElMessage} from "element-plus";
+import router from "@/router/index.js";
 
 const userStore = useUserStore()
 
@@ -28,6 +29,9 @@ const toDelete = async (aid, uid) => {
   ElMessage({type:"success", message:"删除成功"})
   window.location.reload()
 }
+const toEdit = async (aid) => {
+  router.push({path: `/publish-article/${aid}`})
+}
 </script>
 
 
@@ -47,7 +51,7 @@ const toDelete = async (aid, uid) => {
           <span><a href="#"><i class="iconfont icon-shoucang1"></i>22</a></span>
         </div>
         <div class="panel-data-detail-part2">
-          <i v-if="isShowEdit"   class="iconfont icon-bianji2">编辑</i>
+          <i v-if="isShowEdit" @click="toEdit(aid)"  class="iconfont icon-bianji2">编辑</i>
           <i v-if="isShowDelete" @click="toDelete(aid, userStore.userInfo.user.uid)" class="iconfont icon-shanchu">删除</i>
         </div>
       </div>

@@ -24,7 +24,7 @@ const router = createRouter({
           component: Home
         },
         {
-          path: 'publish-article',
+          path: 'publish-article/:aid?',
           component: Publish
         },
         {
