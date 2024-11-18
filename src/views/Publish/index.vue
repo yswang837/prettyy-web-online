@@ -25,14 +25,15 @@ onMounted(async () => {
   // console.log('编辑文章的aid',route.params.aid)
   if (route.params.aid) {
     const res2 = await getArticleDetailAPI(route.params.aid)
-    console.log(res2)
+    // console.log(res2)
     form.value.title = res2.result.title
     form.value.content = res2.result.content
     form.value.cover_img = res2.result.cover_img
     form.value.summary = res2.result.summary
     form.value.visibility = res2.result.visibility
-    form.value.type = res2.result.type
-    form.value.dynamicTags = res2.result.tags
+    form.value.type = res2.result.typ
+    form.value.dynamicTags = res2.result.tags.split(',')
+    form.value.dynamicColumnTags = columnObj.value
   }
 
 
@@ -196,6 +197,7 @@ const backBottom = () => {
             </div>
           </el-form-item>
           <el-form-item>
+<!--            <div>{{form.content}}</div>-->
             <TEditor ref="t1" v-model="form.content" />
           </el-form-item>
           <!--     为了遮住无法去掉的横线的空的div条     -->
