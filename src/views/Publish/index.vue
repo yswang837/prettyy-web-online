@@ -6,10 +6,10 @@ import {ElMessage} from "element-plus";
 import {getArticleDetailAPI, publishArticleAPI} from "@/apis/article.js";
 import {getColumnListAPI} from "@/apis/column.js";
 import UploadImg from '@/components/UploadImg/index.vue'
-import TEditor from "@/components/Editor/Editor.vue";
 import getUidFromJwt from "@/utils/parseJwt.js";
-import {extractSummaryAPI} from "@/apis/article.js";
+// import {extractSummaryAPI} from "@/apis/article.js";
 import { useScroll } from '@vueuse/core'
+import Vue3Tinymce from '../../../packages/Vue3Tinymce';
 
 const router = useRouter()
 const route = useRoute()
@@ -25,7 +25,7 @@ onMounted(async () => {
   // console.log('编辑文章的aid',route.params.aid)
   if (route.params.aid) {
     const res2 = await getArticleDetailAPI(route.params.aid)
-    // console.log(res2)
+    console.log('res2.......',res2)
     form.value.title = res2.result.title
     form.value.content = res2.result.content
     form.value.cover_img = res2.result.cover_img
@@ -64,21 +64,21 @@ watch(()=>form.value.summary, (newValue) => {
 });
 
 // 正文字数统计
-const contentLength = ref(0)
-watch(()=>form.value.content, () => {
-  contentLength.value = t1.value.handleGetContent().replaceAll('\n','').length
-});
+// const contentLength = ref(0)
+// watch(()=>form.value.content, () => {
+//   contentLength.value = t1.value.handleGetContent().replaceAll('\n','').length
+// });
 
 // 一键提取摘要
-const t1 = ref(null)
-const isLoading = ref(false)
-const extractSummary = async () => {
-  isLoading.value = true
-  const res = await extractSummaryAPI('提取一下这段话的一个摘要，字数在100字以下。' + t1.value.handleGetContent())
-  // console.log('摘要res', res)
-  form.value.summary = res.result
-  isLoading.value = false
-}
+// const t1 = ref(null)
+// const isLoading = ref(false)
+// const extractSummary = async () => {
+//   isLoading.value = true
+//   const res = await extractSummaryAPI('提取一下这段话的一个摘要，字数在100字以下。' + t1.value.handleGetContent())
+//   // console.log('摘要res', res)
+//   form.value.summary = res.result
+//   isLoading.value = false
+// }
 
 // todo 支持切换到markdown编辑器的功能
 
@@ -198,7 +198,9 @@ const backBottom = () => {
           </el-form-item>
           <el-form-item>
 <!--            <div>{{form.content}}</div>-->
-            <TEditor ref="t1" v-model="form.content" />
+            <section class="section">
+              <vue3-tinymce v-model="form.content" />
+            </section>
           </el-form-item>
           <!--     为了遮住无法去掉的横线的空的div条     -->
           <div class="empty-div"></div>
