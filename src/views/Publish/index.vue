@@ -238,12 +238,17 @@ const backBottom = () => {
           <el-form-item class="setting-label" label="上传封面">
             <UploadImg class="cover-container" :showDelete="true" :files="files">
               <template v-slot:trigger="slotProps">
-                <div class="preview-container" v-if="!slotProps.myCoverImg">
-                  <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
-                  <div>添加文章封面</div>
+                <div class="preview-container" v-if="form.cover_img">
+                  <el-image :src="form.cover_img"></el-image>
                 </div>
-                <div class="preview-container" v-else>
-                  <el-image :src="form.cover_img=slotProps?.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
+                <div v-else>
+                  <div class="preview-container" v-if="!slotProps.myCoverImg">
+                    <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
+                    <div>添加文章封面</div>
+                  </div>
+                  <div class="preview-container" v-else>
+                    <el-image :src="form.cover_img=slotProps?.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
+                  </div>
                 </div>
               </template>
             </UploadImg>
