@@ -1,5 +1,5 @@
 <script setup>
-import {ref, watch, nextTick, onMounted} from 'vue'
+import {ref, reactive, watch, nextTick, onMounted} from 'vue'
 import {useRouter} from "vue-router";
 import {useRoute} from "vue-router";
 import {ElMessage} from "element-plus";
@@ -38,6 +38,27 @@ onMounted(async () => {
 
 
 })
+
+const stateClassic = reactive({
+  disabled: false,
+  setting: {
+    menubar: true,
+    toolbar:
+        'undo redo | fullscreen | formatselect alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontsizeselect forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat |',
+    toolbar_mode: 'sliding',
+    quickbars_selection_toolbar:
+        'removeformat | bold italic underline strikethrough | fontsizeselect forecolor backcolor',
+    plugins: 'link image media table lists fullscreen quickbars',
+    fontsize_formats: '12px 14px 16px 18px',
+    default_link_target: '_blank',
+    link_title: false,
+    nonbreaking_force_tab: true,
+    // 设置中文语言
+    language: 'zh-Hans',
+    language_url: '/tinymce/langs/zh-Hans.js',
+    content_style: 'body{font-size: 14px}',
+  },
+});
 
 // 1、表单对象
 const form = ref({
@@ -199,7 +220,7 @@ const backBottom = () => {
           <el-form-item>
 <!--            <div>{{form.content}}</div>-->
             <section class="section">
-              <vue3-tinymce v-model="form.content" />
+              <vue3-tinymce v-model="form.content" :setting="stateClassic.setting"/>
             </section>
           </el-form-item>
           <!--     为了遮住无法去掉的横线的空的div条     -->
