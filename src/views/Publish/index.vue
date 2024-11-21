@@ -4,7 +4,7 @@ import {useRouter} from "vue-router";
 import {useRoute} from "vue-router";
 import {ElMessage} from "element-plus";
 import {getArticleDetailAPI, publishArticleAPI} from "@/apis/article.js";
-import {getColumnListAPI} from "@/apis/column.js";
+import {getColumnListByUidAPI, getColumnListByAidAPI} from "@/apis/column.js";
 import UploadImg from '@/components/UploadImg/index.vue'
 import getUidFromJwt from "@/utils/parseJwt.js";
 // import {extractSummaryAPI} from "@/apis/article.js";
@@ -17,7 +17,7 @@ const { y } = useScroll(window)
 
 const columnObj = ref({})
 onMounted(async () => {
-  const res = await getColumnListAPI(getUidFromJwt())
+  const res = await getColumnListByUidAPI(getUidFromJwt())
   // console.log('res....',res)
   columnObj.value = res.result
   // console.log('column value',columnObj.value)
@@ -25,7 +25,7 @@ onMounted(async () => {
   // console.log('编辑文章的aid',route.params.aid)
   if (route.params.aid) {
     const res2 = await getArticleDetailAPI(route.params.aid)
-    console.log('res2.......',res2)
+    // console.log('res2.......',res2)
     form.value.title = res2.result.title
     form.value.content = res2.result.content
     form.value.cover_img = res2.result.cover_img
@@ -33,7 +33,10 @@ onMounted(async () => {
     form.value.visibility = res2.result.visibility
     form.value.type = res2.result.typ
     form.value.dynamicTags = res2.result.tags.split(',')
-    form.value.dynamicColumnTags = columnObj.value
+    const res3 = await getColumnListByAidAPI(route.params.aid)
+    // console.log('res3....',res3.result)
+    // console.log('res3333....',Object.values(res3.result))
+    form.value.dynamicColumnTags = Object.values(res3.result)
   }
 
 
@@ -157,11 +160,14 @@ const handleColumnClose = (tag) => {
 const inputColumnVisible = ref(false)
 const inputColumnValue = ref('')
 const InputColumnRef = ref(null)
-const showColumnInput = () => {
+const showColumnInput = async () => {
   inputColumnVisible.value = true
   nextTick(() => {
     InputColumnRef.value.input.focus()
   })
+  const res = await getColumnListByUidAPI(getUidFromJwt())
+  // console.log('new res123....',res)
+  columnObj.value = res.result
 }
 const handleColumnInputConfirm = () => {
   if (inputColumnValue.value) {
