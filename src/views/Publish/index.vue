@@ -56,10 +56,10 @@ const tinymceUpload = (blobInfo) => new Promise((resolve, reject) => {
 const stateClassic = reactive({
   disabled: false,
   setting: {
-    menubar: true,
+    menubar: false,
     toolbar:
         'undo redo | fullscreen | formatselect alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontsizeselect forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat |',
-    toolbar_mode: 'sliding',
+    toolbar_mode: 'warp',
     quickbars_selection_toolbar:
         'removeformat | bold italic underline strikethrough | fontsizeselect forecolor backcolor',
     plugins: 'link image media table lists fullscreen quickbars',
@@ -253,7 +253,7 @@ const backBottom = () => {
             </section>
           </el-form-item>
           <!--     为了遮住无法去掉的横线的空的div条     -->
-<!--          <div class="empty-div"></div>-->
+          <div class="empty-div"></div>
           <el-form-item class="setting-label" label="文章标签">
             <div class="tags-container">
               <el-tag class="tag" v-for="tag in form.dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
@@ -509,5 +509,40 @@ const backBottom = () => {
   margin: 0 200px 20px 200px;
   display: flex;
   align-items: center;
+}
+:deep(.tox-tinymce) {
+  border: none;
+  .tox-statusbar {
+    display: none;
+  }
+}
+:deep(.tox-toolbar__group .tox-tbtn),:deep(.tox-toolbar__group) {
+  background-color: #f5f6f7;
+  color: #555665;
+}
+:deep(.tox-editor-header) {
+  position: fixed;
+  top: 54px;
+  left: 288px;
+  padding: 0 !important;
+  width: 1120px;
+  box-shadow: none !important;
+  z-index: 400 !important;
+}
+.section {
+  border: none; /* 移除边框 */
+  background: transparent; /* 透明背景 */
+  padding: 0 4px; /* 轻微的内边距，模仿 span 的默认样式 */
+  margin: 0; /* 无外边距 */
+  outline: none; /* 移除聚焦时的轮廓 */
+  box-shadow: none; /* 无阴影 */
+  font-family: Arial, sans-serif; /* 设置字体 */
+  font-size: 22px; /* 设置字号 */
+  line-height: 1.5; /* 设置行高 */
+  white-space: nowrap; /* 文本不换行 */
+  border-bottom: 1px solid #43341b;
+  cursor: text; /* 显示文本光标 */
+  min-width: 100px; /* 设置最小宽度，防止输入框过窄 */
+  width: 100%;
 }
 </style>
