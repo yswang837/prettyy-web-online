@@ -17,7 +17,7 @@
     <li><a href="#">寻求报道</a></li>
   </ul>
   <div class="other-info">
-    <a class="backup-code" href="#">京ICP备19012358号</a>
+    <a class="backup-code" href="#">京ICP备2024096441号</a>
     <a href="#">经营性网站备案信息</a>
     <br>
     <a href="#">

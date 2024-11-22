@@ -7,6 +7,7 @@ import {getArticleDetailAPI, publishArticleAPI} from "@/apis/article.js";
 import {getColumnListByUidAPI, getColumnListByAidAPI} from "@/apis/column.js";
 import UploadImg from '@/components/UploadImg/index.vue'
 import getUidFromJwt from "@/utils/parseJwt.js";
+import {UploadFileAPI} from "@/apis/upload.js";
 // import {extractSummaryAPI} from "@/apis/article.js";
 import { useScroll } from '@vueuse/core'
 import Vue3Tinymce from '../../../packages/Vue3Tinymce';
@@ -42,6 +43,18 @@ onMounted(async () => {
 
 })
 
+const tinymceUpload = (blobInfo) => new Promise((resolve, reject) => {
+  const formData = new FormData();
+  const file = blobInfo.blob()
+  formData.append('file', file)
+  UploadFileAPI(formData.get('file')).then(response=>{
+    // console.log('response...',response)
+    resolve(response.result);
+  }).catch(()=>{reject('上传失败')})
+  // console.log('res.......',res)
+
+})
+
 const stateClassic = reactive({
   disabled: false,
   setting: {
@@ -56,6 +69,7 @@ const stateClassic = reactive({
     default_link_target: '_blank',
     link_title: false,
     nonbreaking_force_tab: true,
+    images_upload_handler: tinymceUpload,
     // 设置中文语言
     language: 'zh-Hans',
     language_url: '/tinymce/langs/zh-Hans.js',
@@ -125,7 +139,9 @@ function concatenateAids(titles, dictionary) {
   }).join(','); // 使用逗号和空格连接每个拼接好的字符串
 }
 const submit = async () => {
-  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, concatenateAids(form.value.dynamicColumnTags, columnObj), getUidFromJwt())
+  // console.log('aid.....',route.params.aid)
+  // aid为空则是发布文章，否则是编辑文章
+  await publishArticleAPI(route.params.aid, form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, concatenateAids(form.value.dynamicColumnTags, columnObj), getUidFromJwt())
   ElMessage({type:'success', message: '文章添加成功'})
   await router.push('/')
 }
