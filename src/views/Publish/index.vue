@@ -39,8 +39,6 @@ onMounted(async () => {
     // console.log('res3333....',Object.values(res3.result))
     form.value.dynamicColumnTags = Object.values(res3.result)
   }
-
-
 })
 
 const tinymceUpload = (blobInfo) => new Promise((resolve, reject) => {
@@ -74,6 +72,15 @@ const stateClassic = reactive({
     language: 'zh-Hans',
     language_url: '/tinymce/langs/zh-Hans.js',
     content_style: 'body{font-size: 14px}',
+    height: 600,
+    branding: false, // 是否显示“Powered by TinyMCE”
+    promotion: false, //是否显示 upgrade
+    statusbar: true,  //最下方的元素路径和字数统计那一栏是否显示
+    paste_data_images: true, //允许粘贴图像，图片粘贴自动上传需要
+    placeholder: "尽情创作吧~",
+    link_default_target: "_blank",  // 超链接默认打开方式
+    link_context_toolbar: true,
+    quickbars_insert_toolbar: "none", // 默认快捷菜单
   },
 });
 
@@ -246,7 +253,7 @@ const backBottom = () => {
             </section>
           </el-form-item>
           <!--     为了遮住无法去掉的横线的空的div条     -->
-          <div class="empty-div"></div>
+<!--          <div class="empty-div"></div>-->
           <el-form-item class="setting-label" label="文章标签">
             <div class="tags-container">
               <el-tag class="tag" v-for="tag in form.dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
