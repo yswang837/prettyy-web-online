@@ -1,15 +1,16 @@
 <script setup>
-import {ref, watch, nextTick, onMounted} from 'vue'
+import {ref, reactive, watch, nextTick, onMounted} from 'vue'
 import {useRouter} from "vue-router";
 import {useRoute} from "vue-router";
 import {ElMessage} from "element-plus";
 import {getArticleDetailAPI, publishArticleAPI} from "@/apis/article.js";
-import {getColumnListAPI} from "@/apis/column.js";
+import {getColumnListByUidAPI, getColumnListByAidAPI} from "@/apis/column.js";
 import UploadImg from '@/components/UploadImg/index.vue'
-import TEditor from "@/components/Editor/Editor.vue";
 import getUidFromJwt from "@/utils/parseJwt.js";
-import {extractSummaryAPI} from "@/apis/article.js";
+import {UploadFileAPI} from "@/apis/upload.js";
+// import {extractSummaryAPI} from "@/apis/article.js";
 import { useScroll } from '@vueuse/core'
+import Vue3Tinymce from '../../../packages/Vue3Tinymce';
 
 const router = useRouter()
 const route = useRoute()
@@ -17,7 +18,7 @@ const { y } = useScroll(window)
 
 const columnObj = ref({})
 onMounted(async () => {
-  const res = await getColumnListAPI(getUidFromJwt())
+  const res = await getColumnListByUidAPI(getUidFromJwt())
   // console.log('res....',res)
   columnObj.value = res.result
   // console.log('column value',columnObj.value)
@@ -25,7 +26,7 @@ onMounted(async () => {
   // console.log('编辑文章的aid',route.params.aid)
   if (route.params.aid) {
     const res2 = await getArticleDetailAPI(route.params.aid)
-    // console.log(res2)
+    // console.log('res2.......',res2)
     form.value.title = res2.result.title
     form.value.content = res2.result.content
     form.value.cover_img = res2.result.cover_img
@@ -33,11 +34,55 @@ onMounted(async () => {
     form.value.visibility = res2.result.visibility
     form.value.type = res2.result.typ
     form.value.dynamicTags = res2.result.tags.split(',')
-    form.value.dynamicColumnTags = columnObj.value
+    const res3 = await getColumnListByAidAPI(route.params.aid)
+    // console.log('res3....',res3.result)
+    // console.log('res3333....',Object.values(res3.result))
+    form.value.dynamicColumnTags = Object.values(res3.result)
   }
+})
 
+const tinymceUpload = (blobInfo) => new Promise((resolve, reject) => {
+  const formData = new FormData();
+  const file = blobInfo.blob()
+  formData.append('file', file)
+  UploadFileAPI(formData.get('file')).then(response=>{
+    // console.log('response...',response)
+    resolve(response.result);
+  }).catch(()=>{reject('上传失败')})
+  // console.log('res.......',res)
 
 })
+
+const stateClassic = reactive({
+  disabled: false,
+  setting: {
+    menubar: true,
+    toolbar:
+        'undo redo | fullscreen | formatselect alignleft aligncenter alignright alignjustify | link unlink | numlist bullist | image media table | fontsizeselect forecolor backcolor | bold italic underline strikethrough | indent outdent | superscript subscript | removeformat |',
+    toolbar_mode: 'sliding',
+    quickbars_selection_toolbar:
+        'removeformat | bold italic underline strikethrough | fontsizeselect forecolor backcolor',
+    plugins: 'link image media table lists fullscreen quickbars',
+    fontsize_formats: '12px 14px 16px 18px',
+    default_link_target: '_blank',
+    link_title: false,
+    nonbreaking_force_tab: true,
+    images_upload_handler: tinymceUpload,
+    // 设置中文语言
+    language: 'zh-Hans',
+    language_url: '/tinymce/langs/zh-Hans.js',
+    content_style: 'body{font-size: 14px}',
+    height: 600,
+    branding: false, // 是否显示“Powered by TinyMCE”
+    promotion: false, //是否显示 upgrade
+    statusbar: true,  //最下方的元素路径和字数统计那一栏是否显示
+    paste_data_images: true, //允许粘贴图像，图片粘贴自动上传需要
+    placeholder: "尽情创作吧~",
+    link_default_target: "_blank",  // 超链接默认打开方式
+    link_context_toolbar: true,
+    quickbars_insert_toolbar: "none", // 默认快捷菜单
+  },
+});
 
 // 1、表单对象
 const form = ref({
@@ -64,21 +109,21 @@ watch(()=>form.value.summary, (newValue) => {
 });
 
 // 正文字数统计
-const contentLength = ref(0)
-watch(()=>form.value.content, () => {
-  contentLength.value = t1.value.handleGetContent().replaceAll('\n','').length
-});
+// const contentLength = ref(0)
+// watch(()=>form.value.content, () => {
+//   contentLength.value = t1.value.handleGetContent().replaceAll('\n','').length
+// });
 
 // 一键提取摘要
-const t1 = ref(null)
-const isLoading = ref(false)
-const extractSummary = async () => {
-  isLoading.value = true
-  const res = await extractSummaryAPI('提取一下这段话的一个摘要，字数在100字以下。' + t1.value.handleGetContent())
-  // console.log('摘要res', res)
-  form.value.summary = res.result
-  isLoading.value = false
-}
+// const t1 = ref(null)
+// const isLoading = ref(false)
+// const extractSummary = async () => {
+//   isLoading.value = true
+//   const res = await extractSummaryAPI('提取一下这段话的一个摘要，字数在100字以下。' + t1.value.handleGetContent())
+//   // console.log('摘要res', res)
+//   form.value.summary = res.result
+//   isLoading.value = false
+// }
 
 // todo 支持切换到markdown编辑器的功能
 
@@ -101,7 +146,9 @@ function concatenateAids(titles, dictionary) {
   }).join(','); // 使用逗号和空格连接每个拼接好的字符串
 }
 const submit = async () => {
-  await publishArticleAPI(form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, concatenateAids(form.value.dynamicColumnTags, columnObj), getUidFromJwt())
+  // console.log('aid.....',route.params.aid)
+  // aid为空则是发布文章，否则是编辑文章
+  await publishArticleAPI(route.params.aid, form.value.title, form.value.content, form.value.cover_img, form.value.summary, form.value.visibility, form.value.dynamicTags.join(','), form.value.type, concatenateAids(form.value.dynamicColumnTags, columnObj), getUidFromJwt())
   ElMessage({type:'success', message: '文章添加成功'})
   await router.push('/')
 }
@@ -136,11 +183,14 @@ const handleColumnClose = (tag) => {
 const inputColumnVisible = ref(false)
 const inputColumnValue = ref('')
 const InputColumnRef = ref(null)
-const showColumnInput = () => {
+const showColumnInput = async () => {
   inputColumnVisible.value = true
   nextTick(() => {
     InputColumnRef.value.input.focus()
   })
+  const res = await getColumnListByUidAPI(getUidFromJwt())
+  // console.log('new res123....',res)
+  columnObj.value = res.result
 }
 const handleColumnInputConfirm = () => {
   if (inputColumnValue.value) {
@@ -198,10 +248,12 @@ const backBottom = () => {
           </el-form-item>
           <el-form-item>
 <!--            <div>{{form.content}}</div>-->
-            <TEditor ref="t1" v-model="form.content" />
+            <section class="section">
+              <vue3-tinymce v-model="form.content" :setting="stateClassic.setting"/>
+            </section>
           </el-form-item>
           <!--     为了遮住无法去掉的横线的空的div条     -->
-          <div class="empty-div"></div>
+<!--          <div class="empty-div"></div>-->
           <el-form-item class="setting-label" label="文章标签">
             <div class="tags-container">
               <el-tag class="tag" v-for="tag in form.dynamicTags" :key="tag" closable :disable-transitions="false" @close="handleClose(tag)">
@@ -215,12 +267,17 @@ const backBottom = () => {
           <el-form-item class="setting-label" label="上传封面">
             <UploadImg class="cover-container" :showDelete="true" :files="files">
               <template v-slot:trigger="slotProps">
-                <div class="preview-container" v-if="!slotProps.myCoverImg">
-                  <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
-                  <div>添加文章封面</div>
+                <div class="preview-container" v-if="form.cover_img">
+                  <el-image :src="form.cover_img"></el-image>
                 </div>
-                <div class="preview-container" v-else>
-                  <el-image :src="form.cover_img=slotProps?.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
+                <div v-else>
+                  <div class="preview-container" v-if="!slotProps.myCoverImg">
+                    <i class="iconfont icon-tianjia" style="cursor: pointer"></i>
+                    <div>添加文章封面</div>
+                  </div>
+                  <div class="preview-container" v-else>
+                    <el-image :src="form.cover_img=slotProps?.myCoverImg?slotProps.myCoverImg:''" fit="cover"></el-image>
+                  </div>
                 </div>
               </template>
             </UploadImg>

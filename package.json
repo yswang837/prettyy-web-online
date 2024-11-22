@@ -10,9 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@tinymce/tinymce-vue": "^6.0.1",
     "@vueuse/core": "^10.11.0",
-    "@wiris/mathtype-tinymce6": "^8.10.0",
     "axios": "^1.7.2",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.12",
@@ -21,7 +19,6 @@
     "jwt-decode": "^4.0.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
-    "tinymce": "^7.2.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },

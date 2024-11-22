@@ -23,8 +23,8 @@ const getArticleDetail = async () => {
   // console.log('article....res',res)
   articleDetail.value = res.result
   // console.log('aaaa',articleDetail.value)
-  articleDetail.value.create_time = articleDetail.value.create_time.replace("T", " ").replace("Z", "")
-  articleDetail.value.update_time = articleDetail.value.update_time.replace("T", " ").replace("Z", "")
+  articleDetail.value.create_time = articleDetail.value.create_time.replace("T", " ").replace("Z", "").replace("+08:00","")
+  articleDetail.value.update_time = articleDetail.value.update_time.replace("T", " ").replace("Z", "").replace("+08:00","")
   tags.value = articleDetail.value.tags.split(",")
 }
 
@@ -76,7 +76,7 @@ onMounted(() => {
             </div>
             <div v-if="isShowCopyRight" class="copy-right-detail">
               <div>版权声明：本文为博主原创文章，遵循 <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC 4.0 BY-SA</a> 版权协议，转载请附上原文出处链接和本声明。</div>
-              <div style="margin-top: 5px">本文链接：http://120.26.203.121{{fullPath}}</div>
+              <div style="margin-top: 5px">本文链接：http://wys837.cn{{fullPath}}</div>
             </div>
             <div class="article-detail" v-html="articleDetail?.content"></div>
             <div class="knowledge-tree">
